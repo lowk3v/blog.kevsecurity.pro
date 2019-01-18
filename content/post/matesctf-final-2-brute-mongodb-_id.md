@@ -11,9 +11,7 @@ thumbnailImagePosition: top
 thumbnailImage: ''
 coverImage: ''
 ---
-{{<figure src="/images/uploads/ex50-11.png">}}
-
-## EXPLOIT - [source](/resources/matesctf/ex50.tar)
+## EXPLOIT - [source](/resources/ex50.tar)
 <hr>
 
 Trong source web có 1 file log ghi lại hành động của bot khi insert dữ liệu vào database. Từ thông tin đấy, có thể dễ dàng đoán là trong database có flag.
@@ -76,7 +74,7 @@ def page(page):
 
 Chỉ cần gửi lên giá trị object id của flag trong cơ sở dữ liệu thì sẽ nhận được flag.
 
-{{<figure src="/images/uploads/ex50-12.png">}}
+{{<figure src="/images/posts/ex50-12.png">}}
 
 Nhưng làm sao để có được object id trên cơ sở dữ liệu của người khác, tôi có được là do tôi test trên local của đội mình. Vậy phải làm sao? Tôi không hiểu biết quá nhiều về mongo nên tôi search google về cách generate ra object id.
 
@@ -86,7 +84,7 @@ May quá, trên [trang chủ](https://docs.mongodb.com/manual/reference/method/O
  - 3 byte cuối là giá trị số đếm
 
 ```
-ObjectId(<hexadecimal>)¶
+ObjectId(<hexadecimal>)
 Returns a new ObjectId value. The 12-byte ObjectId value consists of:
 
 a 4-byte value representing the seconds since the Unix epoch,
@@ -109,4 +107,4 @@ Cho nên dễ rút ra kết luận, nếu ta biết 1 giá trị object id nào 
 
 Có cách nào đó khác. Bạn hãy xem lại file log ở trên, có thông tin của timestamp, chúng ta có thể lợi dụng đều đó. Tức là mỗi lần bot insert flag vào cơ sở dữ liệu của 1 đội nào đó thì cũng insert dữ liệu và cơ sở dữ liệu của đội khác cách nhau tầm vài giây, ở đây mình dự đoán tối đa là 5 giây. Cho nên, timestamp xem như là mình đã biết được.
 
-Payload ở [đây này](/resources/matesctf/brute_id.py)
+Payload ở [đây này](/resources/brute_id.py)
