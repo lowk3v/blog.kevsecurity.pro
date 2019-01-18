@@ -11,7 +11,7 @@ thumbnailImagePosition: top
 thumbnailImage: ''
 coverImage: ''
 ---
-{{<figure src="/images/posts/ex50-11.png">}}
+{{<figure src="/images/uploads/ex50-11.png">}}
 ## EXPLOIT - [source](/resources/ex50.tar)
 <hr>
 
