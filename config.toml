@@ -4,7 +4,6 @@ author = "@Kev"
 copyright = "Copyright © Kev"
 canonifyurls = true
 paginate = 3
-disqus="blog-kev"
 
 theme = "hugo-blog-jeffprod"
 
