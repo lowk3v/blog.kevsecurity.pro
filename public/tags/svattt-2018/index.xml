@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Svattt 2018 on Hugo Theme</title>
+    <link>https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-2018/</link>
+    <description>Recent content in Svattt 2018 on Hugo Theme</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © Kev</copyright>
+    <lastBuildDate>Mon, 05 Nov 2018 15:37:42 +0700</lastBuildDate>
+    
+        <atom:link href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-2018/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>SVATTT 2018 - Secure document service</title>
+      <link>https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_2018_web_3_secure_document_service/</link>
+      <pubDate>Mon, 05 Nov 2018 15:37:42 +0700</pubDate>
+      
+      <guid>https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_2018_web_3_secure_document_service/</guid>
+      <description>Mô tả  1000 points (1&amp;frasl;68 sovles)
+I made a simple and secure web service for upload and share document. Can you read document to get a gift? :D
+http://171.244.141.213:8337/
+ Gợi ý  1.Flag in /tmp/fl4g.php
+2.Wrapper
+3.https://pastebin.com/g6XSfVfB
+ Ý tưởng  Tìm cách đăng nhập admin bằng&amp;hellip; googling .
+Upload file docx chứa mã độc (shell) và gọi ra bằng wrapper zip:// qua LFI.
+Dùng symlink để bypass filter và đọc flag.</description>
+    </item>
+    
+  </channel>
+</rss>

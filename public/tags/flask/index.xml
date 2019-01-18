@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Flask on Hugo Theme</title>
+    <link>https://hungry-visvesvaraya-d246d6.netlify.com/tags/flask/</link>
+    <description>Recent content in Flask on Hugo Theme</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © Kev</copyright>
+    <lastBuildDate>Sat, 08 Sep 2018 09:46:55 +0700</lastBuildDate>
+    
+        <atom:link href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/flask/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Matesctf final 2 - IP Spoofing to RCE in flask</title>
+      <link>https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_rce/</link>
+      <pubDate>Sat, 08 Sep 2018 09:46:55 +0700</pubDate>
+      
+      <guid>https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_rce/</guid>
+      <description>EXPLOIT - source  Sau khoảng thời gian dài nghiên cứu và nhờ sự gợi ý hết sức nhiệt tình từ tác giả tôi đã có thể exploit được lỗi được tác giả cho là khó phát hiện nhất. Chuẩn luôn, là rất khó phát hiện vì code lỗi ở tận trong lib của flask.
+Đầu tiên, khi truy cập vào trang đăng nhập tác giả có gợi ý cho mọi người biết là app có handle real ip của client.</description>
+    </item>
+    
+    <item>
+      <title>Matesctf final 2 - SSTI</title>
+      <link>https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_ssti/</link>
+      <pubDate>Sat, 08 Sep 2018 09:46:55 +0700</pubDate>
+      
+      <guid>https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_ssti/</guid>
+      <description>EXPLOIT - source  Matesctf final được tổ chức theo dạng attack/defense. Cụ thể tác giả sẽ build web service trên server của mình, tức là cho source. Từng đội sẽ nghiên cứu lổ hổng trên server mình và exploit server đội khác để lấy flag.
+Có một lỗi trong bài web 1 là tài khoản của bot-check của BTC được gán mặc định và đội nào cũng như nhau admin:1.</description>
+    </item>
+    
+    <item>
+      <title>Matesctf final 2 - XXE Injection</title>
+      <link>https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_xxe/</link>
+      <pubDate>Sat, 08 Sep 2018 09:46:55 +0700</pubDate>
+      
+      <guid>https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_xxe/</guid>
+      <description>EXPLOIT - source  Mình nhận thấy lỗi này đầu tiên, mình tưởng đây là LFI cơ, vì cho mình đọc nội dung của cái gì đó (trên hình) và download file nữa. python-docx is a Python library for creating and updating Microsoft Word (.docx) files.  Docx là thư viện sử dụng để xử lý file word. Cũng dễ hiểu đây là lỗi vì không cớ gì mà tác giả lại xử lý file word ở đây cả, chức năng upload và hiển thị nội dung file bình thường thì tại sao lại xử lý file docx làm gì.</description>
+    </item>
+    
+  </channel>
+</rss>

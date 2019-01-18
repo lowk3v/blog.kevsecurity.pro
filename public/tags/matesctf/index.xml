@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Matesctf on Hugo Theme</title>
+    <link>https://hungry-visvesvaraya-d246d6.netlify.com/tags/matesctf/</link>
+    <description>Recent content in Matesctf on Hugo Theme</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © Kev</copyright>
+    <lastBuildDate>Thu, 13 Sep 2018 23:01:18 +0700</lastBuildDate>
+    
+        <atom:link href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/matesctf/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Matesctf final 2 - Brute mongodb _id</title>
+      <link>https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf-final-2-brute-mongodb-_id/</link>
+      <pubDate>Thu, 13 Sep 2018 23:01:18 +0700</pubDate>
+      
+      <guid>https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf-final-2-brute-mongodb-_id/</guid>
+      <description>EXPLOIT - source  Trong source web có 1 file log ghi lại hành động của bot khi insert dữ liệu vào database. Từ thông tin đấy, có thể dễ dàng đoán là trong database có flag.
+2018-08-21 10:48:38.035547 added page 1 2018-08-21 10:48:38.039078 added page 2 2018-08-21 10:48:38.039908 added page 3 2018-08-21 10:48:38.040720 added page 4 2018-08-21 10:48:38.041323 added page 5 2018-08-21 10:48:38.042003 added page 6 2018-08-21 10:48:38.</description>
+    </item>
+    
+  </channel>
+</rss>

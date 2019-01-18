@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Archives on Hugo Theme</title>
+    <link>https://hungry-visvesvaraya-d246d6.netlify.com/archives/</link>
+    <description>Recent content in Archives on Hugo Theme</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © Kev</copyright>
+    
+        <atom:link href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>

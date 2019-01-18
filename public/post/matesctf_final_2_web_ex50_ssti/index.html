@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Hugo Theme  | Matesctf final 2 - SSTI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://hungry-visvesvaraya-d246d6.netlify.com/css/blog.css" />
+    
+</head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/">Home</a>
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/about">About</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://hungry-visvesvaraya-d246d6.netlify.com/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                        Matesctf final 2 - SSTI
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/ex50.PNG" width="100%"/> 
+</figure>
+
+
+<h2 id="exploit-source-resources-matesctf-ex50-tar">EXPLOIT  - <a href="https://hungry-visvesvaraya-d246d6.netlify.com/resources/matesctf/ex50.tar">source</a></h2>
+
+<hr>
+
+<p>Matesctf final được tổ chức theo dạng attack/defense. Cụ thể tác giả sẽ build web service trên server của mình, tức là cho source. Từng đội sẽ nghiên cứu lổ hổng trên server mình và exploit server đội khác để lấy flag.</p>
+
+<p>Có một lỗi trong bài web 1 là tài khoản của bot-check của BTC được gán mặc định và đội nào cũng như nhau <code>admin:1</code>. Vừa bắt đầu cuộc thi 15 phút thì tác giả đã nhắc nhở mọi người không nên đổi password của bot tránh trường hợp bot không thể check và bị mất điểm service. Với tài khoản admin này, có chức năng đổi mật khẩu nhưng không token CSRF và những cơ chế ràng buộc khác. Chính vì vậy, đội mình viết script sửa flag của admin tất cả các đội còn lại. Tất cả các đội đều mất điểm service, mặc dù phút cuối bị UIT-r3s0L và BKHN.ACEBEAR giành lại admin trong ít phút.</p>
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/ex50-2.png"/> <figcaption>
+            <h4>Các đội đều mất điểm service ở challenge cuối</h4>
+        </figcaption>
+</figure>
+
+
+<p>Ban đầu mình fuzzing một lúc thì tìm được chức năng download file. Mình liền nghĩ đến LFI và ý nghĩ này tồn tại không quá 5 phút, biết là bị tác giả dụ rồi. Thôi bỏ qua. <img 
+	src="https://hungry-visvesvaraya-d246d6.netlify.com/emoji/ah.gif" 
+	width="30px" height="30px" 
+	style="display: inline;" 
+/></p>
+
+<p>Đến khi có hint 1 mình mới exploit được bài này <code>404 not found</code>. Tìm bug tại chỗ xử lý request 404</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#a6e22e">@app</span><span style="color:#f92672">.</span>errorhandler(<span style="color:#ae81ff">404</span>)
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">page_not_found</span>(error):
+        app<span style="color:#f92672">.</span>logger<span style="color:#f92672">.</span>info(error)
+        <span style="color:#66d9ef">if</span> type(error<span style="color:#f92672">.</span>description) <span style="color:#f92672">==</span> dict:
+            <span style="color:#66d9ef">return</span> jsonify(error<span style="color:#f92672">=</span>error<span style="color:#f92672">.</span>description), <span style="color:#ae81ff">405</span>
+        <span style="color:#66d9ef">else</span>:
+            <span style="color:#66d9ef">return</span> render_template_string(<span style="color:#e6db74">&#39;Page </span><span style="color:#e6db74">%s</span><span style="color:#e6db74"> not Found&#39;</span><span style="color:#f92672">%</span>request<span style="color:#f92672">.</span>base_url), <span style="color:#ae81ff">404</span></code></pre></div>
+
+<p>Sử dụng payload <code>{{4*4}}[[5*5]]</code> để fuzz thì ra bug liền. <img 
+	src="https://hungry-visvesvaraya-d246d6.netlify.com/emoji/lol.gif" 
+	width="30px" height="30px" 
+	style="display: inline;" 
+/></p>
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/ex50-3.png" width="100%"/> 
+</figure>
+
+
+<p>Thông thường SSTI sử dụng dấu {} để khai thác nhưng trường hợp này thì dùng [] . Mọi chuyện xảy ra là do đây, Tác giả đã thay đổi đi chút ít cho khác xíu thôi.
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CustomFlask</span>(Flask):
+    jinja_options <span style="color:#f92672">=</span> Flask<span style="color:#f92672">.</span>jinja_options<span style="color:#f92672">.</span>copy()
+    jinja_options<span style="color:#f92672">.</span>update(dict(
+        variable_start_string<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;[[&#39;</span>,
+        variable_end_string<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;]]&#39;</span>
+    ))</code></pre></div></p>
+
+<ul>
+<li><code>__mro__</code> — Method Resolution Order: là danh sách các class mà đối tượng đó kế thừa.</li>
+</ul>
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/ex50-4.png" width="100%"/> 
+</figure>
+
+
+<ul>
+<li>Sẽ chọn đối tượng lớn nhất là object sau đó gọi <code>__subclasses__()</code> tức là chứa các lớp con của object . Trong đây chứa tất cả các đối tượng có trong context (môi trường hiện tại). Có rất nhiều các đối tượng bên trong. Vừa dùng <code>__mro__</code> và <code>__subclasses__()</code> để lấy được 1 đối tượng nào đó trong context có thể lợi dụng được.</li>
+</ul>
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/ex50-5.png"/> 
+</figure>
+
+
+<p>Nhiệm vụ bây giờ của mình là lợi dụng được class nào để đọc file flag trên server hay không? Trong đây mình tìm được 2 thứ có vẻ thú vị là <code>&lt;class 'subprocess.Popen'&gt;</code> ở vị trí 208 và <code>&lt;type 'file'&gt;</code> ở vị trí 40. Mình có vẻ hơi gà nên không biết cách execute shell bằng Popen, vì thế cuối cùng là dùng file cho nhanh gọn lẹ. <img 
+	src="https://hungry-visvesvaraya-d246d6.netlify.com/emoji/rap.gif" 
+	width="30px" height="30px" 
+	style="display: inline;" 
+/> Payload cuối cùng thế này:</p>
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/ex50-6.png" width="100%"/> 
+</figure>
+
+
+<h2 id="solution">SOLUTION</h2>
+
+<hr>
+
+<p>To be continue &hellip;</p>
+
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/ctf">ctf</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/cve">cve</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/flask">flask</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/laravel">laravel</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/matesctf">matesctf</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/php">php</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/python">python</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/serialization">serialization</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-2018">svattt-2018</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-final-2018">svattt-final-2018</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/new_year_2019/">New year 2019</a></h1>
+            <time class="has-text-grey-light is-size-7">1 January 2019</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_final_2018_web_2_roundcube_mail/">SVATTT final 2018 - roundcube mail</a></h1>
+            <time class="has-text-grey-light is-size-7">20 November 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_2018_web_3_secure_document_service/">SVATTT 2018 - Secure document service</a></h1>
+            <time class="has-text-grey-light is-size-7">5 November 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/laravel-object-injection-to-rce/">Laravel object injection to RCE</a></h1>
+            <time class="has-text-grey-light is-size-7">25 October 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/php_object_injection_without_unserialize/">Php Object Injection Without Unserialize</a></h1>
+            <time class="has-text-grey-light is-size-7">20 September 2018</time>
+        
+    </div>
+</div>
+    <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_final_2018_web_2_roundcube_mail/">SVATTT final 2018 - roundcube mail</a></h1>
+            <time class="has-text-grey-light is-size-7">20 November 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_2018_web_3_secure_document_service/">SVATTT 2018 - Secure document service</a></h1>
+            <time class="has-text-grey-light is-size-7">5 November 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf-final-2-brute-mongodb-_id/">Matesctf final 2 - Brute mongodb _id</a></h1>
+            <time class="has-text-grey-light is-size-7">13 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/meepwn_qual_round_web_pycalx_1/">Meepwn qual round - pycalx 1</a></h1>
+            <time class="has-text-grey-light is-size-7">11 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_rce/">Matesctf final 2 - IP Spoofing to RCE in flask</a></h1>
+            <time class="has-text-grey-light is-size-7">8 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_xxe/">Matesctf final 2 - XXE Injection</a></h1>
+            <time class="has-text-grey-light is-size-7">8 September 2018</time>
+      
+    </div>
+</div>
+
+    
+<br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2019">2019</a> (1)<br>
+        
+            <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2018">2018</a> (9)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="disqus_thread"></div>
+</div>
+
+
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "https:\/\/hungry-visvesvaraya-d246d6.netlify.com\/";  
+this.page.identifier = "blog-kev"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://blog-kev.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/" class="mysocial"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Hugo Theme 2019</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+
+<script id="dsq-count-scr" src="//blog-kev.disqus.com/count.js" async></script>
+</body>
+</html>

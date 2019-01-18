@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Serialization on Hugo Theme</title>
+    <link>https://hungry-visvesvaraya-d246d6.netlify.com/tags/serialization/</link>
+    <description>Recent content in Serialization on Hugo Theme</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © Kev</copyright>
+    <lastBuildDate>Thu, 20 Sep 2018 09:17:11 +0700</lastBuildDate>
+    
+        <atom:link href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/serialization/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Php Object Injection Without Unserialize</title>
+      <link>https://hungry-visvesvaraya-d246d6.netlify.com/post/php_object_injection_without_unserialize/</link>
+      <pubDate>Thu, 20 Sep 2018 09:17:11 +0700</pubDate>
+      
+      <guid>https://hungry-visvesvaraya-d246d6.netlify.com/post/php_object_injection_without_unserialize/</guid>
+      <description>Stream wrapper Trong php có khái niệm gọi là stream wrapper, nói về các giao thức trong cách xử lý url, được sử dụng cùng với hàm filesystem như fopen, copy, file_exists, filesize.
+   file:// http:// ftp:// php:// zlib:// data:// glob:// phar://      A wrapper is additional code which tells the stream how to handle specific protocols/encodings.  Phar Những wrapper này đều có thể lợi dụng để khai thác nhiều loại lỗ hổng.</description>
+    </item>
+    
+  </channel>
+</rss>

