@@ -8,10 +8,8 @@ tags:
 autoThumbnailImage: true
 thumbnailImagePosition: top
 thumbnailImage: /images/uploads/ex50-11.png
-coverImage: /images/uploads/cover-post.jpg
+coverImage: /images/uploads/ex50-11.png
 ---
-{{<figure src="/images/posts/ex50-11.png">}}
-
 ## EXPLOIT - [source](/resources/matesctf/ex50.tar)
 <hr>
 
@@ -108,4 +106,4 @@ Cho nên dễ rút ra kết luận, nếu ta biết 1 giá trị object id nào 
 
 Có cách nào đó khác. Bạn hãy xem lại file log ở trên, có thông tin của timestamp, chúng ta có thể lợi dụng đều đó. Tức là mỗi lần bot insert flag vào cơ sở dữ liệu của 1 đội nào đó thì cũng insert dữ liệu và cơ sở dữ liệu của đội khác cách nhau tầm vài giây, ở đây mình dự đoán tối đa là 5 giây. Cho nên, timestamp xem như là mình đã biết được.
 
-Payload ở đây này [.....](/resources/matesctf/brute_id.py)
+Payload ở [đây này](/resources/matesctf/brute_id.py)
