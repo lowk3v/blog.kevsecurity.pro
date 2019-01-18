@@ -1,3 +1,27 @@
+<!-- Begin Disqus -->
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+var disqus_config = function () {
+this.page.url = "{{ .Site.BaseURL | absURL }}";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "{{ .Site.disqus }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://blog-kev.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+<!-- End Disqus -->
+
 <footer class="footer has-background-grey-darker has-text-white">
     <div class="content has-text-centered">
         <p>
@@ -5,12 +29,13 @@
             <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
             <span class="icon is-large"><a href="https://github.com/" class="mysocial"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
             <br><br>
-            Copyright &copy; {{ .Site.Title }} {{ now.Format "2006"}} - Theme by <a href="https://jeffprod.com" class="mysocial">JeffProd.com</a>
-            - <a class="mysocial" href="{{ "about" | absURL }}">About</a>
+            Copyright &copy; {{ .Site.Title }} {{ now.Format "2006"}}</a>
         </p>
     </div>
 </footer>
 
 <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+<!-- Disqus: display comment count -->
+<script id="dsq-count-scr" src="//blog-kev.disqus.com/count.js" async></script>
 </body>
 </html>
