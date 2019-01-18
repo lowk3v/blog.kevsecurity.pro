@@ -11,6 +11,7 @@ thumbnailImagePosition: top
 thumbnailImage: ''
 coverImage: ''
 ---
+{{<figure src="/images/uploads/ex50-11.png">}}
 ## EXPLOIT - [source](/resources/ex50.tar)
 <hr>
 
@@ -74,7 +75,7 @@ def page(page):
 
 Chỉ cần gửi lên giá trị object id của flag trong cơ sở dữ liệu thì sẽ nhận được flag.
 
-{{<figure src="/images/posts/ex50-12.png">}}
+{{<figure src="/images/uploads/ex50-12.png">}}
 
 Nhưng làm sao để có được object id trên cơ sở dữ liệu của người khác, tôi có được là do tôi test trên local của đội mình. Vậy phải làm sao? Tôi không hiểu biết quá nhiều về mongo nên tôi search google về cách generate ra object id.
 
