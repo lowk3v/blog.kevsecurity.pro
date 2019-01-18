@@ -7,6 +7,7 @@ tags:
   - matesctf
 autoThumbnailImage: true
 thumbnailImagePosition: top
+thumbnailImage: /images/uploads/ex50-11.png
 coverImage: /images/uploads/cover-post.jpg
 ---
 {{<figure src="/images/posts/ex50-11.png">}}
