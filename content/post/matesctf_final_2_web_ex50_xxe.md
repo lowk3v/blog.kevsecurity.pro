@@ -7,7 +7,7 @@ tags: ["ctf", "flask"]
 draft: false
 ---
 
-{{< figure src="/images/posts/ex50-7.png" >}}
+{{< figure src="/images/uploads/ex50-7.png" >}}
 
 ## EXPLOIT - [source](/resources/matesctf/ex50.tar) 
 <hr>
@@ -103,11 +103,11 @@ print '\n\n'.join([paragraph.text for paragraph in document.paragraphs])
 
 Tại sao lại nén zip? Vì bản chất file docx là 1 file nén chứa nhiều file xml bên trong. Sau khi chạy payload thì đoạn xml đã được chèn vào file document.xml
 
-{{< figure src="/images/posts/ex50-8.png">}}
+{{< figure src="/images/uploads/ex50-8.png">}}
 
 Vậy là upload bằng cách create exercise và view exercise, ta nhận được flag.
 
-{{< figure src="/images/posts/ex50-9.png">}}
+{{< figure src="/images/uploads/ex50-9.png">}}
 
 Truy ra nguồn gốc của lỗi này thì do 1 func xử lý exercises đã parse file .docx và lấy nội dung lưu vào database
 
@@ -135,7 +135,7 @@ Từ link github trên mình cũng biết là file cần fix là `docx/oxml/__in
 oxml_parser = etree.XMLParser(remove_blank_text=True,resolve_entities=False)
 ```
 
-{{< figure src="/images/posts/ex50-10.png">}}
+{{< figure src="/images/uploads/ex50-10.png">}}
 
 NHƯNG, đời không như mơ đâu các bạn à !!! Chúng ta không có quyền để sửa file `__init__.py`
 

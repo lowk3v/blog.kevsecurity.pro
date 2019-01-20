@@ -6,7 +6,7 @@ comments: true
 author: "Kev"
 tags: ["ctf", "flask"]
 ---
-{{< figure src="/images/posts/ex50.PNG" >}}
+{{< figure src="/images/uploads/ex50.PNG" >}}
 
 ## EXPLOIT - [source](/resources/matesctf/ex50.tar)
 <hr>

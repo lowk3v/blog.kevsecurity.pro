@@ -7,7 +7,7 @@ comments: true
 tags: ["php", "serialization"]
 ---
 
-{{<figure src="/images/posts/phar_background.png">}}
+{{<figure src="/images/uploads/phar_background.png">}}
 
 # Stream wrapper
 
@@ -25,7 +25,7 @@ A wrapper is additional code which tells the stream how to handle specific proto
 Những wrapper này đều có thể lợi dụng để khai thác nhiều loại lỗ hổng. `Phar` wrapper là php archive. Dùng để nén tệp và siêu dữ liệu. Phar không thể sử dụng cho truy cập file từ xa.
 Cấu trúc của phar gồm: stub, manifest, file content, signature.
 
-{{<figure src="/images/posts/phar_phar-structure.png">}}
+{{<figure src="/images/uploads/phar_phar-structure.png">}}
 
 __Stub__
 
@@ -39,7 +39,7 @@ $ php -r "echo 'Test'; __HALT_COMPILER(); echo 'stub';"
 
 __Manifest__
 
-{{<figure src="/images/posts/phar_manifest.png">}}
+{{<figure src="/images/uploads/phar_manifest.png">}}
 
 Các byte đầu mô tả thông tin của phar gồm các thông tin của file nén bên trong, version, ... Trong đó có đoạn byte gần cuối là định dạng của [serialize php](https://www.notsosecure.com/remote-code-execution-via-php-unserialize/).
 Vậy, bản chất trong phar đã có serialize và chắc một điều là sẽ có 1 giai đoạn nào đó phải sử dụng đến unserialize. Đó là lúc giải nén các file bên trong của tệp phar.
@@ -52,7 +52,7 @@ __Signature__
 
 Phần chữ kí dùng để xác minh tính toàn vẹn của tệp phar, chỉ cần thay đổi 1 yếu tố trong tệp thì chữ kí này giúp để xác minh sự thay đổi đó.
 
-{{<figure src="/images/posts/phar_xxd-file-phar.png">}}
+{{<figure src="/images/uploads/phar_xxd-file-phar.png">}}
 
 Chúng ta có thể thấy, phần stub ở trên đầu của file (`<?php __HALT_COMPILER(); ?>`), vì phần này mình có thể tự do tùy chỉnh nên giúp cho việc tạo định dạng file fake rất dễ. Tiếp theo là đoạn `O:7:"example":1:{...` là dữ liệu serialize, lợi dụng điểm này mình có thể override dữ liệu tạo ra payload tấn công object injection. `test.txt`  là nội dung file nén bên trong. Cuối cùng, là đoạn signature để xác minh tính toàn vẹn dữ liệu.
 

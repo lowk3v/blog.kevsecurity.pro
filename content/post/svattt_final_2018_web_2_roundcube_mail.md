@@ -7,7 +7,7 @@ author: "Kev"
 tags: ["ctf", "svattt final 2018"]
 ---
 
-{{<figure src="/images/posts/svattt18_final_1.jpg">}}
+{{<figure src="/images/uploads/svattt18_final_1.jpg">}}
 
 # Mô tả
 
@@ -32,7 +32,7 @@ Mặc dù theo dòng sự kiện scandal đang nóng hỏi trên facebook nhưng
 
 Đọc file `CHANGELOG` ta tìm được version của roundcube là 1.0.5. Có rất nhiều cve nhưng version này khá cũ từ 2015 nên có vẻ CVE-2015-X sẽ hợp lý hơn
 
-{{<figure src="/images/posts/svattt18_final_02.jpg">}}
+{{<figure src="/images/uploads/svattt18_final_02.jpg">}}
 
 {{<highlight php "linenos=inline, hl_lines=3, linenostart=83">}}
 <?php //program/steps/addressbook/photo.inc

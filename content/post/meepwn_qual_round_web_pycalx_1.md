@@ -169,7 +169,7 @@ Sourcecode trước không dùng được nữa nên mình dùng burp suite intr
 GET /cgi-bin/server.py?value1=§_§&op=%2B%27&value2=%20in%20FLAG%23 HTTP/1.1  => Tìm tất cả kí tự có trong FLAG
 ```
 
-{{<figure src="/images/posts/meepwn.png" width="100%" title="Burpsuite intruder">}}
+{{<figure src="/images/uploads/meepwn.png" width="100%" title="Burpsuite intruder">}}
 
 Tiếp đó, mình sẽ đoán cụm từ trong flag
 

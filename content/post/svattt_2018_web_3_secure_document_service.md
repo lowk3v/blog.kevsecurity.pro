@@ -7,7 +7,7 @@ author: "Kev"
 tags: ["ctf", "svattt 2018"]
 ---
 
-{{<figure src="/images/posts/svattt18_01.png">}}
+{{<figure src="/images/uploads/svattt18_01.png">}}
 
 
 # Mô tả
@@ -60,17 +60,17 @@ Cookie: auth=Tzo0OiJVc2VyIjoyOntzOjQ6InVzZXIiO3M6NToiYWRtaW4iO3M6NDoicGFzcyI7Yjo
 Bước này khá là tranh cãi, mà vì sao lại cãi thì tôi cũng không rõ. Cơ bản là không hiểu lý do vì sao mà đội này upload được mà đội kia lại không. Sau khi thời gian thi kết thúc, hỏi tác giả cũng không rõ vì sao ?????  
 Cùng với LFI ở param `page` + file upload thì đây chính là vector để gọi shell.
 
-{{<figure src="/images/posts/svattt18_02.png">}}
+{{<figure src="/images/uploads/svattt18_02.png">}}
 
 Nhưng cuộc sống không dễ dàng, tác giả đã add suffix là `.php` nên chỉ gọi được file php cùng với disable các wrapper thông thường thì có thánh mới đọc được source php {{<emoji burn_joss_stick>}}
 
 Từ hint của 1 đồng đội, bản chất của docx, doc, xls, ppt, ... đều là zip. Để shell php nén cùng với docx tôi fuzz thử wrapper zip để gọi lên shell. Ngon ăn luôn.
 
-{{<figure src="/images/posts/svattt18_03.png">}}
+{{<figure src="/images/uploads/svattt18_03.png">}}
 
 Lên shell trông có vẻ đã đi đến đích rồi, nhưng không, thật sự không. Dưới đây là tất cả function bị disable.
 
-{{<figure src="/images/posts/svattt18_04.png">}}
+{{<figure src="/images/uploads/svattt18_04.png">}}
 
 Các bạn để ý, `eval` mình bôi đen trên hình là bị chặn nhưng đây là con shell mình up lên server `<?php echo 'Lên shell rồi nhé !!!'; eval($_POST["kv"]);`. {{<emoji lovemachine>}} méo hiểu vì sao, chính vì sự magic đó dẫn đến bước 3.
 
@@ -87,8 +87,8 @@ Tôi và đồng đội cùng fuzz để tìm được symlink và cũng là cá
 
 Vì không thể dùng symlink để writeup nữa nên mình demo hình ảnh của payload cũ cho các bạn xem
 
-{{<figure src="/images/posts/svattt18_05.png">}}
-{{<figure src="/images/posts/svattt18_06.png">}}
+{{<figure src="/images/uploads/svattt18_05.png">}}
+{{<figure src="/images/uploads/svattt18_06.png">}}
 
 Lần lượt truy cập vào `http://171.244.141.213:8337/uploads/asdfads.txt` và `http://171.244.141.213:8337/uploads/asdfsssads.txt` sẽ xem được nội dung file `/etc/passwd` và `/tmp/fl4g.php`
 
