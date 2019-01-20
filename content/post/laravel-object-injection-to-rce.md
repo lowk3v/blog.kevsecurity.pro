@@ -8,6 +8,8 @@ tags:
   - Laravel
 keywords:
   - ''
+archives:
+  - '2018'
 autoThumbnailImage: false
 thumbnailImagePosition: top
 thumbnailImage: ''
