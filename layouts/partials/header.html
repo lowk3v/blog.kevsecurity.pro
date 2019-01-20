@@ -21,12 +21,9 @@
     <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="{{ .Site.BaseURL | absURL }}">Home</a>
-            <a class="navbar-item" href="{{ "about" | absURL }}">About</a>
-            {{ if eq .Type "categories" }}
-                {{ "<a class=navbar-item href>" .Title "</a>"}}
-            {{ end }}
-            <a class="navbar-item" href="">{{ .Params.categories }}</a>
-            
+            <a class="navbar-item" href="{{ "about" | absURL }}">1-day</a>
+            <a class="navbar-item" href="{{ "about" | absURL }}">CTF</a>
+            <a class="navbar-item" href="{{ "about" | absURL }}">Life</a>
         </div>
     </nav>
     <!-- /nav -->

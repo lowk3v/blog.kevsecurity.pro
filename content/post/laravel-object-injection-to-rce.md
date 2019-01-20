@@ -11,7 +11,7 @@ keywords:
 autoThumbnailImage: false
 thumbnailImagePosition: top
 thumbnailImage: ''
-coverImage: 'laravel-logo.jpg'
+coverImage: '/images/uploads/laravel-logo.jpg'
 Archives: '2018'
 ---
 
