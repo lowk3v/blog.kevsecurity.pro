@@ -61,7 +61,7 @@ collections:
       - label: "Thumbnail Image"
         name: "thumbnailImage"
         required: false
-        widget: "image"
+        widget: "hidden"
 
       - label: "Cover Image"
         name: "coverImage"
