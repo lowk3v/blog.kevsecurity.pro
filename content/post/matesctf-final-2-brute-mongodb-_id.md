@@ -6,12 +6,12 @@ categories:
 tags:
   - ctf
   - matesctf
+Archives: '2018'
 autoThumbnailImage: false
 thumbnailImagePosition: top
 thumbnailImage: ''
-coverImage: ''
+coverImage: /images/uploads/ex50-11.png
 ---
-{{<figure src="/images/uploads/ex50-11.png">}}
 ## EXPLOIT - [source](/resources/ex50.tar)
 <hr>
 
