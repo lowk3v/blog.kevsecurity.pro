@@ -37,25 +37,24 @@ collections:
 
       - label: "Archives"
         name: "Archives"
-        widget: "date"
-        format: "YYYY"
+        widget: "string"
         default: "2018"
 
       - label: "Keywords"
         name: "keywords"
         required: false
-        widget: "list"
+        widget: "hidden"
 
       - label: "Auto Thumbnail Image"
         name: "autoThumbnailImage"
         required: false
-        widget: "boolean"
+        widget: "hidden"
         default: false
 
       - label: "Thumbnail Image Position"
         name: "thumbnailImagePosition"
         required: false
-        widget: "select"
+        widget: "hidden"
         default: "top"
         options: ["left", "top", "right"]
         
