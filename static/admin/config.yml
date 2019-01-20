@@ -37,8 +37,8 @@ collections:
 
       - label: "Archives"
         name: "Archives"
-        widget: "string"
-        default: "{{year}}"
+        widget: "datetime"
+        format: 'YYYY'
 
       - label: "Keywords"
         name: "keywords"
