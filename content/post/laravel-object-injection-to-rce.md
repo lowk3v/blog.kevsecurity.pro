@@ -11,9 +11,9 @@ keywords:
 autoThumbnailImage: false
 thumbnailImagePosition: top
 thumbnailImage: ''
-coverImage: ''
+coverImage: 'laravel-logo.jpg'
+Archives: '2018'
 ---
-{{<figure src="/images/uploads/laravel-logo.jpg">}}
 
 [CVE-2018-15133](https://www.cvedetails.com/cve/CVE-2018-15133/)
 ```

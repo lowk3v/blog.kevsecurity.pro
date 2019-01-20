@@ -5,9 +5,12 @@ draft: false
 author: "Kev"
 comments: true
 tags: ["php", "serialization"]
+Archives: '2018'
+autoThumbnailImage: false
+thumbnailImagePosition: top
+thumbnailImage: ''
+coverImage: /images/uploads/phar_background.png
 ---
-
-{{<figure src="/images/uploads/phar_background.png">}}
 
 # Stream wrapper
 

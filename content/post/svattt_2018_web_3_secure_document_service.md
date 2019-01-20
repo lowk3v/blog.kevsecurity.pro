@@ -5,10 +5,12 @@ draft: false
 comments: true
 author: "Kev"
 tags: ["ctf", "svattt 2018"]
+Archives: '2018'
+autoThumbnailImage: false
+thumbnailImagePosition: top
+thumbnailImage: ''
+coverImage: /images/uploads/svattt18_01.png
 ---
-
-{{<figure src="/images/uploads/svattt18_01.png">}}
-
 
 # Mô tả
 

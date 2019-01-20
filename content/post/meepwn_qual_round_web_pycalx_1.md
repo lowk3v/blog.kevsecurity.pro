@@ -5,6 +5,11 @@ author: "Kev"
 tags: ["ctf", "python"]
 comments: true
 draft: false
+Archives: '2018'
+autoThumbnailImage: false
+thumbnailImagePosition: top
+thumbnailImage: ''
+coverImage: ''
 ---
 
 Thử thách cung cấp cho mình 1 form dữ liệu cùng với sourcecode như sau:

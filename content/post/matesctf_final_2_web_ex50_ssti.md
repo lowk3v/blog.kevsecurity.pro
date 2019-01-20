@@ -5,8 +5,12 @@ draft: false
 author: "Kev"
 comments: true
 tags: ["ctf", "flask"]
+Archives: '2018'
+autoThumbnailImage: false
+thumbnailImagePosition: top
+thumbnailImage: ''
+coverImage: /images/uploads/ex50.PNG
 ---
-{{< figure src="/images/uploads/ex50.PNG" width="100%">}}
 
 ## EXPLOIT  - [source](/resources/matesctf/ex50.tar)
 <hr>
