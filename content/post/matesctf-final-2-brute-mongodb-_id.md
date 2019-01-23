@@ -13,6 +13,7 @@ thumbnailImage: ''
 coverImage: /images/uploads/ex50-11.png
 ---
 ## EXPLOIT - [source](/resources/ex50.tar)
+
 <hr>
 
 Trong source web có 1 file log ghi lại hành động của bot khi insert dữ liệu vào database. Từ thông tin đấy, có thể dễ dàng đoán là trong database có flag.
@@ -52,24 +53,24 @@ Hướng tiếp theo là tìm trên giao diện web, có thể exploit ở đâu
 
 Sau khi đăng nhập bằng tài khoản bot `admin:1` được cung cấp từ trước. Tác giả cho ta đọc truyện `Yêu Nhầm Chị Hai Được Nhầm Em Gái`, ohh man, really nigga? {{<emoji beauty>}} Có công mài sức có ngày nên kim, ai bỏ thời gian đọc hết truyện thì sẽ được thưởng, nhưng tôi thì không, tôi lười lắm nên tôi tìm cách khác. Khi `next` sang trang tiếp, đến trang thứ 9 thì không thể next thế nào cho ra trang 10 được. Nhìn lại file log thì có thể đoán được lỗi ở đây.
 
-Tiếp tục review sourcecode để tìm hướng exploit. Trong file `users.py` xử lý page id, nhận giá trị id và select ra nội dung truyện từ cơ sở dữ liệu. Nếu xảy ra lỗi thì thay vì nhận giá trị page id thì lại nhận object id. ahhh, `con bọ ` nằm ở đây này {{<emoji boom>}}.
+Tiếp tục review sourcecode để tìm hướng exploit. Trong file `users.py` xử lý page id, nhận giá trị id và select ra nội dung truyện từ cơ sở dữ liệu. Nếu xảy ra lỗi thì thay vì nhận giá trị page id thì lại nhận object id. ahhh, `con bọ` nằm ở đây này {{<emoji boom>}}.
 
 {{<highlight python>}}
-@routes.route('/page/<page>',methods=['GET'])
+@routes.route('/page/<page>',methods=\['GET'])
 def page(page):
     try:
         data = Novel.find_one({"page":int(page)})
-        lines = data['content'].split("\n")
+        lines = data\['content'].split("\n")
     except Exception, e:
         from bson.objectid import ObjectId
         try:
             data = Novel.find_one({"_id":ObjectId(page)})
-            lines = data['content'].split("\n")
+            lines = data\['content'].split("\n")
         except:
-            lines = []
+            lines = \[]
         return render_template('index.html',page=int(page,16),message=lines,_id=page)
     if session.has_key('usn'):
-        return render_template('index.html',_id=data['_id'], message=lines, page=int(page))
+        return render_template('index.html',_id=data\['_id'], message=lines, page=int(page))
     return render_template('login.html',ip=request.remote_addr)
 {{</highlight>}}
 
@@ -80,9 +81,11 @@ Chỉ cần gửi lên giá trị object id của flag trong cơ sở dữ liệ
 Nhưng làm sao để có được object id trên cơ sở dữ liệu của người khác, tôi có được là do tôi test trên local của đội mình. Vậy phải làm sao? Tôi không hiểu biết quá nhiều về mongo nên tôi search google về cách generate ra object id.
 
 May quá, trên [trang chủ](https://docs.mongodb.com/manual/reference/method/ObjectId/) của mongo có nói rất rõ về số object id. Độ dài của object id là 12 byte. 
- - 4 byte đầu là giá trị timestamp
- - 5 byte kế là giá trị random 
- - 3 byte cuối là giá trị số đếm
+
+* 4 byte đầu là giá trị timestamp
+* 5 byte kế là giá trị random 
+* 3 byte cuối là giá trị số đếm
+
 
 ```
 ObjectId(<hexadecimal>)
@@ -94,9 +97,10 @@ a 3-byte counter, starting with a random value.
 ```
 
 Tôi đã lấy vài giá trị object id trong local mình ra để phân tích. Theo như 3 dãy số bên dưới, ta thấy:
- - Timestamp cách nhau không quá xa, nhiều nhất là khác nhau 1 byte cuối
- - 5 byte giá trị random là giống nhau, có vẻ là chỉ random 1 lần và không random lại
- - 3 byte cuối là số đếm nên gần như chỉ khác nhau 4 bit cuối, tôi không chắc, cũng có thể khác nhau tận 1 byte.
+
+* Timestamp cách nhau không quá xa, nhiều nhất là khác nhau 1 byte cuối
+* 5 byte giá trị random là giống nhau, có vẻ là chỉ random 1 lần và không random lại
+* 3 byte cuối là số đếm nên gần như chỉ khác nhau 4 bit cuối, tôi không chắc, cũng có thể khác nhau tận 1 byte.
 
 Cho nên dễ rút ra kết luận, nếu ta biết 1 giá trị object id nào đó trong database, thì chỉ cần bruteforce 2 byte. Nhưng tôi đã test thử trên local, để brute được 2 byte thì máy tôi cần 100 thread request http và mất 6 phút để làm việc đó -> quá lâu {{<emoji canny>}}
 
@@ -108,4 +112,4 @@ Cho nên dễ rút ra kết luận, nếu ta biết 1 giá trị object id nào 
 
 Có cách nào đó khác. Bạn hãy xem lại file log ở trên, có thông tin của timestamp, chúng ta có thể lợi dụng đều đó. Tức là mỗi lần bot insert flag vào cơ sở dữ liệu của 1 đội nào đó thì cũng insert dữ liệu và cơ sở dữ liệu của đội khác cách nhau tầm vài giây, ở đây mình dự đoán tối đa là 5 giây. Cho nên, timestamp xem như là mình đã biết được.
 
-Payload ở [đây này](/resources/brute_id.py)
+Payload ở [đây này](/resources/brute_id.py).
