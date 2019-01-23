@@ -12,7 +12,7 @@ theme = "hugo-blog-jeffprod"
     archive = "archives"
 	category = "categories"
 [params]
-	description = "_Winter is comming_"
+	description = "Winter is comming"
 	twitter = "kvin_lpd"
 	github = "kevin-ksis"
 

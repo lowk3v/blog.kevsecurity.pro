@@ -42,7 +42,19 @@
                         Archive {{ .Title }}
                     {{ else }}
                         {{ .Title }}
-                        <h2 class="title is-size-4">{{ .Site.Params.Description }}</h3>
+                        <h2 class="title is-size-4">
+                            {{ .Site.Params.Description }}<p class="logo_cursor">&nbsp;</p>
+                            <script type="text/javascript">
+                                
+                                    setTimeout(function(){
+                                        if (getComputedStyle(document.querySelector('.logo_cursor')).backgroundColor == "rgba(0, 0, 0, 0)"){
+                                            document.querySelector('.logo_cursor').style.backgroundColor = "#23d160"
+                                        }else{
+                                            document.querySelector('.logo_cursor').style.backgroundColor = "#000000"
+                                        }
+                                    },1000);
+                            </script>
+                        </h3>
                     {{ end }}
                 </h1>
                 {{ if eq .Type "article" }}
