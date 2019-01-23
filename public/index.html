@@ -4,7 +4,7 @@
 	<meta name="generator" content="Hugo 0.52" />
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Hugo Theme  | Hugo Theme</title>
+    <title>Kevinlpd security blog  | Kevinlpd security blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
     <link rel="stylesheet" href="https://hungry-visvesvaraya-d246d6.netlify.com/css/blog.css" />
     
-  <link href="https://hungry-visvesvaraya-d246d6.netlify.com/index.xml" rel="alternate" type="application/rss+xml" title="Hugo Theme" />
-  <link href="https://hungry-visvesvaraya-d246d6.netlify.com/index.xml" rel="feed" type="application/rss+xml" title="Hugo Theme" />
+  <link href="https://hungry-visvesvaraya-d246d6.netlify.com/index.xml" rel="alternate" type="application/rss+xml" title="Kevinlpd security blog" />
+  <link href="https://hungry-visvesvaraya-d246d6.netlify.com/index.xml" rel="feed" type="application/rss+xml" title="Kevinlpd security blog" />
 
 </head>
 <body>
@@ -22,7 +22,9 @@
     <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/">Home</a>
-            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/about">About</a>
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/about">1-day</a>
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/about">CTF</a>
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/about">Life</a>
         </div>
     </nav>
     
@@ -32,9 +34,9 @@
         <div class="hero-body" style="background-image: url(https://hungry-visvesvaraya-d246d6.netlify.com/img/bg-blog.jpg);">
             <div class="container has-text-centered">
                 <br>
-                <h1 class="title is-size-1">
+                <h1 class="title is-size-1" style="color: #363636">
                     
-                        Hugo Theme
+                        Kevinlpd security blog
                     
                 </h1>
                 
@@ -54,19 +56,6 @@
             <div class="content">
                 <h3>Welcome to my blog !</h3>
                 <hr>
-                
-                    <article class="media">
-                        <div class="media-content">
-                            <div class="content">
-                                <p class="title is-4"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/new_year_2019/">New year 2019</a></p>
-                                <p class="subtitle is-size-6 has-text-grey-light">
-                                    Published at January 1, 2019 &middot;
-                                    <i class="far fa-clock"></i>&nbsp;0 min read
-                                </p>
-                                <p>...</p>
-                            </div>
-                        </div>
-                    </article>
                 
                     <article class="media">
                         <div class="media-content">
@@ -109,6 +98,20 @@ Dùng symlink để bypass filter và đọc flag....</p>
                         </div>
                     </article>
                 
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="content">
+                                <p class="title is-4"><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/laravel-object-injection-to-rce/">Laravel object injection to RCE</a></p>
+                                <p class="subtitle is-size-6 has-text-grey-light">
+                                    Published at October 25, 2018 &middot;
+                                    <i class="far fa-clock"></i>&nbsp;3 min read
+                                </p>
+                                <p>CVE-2018-15133
+In Laravel Framework through 5.5.40 and 5.6.x through 5.6.29, remote code execution might occur as a result of an unserialize call on a potentially untrusted X-XSRF-TOKEN value. This involves the decrypt method in Illuminate/Encryption/Encrypter.php and PendingBroadcast in gadgetchains/Laravel/RCE/3/chain.php in phpggc. The attacker must know the application key, which normally would never occur, but could happen if the attacker previously had privileged access or successfully accomplished a previous attack.  Lỗi này không có POC nhưng cũng khá dễ viết mã khai thác....</p>
+                            </div>
+                        </div>
+                    </article>
+                
             </div>
         </div>
     </div>
@@ -145,9 +148,6 @@ Dùng symlink để bypass filter và đọc flag....</p>
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
-            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/new_year_2019/">New year 2019</a></h1>
-            <time class="has-text-grey-light is-size-7">1 January 2019</time>
-        
             <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_final_2018_web_2_roundcube_mail/">SVATTT final 2018 - roundcube mail</a></h1>
             <time class="has-text-grey-light is-size-7">20 November 2018</time>
         
@@ -160,14 +160,15 @@ Dùng symlink để bypass filter và đọc flag....</p>
             <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/php_object_injection_without_unserialize/">Php Object Injection Without Unserialize</a></h1>
             <time class="has-text-grey-light is-size-7">20 September 2018</time>
         
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf-final-2-brute-mongodb-_id/">Matesctf final 2 - Brute mongodb _id</a></h1>
+            <time class="has-text-grey-light is-size-7">13 September 2018</time>
+        
     </div>
 </div>
     <br>
         <div class="card">
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
-        
-            <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2019">2019</a> (1)<br>
         
             <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2018">2018</a> (9)<br>
         
@@ -193,10 +194,6 @@ Dùng symlink để bypass filter và đọc flag....</p>
                 
                 <li class="pagination__item">
                     <a class="pagination-link" aria-label="Goto page 3" href="https://hungry-visvesvaraya-d246d6.netlify.com/page/3/">3</a>
-                </li>
-                
-                <li class="pagination__item">
-                    <a class="pagination-link" aria-label="Goto page 4" href="https://hungry-visvesvaraya-d246d6.netlify.com/page/4/">4</a>
                 </li>
                 
             </ul>
@@ -235,11 +232,10 @@ s.setAttribute('data-timestamp', +new Date());
 <footer class="footer has-background-grey-darker has-text-white">
     <div class="content has-text-centered">
         <p>
-            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
-            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
-            <span class="icon is-large"><a href="https://github.com/" class="mysocial"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://twitter.com/kvin_lpd" class="mysocial"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/kevin-ksis" class="mysocial"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
             <br><br>
-            Copyright &copy; Hugo Theme 2019</a>
+            Copyright &copy; Kevinlpd security blog 2019</a>
         </p>
     </div>
 </footer>

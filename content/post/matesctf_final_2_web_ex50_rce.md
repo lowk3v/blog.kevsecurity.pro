@@ -3,8 +3,10 @@ title: "Matesctf final 2 - IP Spoofing to RCE in flask"
 date: 2018-09-08T09:46:55+07:00
 draft: false
 comments: true
+categories:
+  - CTF
 author: "Kev"
-tags: ["ctf", "flask"]
+tags: ["CTF", "Flask"]
 Archives: '2018'
 autoThumbnailImage: false
 thumbnailImagePosition: top

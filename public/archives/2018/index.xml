@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Kevinlpd security blog</title>
-    <link>https://hungry-visvesvaraya-d246d6.netlify.com/</link>
-    <description>Recent content on Kevinlpd security blog</description>
+    <title>2018 on Kevinlpd security blog</title>
+    <link>https://hungry-visvesvaraya-d246d6.netlify.com/archives/2018/</link>
+    <description>Recent content in 2018 on Kevinlpd security blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © Kev</copyright>
     <lastBuildDate>Tue, 20 Nov 2018 22:09:39 -0500</lastBuildDate>
     
-        <atom:link href="https://hungry-visvesvaraya-d246d6.netlify.com/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2018/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -111,22 +111,6 @@ Có một lỗi trong bài web 1 là tài khoản của bot-check của BTC đư
       
       <guid>https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_xxe/</guid>
       <description>EXPLOIT - source  Mình nhận thấy lỗi này đầu tiên, mình tưởng đây là LFI cơ, vì cho mình đọc nội dung của cái gì đó (trên hình) và download file nữa. python-docx is a Python library for creating and updating Microsoft Word (.docx) files.  Docx là thư viện sử dụng để xử lý file word. Cũng dễ hiểu đây là lỗi vì không cớ gì mà tác giả lại xử lý file word ở đây cả, chức năng upload và hiển thị nội dung file bình thường thì tại sao lại xử lý file docx làm gì.</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://hungry-visvesvaraya-d246d6.netlify.com/about/</link>
-      <pubDate>Mon, 03 Sep 2018 16:11:56 +0700</pubDate>
-      
-      <guid>https://hungry-visvesvaraya-d246d6.netlify.com/about/</guid>
-      <description>Tôi không phải blogger.
-Nhưng tôi ngồi máy tính hơn 10 giờ mỗi ngày.
-Tôi không phải gamer,
-Tôi chơi capture the flag hơn 10 giờ mỗi tuần.
-Tôi không phải dân nghiện máy tính,
-Tôi có bồ và đi chơi với bồ vài lần mỗi tuần.
-Tôi thích những gì tôi làm,
-Nhưng không phải làm những gì tôi thích.</description>
     </item>
     
   </channel>

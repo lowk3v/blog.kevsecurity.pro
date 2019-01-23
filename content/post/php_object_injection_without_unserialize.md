@@ -4,12 +4,14 @@ date: 2018-09-20T09:17:11+07:00
 draft: false
 author: "Kev"
 comments: true
-tags: ["php", "serialization"]
+tags: ["PHP", "Serialization"]
 Archives: '2018'
 autoThumbnailImage: false
 thumbnailImagePosition: top
 thumbnailImage: ''
 coverImage: /images/uploads/phar_background.png
+categories:
+  - 1day
 ---
 
 # Stream wrapper

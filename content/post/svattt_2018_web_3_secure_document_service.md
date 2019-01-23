@@ -4,12 +4,14 @@ date: 2018-11-05T15:37:42+07:00
 draft: false
 comments: true
 author: "Kev"
-tags: ["ctf", "svattt 2018"]
+tags: ["CTF", "SVATTT 2018"]
 Archives: '2018'
 autoThumbnailImage: false
 thumbnailImagePosition: top
 thumbnailImage: ''
 coverImage: /images/uploads/svattt18_01.png
+categories:
+  - CTF
 ---
 
 # Mô tả

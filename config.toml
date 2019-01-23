@@ -3,10 +3,16 @@ title = "Kevinlpd security blog"
 author = "@Kev"
 copyright = "Copyright © Kev"
 canonifyurls = true
-paginate = 3
+paginate = 10
 
 theme = "hugo-blog-jeffprod"
 
 [taxonomies]
     tag = "tags"
     archive = "archives"
+	category = "categories"
+[params]
+	description = "_Winter is comming_"
+	twitter = "kvin_lpd"
+	github = "kevin-ksis"
+

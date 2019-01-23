@@ -2,9 +2,9 @@
 title: Matesctf final 2 - Brute mongodb _id
 date: '2018-09-13T23:01:18+07:00'
 categories:
-  - ctf
+  - CTF
 tags:
-  - ctf
+  - CTF
   - matesctf
 Archives: '2018'
 autoThumbnailImage: false

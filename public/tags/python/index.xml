@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Python on Hugo Theme</title>
+    <title>Python on Kevinlpd security blog</title>
     <link>https://hungry-visvesvaraya-d246d6.netlify.com/tags/python/</link>
-    <description>Recent content in Python on Hugo Theme</description>
+    <description>Recent content in Python on Kevinlpd security blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © Kev</copyright>
     <lastBuildDate>Tue, 11 Sep 2018 02:38:33 +0700</lastBuildDate>

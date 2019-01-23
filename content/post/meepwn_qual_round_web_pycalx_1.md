@@ -2,7 +2,7 @@
 title: "Meepwn qual round - pycalx 1"
 date: 2018-09-11T02:38:33+07:00
 author: "Kev"
-tags: ["ctf", "python"]
+tags: ["CTF", "Python"]
 comments: true
 draft: false
 Archives: '2018'
@@ -10,6 +10,8 @@ autoThumbnailImage: false
 thumbnailImagePosition: top
 thumbnailImage: ''
 coverImage: ''
+categories:
+  - CTF
 ---
 
 Thử thách cung cấp cho mình 1 form dữ liệu cùng với sourcecode như sau:

@@ -2,7 +2,7 @@
 title: Laravel object injection to RCE
 date: '2018-10-25T11:41:08+07:00'
 categories:
-  - 1-day
+  - 1day
 tags:
   - CVE
   - Laravel

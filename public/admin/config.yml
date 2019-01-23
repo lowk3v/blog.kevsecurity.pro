@@ -35,34 +35,39 @@ collections:
         required: false
         widget: "list"
 
+      - label: "Archives"
+        name: "Archives"
+        widget: "string"
+        default: "2018"
+
       - label: "Keywords"
         name: "keywords"
         required: false
-        widget: "list"
+        widget: "hidden"
 
       - label: "Auto Thumbnail Image"
         name: "autoThumbnailImage"
         required: false
-        widget: "boolean"
+        widget: "hidden"
         default: false
 
       - label: "Thumbnail Image Position"
         name: "thumbnailImagePosition"
         required: false
-        widget: "select"
+        widget: "hidden"
         default: "top"
         options: ["left", "top", "right"]
         
       - label: "Thumbnail Image"
         name: "thumbnailImage"
         required: false
-        widget: "image"
+        widget: "hidden"
 
       - label: "Cover Image"
         name: "coverImage"
         required: false
         widget: "image"
-        default: "/images/uploads/cover-post.jpg"
+        default: ""
         
       - label: "Body"
         name: "body"

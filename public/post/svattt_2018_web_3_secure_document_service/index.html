@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Hugo Theme  | SVATTT 2018 - Secure document service</title>
+    <title>Kevinlpd security blog  | SVATTT 2018 - Secure document service</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -18,7 +18,9 @@
     <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/">Home</a>
-            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/about">About</a>
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/about">1-day</a>
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/about">CTF</a>
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/about">Life</a>
         </div>
     </nav>
     
@@ -28,7 +30,7 @@
         <div class="hero-body" style="background-image: url(https://hungry-visvesvaraya-d246d6.netlify.com/img/bg-blog.jpg);">
             <div class="container has-text-centered">
                 <br>
-                <h1 class="title is-size-1">
+                <h1 class="title is-size-1" style="color: #363636">
                     
                         SVATTT 2018 - Secure document service
                     
@@ -47,12 +49,8 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
+                <img src=/images/uploads/svattt18_01.png>
                 
-
-<figure>
-    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/svattt18_01.png"/> 
-</figure>
-
 
 <h1 id="mô-tả">Mô tả</h1>
 
@@ -121,7 +119,7 @@ Cuối cùng, chỉ cần copy cookie y như trong bài blog là vào được a
 Cùng với LFI ở param <code>page</code> + file upload thì đây chính là vector để gọi shell.</p>
 
 <figure>
-    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/svattt18_02.png"/> 
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/uploads/svattt18_02.png"/> 
 </figure>
 
 
@@ -134,14 +132,14 @@ Cùng với LFI ở param <code>page</code> + file upload thì đây chính là 
 <p>Từ hint của 1 đồng đội, bản chất của docx, doc, xls, ppt, &hellip; đều là zip. Để shell php nén cùng với docx tôi fuzz thử wrapper zip để gọi lên shell. Ngon ăn luôn.</p>
 
 <figure>
-    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/svattt18_03.png"/> 
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/uploads/svattt18_03.png"/> 
 </figure>
 
 
 <p>Lên shell trông có vẻ đã đi đến đích rồi, nhưng không, thật sự không. Dưới đây là tất cả function bị disable.</p>
 
 <figure>
-    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/svattt18_04.png"/> 
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/uploads/svattt18_04.png"/> 
 </figure>
 
 
@@ -164,11 +162,11 @@ Kéo lên xem lại hình trên, các function bị disable trong đó có funct
 <p>Vì không thể dùng symlink để writeup nữa nên mình demo hình ảnh của payload cũ cho các bạn xem</p>
 
 <p><figure>
-    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/svattt18_05.png"/> 
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/uploads/svattt18_05.png"/> 
 </figure>
 
 <figure>
-    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/svattt18_06.png"/> 
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/uploads/svattt18_06.png"/> 
 </figure>
 </p>
 
@@ -221,9 +219,6 @@ Link pastebin ở trên đầu bài từ lúc viết writeup là không truy c�
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
-            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/new_year_2019/">New year 2019</a></h1>
-            <time class="has-text-grey-light is-size-7">1 January 2019</time>
-        
             <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_final_2018_web_2_roundcube_mail/">SVATTT final 2018 - roundcube mail</a></h1>
             <time class="has-text-grey-light is-size-7">20 November 2018</time>
         
@@ -235,6 +230,9 @@ Link pastebin ở trên đầu bài từ lúc viết writeup là không truy c�
         
             <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/php_object_injection_without_unserialize/">Php Object Injection Without Unserialize</a></h1>
             <time class="has-text-grey-light is-size-7">20 September 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf-final-2-brute-mongodb-_id/">Matesctf final 2 - Brute mongodb _id</a></h1>
+            <time class="has-text-grey-light is-size-7">13 September 2018</time>
         
     </div>
 </div>
@@ -276,8 +274,6 @@ Link pastebin ở trên đầu bài từ lúc viết writeup là không truy c�
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2019">2019</a> (1)<br>
-        
             <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2018">2018</a> (9)<br>
         
     </div>
@@ -317,11 +313,10 @@ s.setAttribute('data-timestamp', +new Date());
 <footer class="footer has-background-grey-darker has-text-white">
     <div class="content has-text-centered">
         <p>
-            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
-            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
-            <span class="icon is-large"><a href="https://github.com/" class="mysocial"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://twitter.com/kvin_lpd" class="mysocial"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/kevin-ksis" class="mysocial"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
             <br><br>
-            Copyright &copy; Hugo Theme 2019</a>
+            Copyright &copy; Kevinlpd security blog 2019</a>
         </p>
     </div>
 </footer>

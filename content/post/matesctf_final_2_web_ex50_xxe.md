@@ -3,13 +3,15 @@ title: "Matesctf final 2 - XXE Injection"
 date: 2018-09-08T09:46:55+07:00
 author: "Kev"
 comments: true
-tags: ["ctf", "flask"]
+tags: ["CTF", "Flask"]
 draft: false
 Archives: '2018'
 autoThumbnailImage: false
 thumbnailImagePosition: top
 thumbnailImage: ''
 coverImage: /images/uploads/ex50-7.png
+categories:
+  - CTF
 ---
 
 ## EXPLOIT - [source](/resources/matesctf/ex50.tar) 
@@ -123,7 +125,7 @@ except:
 Exercises.insert({"name": name, "file_path": file_path,"date":date,"uploader":session['usn'],"content":content})
 {{</highlight>}}
 
-Nhờ một thời gian phân tích 1-day nhiều dạng, mình rút ra được cách fix lỗi nhanh nhất là đi tìm bản patch từ nhà cung cấp và đọc xem họ fix như thế nào, như thế sẽ nhanh hơn là tự suy nghĩ cách vá. Các bạn có thể xem bản vá trên [github](https://github.com/python-openxml/python-docx/pull/303/commits/14a44178711cbd860b910f8950f9946addfc5e57). Họ disable XML entity, đây là cách vá hay nhất mà mình biết.
+Nhờ một thời gian phân tích 1day nhiều dạng, mình rút ra được cách fix lỗi nhanh nhất là đi tìm bản patch từ nhà cung cấp và đọc xem họ fix như thế nào, như thế sẽ nhanh hơn là tự suy nghĩ cách vá. Các bạn có thể xem bản vá trên [github](https://github.com/python-openxml/python-docx/pull/303/commits/14a44178711cbd860b910f8950f9946addfc5e57). Họ disable XML entity, đây là cách vá hay nhất mà mình biết.
 
 Bước đầu tiên là phải tìm ra được file thư viện nằm ở vị trí nào trên server của mình
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Hugo Theme  | Matesctf final 2 - SSTI</title>
+    <title>Kevinlpd security blog  | Matesctf final 2 - SSTI</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -18,7 +18,9 @@
     <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/">Home</a>
-            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/about">About</a>
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/about">1-day</a>
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/about">CTF</a>
+            <a class="navbar-item" href="https://hungry-visvesvaraya-d246d6.netlify.com/about">Life</a>
         </div>
     </nav>
     
@@ -28,7 +30,7 @@
         <div class="hero-body" style="background-image: url(https://hungry-visvesvaraya-d246d6.netlify.com/img/bg-blog.jpg);">
             <div class="container has-text-centered">
                 <br>
-                <h1 class="title is-size-1">
+                <h1 class="title is-size-1" style="color: #363636">
                     
                         Matesctf final 2 - SSTI
                     
@@ -47,12 +49,8 @@
     <div class="column is-9">
         <div class="tile is-child box">
             <div class="content">
+                <img src=/images/uploads/ex50.PNG>
                 
-
-<figure>
-    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/ex50.PNG" width="100%"/> 
-</figure>
-
 
 <h2 id="exploit-source-resources-matesctf-ex50-tar">EXPLOIT  - <a href="https://hungry-visvesvaraya-d246d6.netlify.com/resources/matesctf/ex50.tar">source</a></h2>
 
@@ -63,7 +61,7 @@
 <p>Có một lỗi trong bài web 1 là tài khoản của bot-check của BTC được gán mặc định và đội nào cũng như nhau <code>admin:1</code>. Vừa bắt đầu cuộc thi 15 phút thì tác giả đã nhắc nhở mọi người không nên đổi password của bot tránh trường hợp bot không thể check và bị mất điểm service. Với tài khoản admin này, có chức năng đổi mật khẩu nhưng không token CSRF và những cơ chế ràng buộc khác. Chính vì vậy, đội mình viết script sửa flag của admin tất cả các đội còn lại. Tất cả các đội đều mất điểm service, mặc dù phút cuối bị UIT-r3s0L và BKHN.ACEBEAR giành lại admin trong ít phút.</p>
 
 <figure>
-    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/ex50-2.png"/> <figcaption>
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/uploads/ex50-2.png"/> <figcaption>
             <h4>Các đội đều mất điểm service ở challenge cuối</h4>
         </figcaption>
 </figure>
@@ -92,7 +90,7 @@
 /></p>
 
 <figure>
-    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/ex50-3.png" width="100%"/> 
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/uploads/ex50-3.png" width="100%"/> 
 </figure>
 
 
@@ -109,7 +107,7 @@
 </ul>
 
 <figure>
-    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/ex50-4.png" width="100%"/> 
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/uploads/ex50-4.png" width="100%"/> 
 </figure>
 
 
@@ -118,7 +116,7 @@
 </ul>
 
 <figure>
-    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/ex50-5.png"/> 
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/uploads/ex50-5.png"/> 
 </figure>
 
 
@@ -129,7 +127,7 @@
 /> Payload cuối cùng thế này:</p>
 
 <figure>
-    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/posts/ex50-6.png" width="100%"/> 
+    <img src="https://hungry-visvesvaraya-d246d6.netlify.com/images/uploads/ex50-6.png" width="100%"/> 
 </figure>
 
 
@@ -175,9 +173,6 @@
     <div class="card-content">
         <h1 class="title is-5">Recent posts</h1>
         
-            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/new_year_2019/">New year 2019</a></h1>
-            <time class="has-text-grey-light is-size-7">1 January 2019</time>
-        
             <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_final_2018_web_2_roundcube_mail/">SVATTT final 2018 - roundcube mail</a></h1>
             <time class="has-text-grey-light is-size-7">20 November 2018</time>
         
@@ -189,6 +184,9 @@
         
             <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/php_object_injection_without_unserialize/">Php Object Injection Without Unserialize</a></h1>
             <time class="has-text-grey-light is-size-7">20 September 2018</time>
+        
+            <h1><a href="https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf-final-2-brute-mongodb-_id/">Matesctf final 2 - Brute mongodb _id</a></h1>
+            <time class="has-text-grey-light is-size-7">13 September 2018</time>
         
     </div>
 </div>
@@ -230,8 +228,6 @@
     <div class="card-content">
         <h1 class="title is-5">Archives</h1>
         
-            <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2019">2019</a> (1)<br>
-        
             <a href="https://hungry-visvesvaraya-d246d6.netlify.com/archives/2018">2018</a> (9)<br>
         
     </div>
@@ -271,11 +267,10 @@ s.setAttribute('data-timestamp', +new Date());
 <footer class="footer has-background-grey-darker has-text-white">
     <div class="content has-text-centered">
         <p>
-            <span class="icon is-large"><a href="https://twitter.com/" class="mysocial"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
-            <span class="icon is-large"><a href="https://www.youtube.com/" class="mysocial"><i class="fab fa-youtube fa-3x"></i></a></span>&nbsp;&nbsp;
-            <span class="icon is-large"><a href="https://github.com/" class="mysocial"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://twitter.com/kvin_lpd" class="mysocial"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/kevin-ksis" class="mysocial"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
             <br><br>
-            Copyright &copy; Hugo Theme 2019</a>
+            Copyright &copy; Kevinlpd security blog 2019</a>
         </p>
     </div>
 </footer>

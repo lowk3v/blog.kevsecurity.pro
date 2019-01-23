@@ -13,10 +13,6 @@ Tôi không phải blogger.
 
 Nhưng tôi ngồi máy tính hơn 10 giờ mỗi ngày.
 
-Tôi không phải gamer,
-
-Tôi chơi `capture the flag` hơn 10 giờ mỗi tuần.
-
 Tôi không phải dân nghiện máy tính,
 
 Tôi có bồ và đi chơi với bồ vài lần mỗi tuần.

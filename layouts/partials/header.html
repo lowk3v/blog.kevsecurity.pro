@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ .Site.Title }} {{ with .Title }} | {{ . }}{{ end }}</title>
+    <title>{{ .Site.Title }} | {{ .Site.Params.Description }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -21,9 +21,10 @@
     <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="{{ .Site.BaseURL | absURL }}">Home</a>
-            <a class="navbar-item" href="{{ "about" | absURL }}">1-day</a>
-            <a class="navbar-item" href="{{ "about" | absURL }}">CTF</a>
-            <a class="navbar-item" href="{{ "about" | absURL }}">Life</a>
+            {{ range $key, $value := .Site.Taxonomies.categories }}
+                <a class="navbar-item" href="/categories/{{ $key }}">{{ $key }}</a>
+            {{ end }}
+            <a class="navbar-item" href="{{ "about" | absURL }}">About</a>
         </div>
     </nav>
     <!-- /nav -->
@@ -33,13 +34,14 @@
         <div class="hero-body" style="background-image: url({{ "img/bg-blog.jpg" | absURL }});">
             <div class="container has-text-centered">
                 <br>
-                <h1 class="title is-size-1">
+                <h1 class="title is-size-1" style="color: #3273dc">
                     {{ if eq .Type "tags" }}
                         #{{ .Title }}
                     {{ else if eq .Type "archives" }}
                         Archive {{ .Title }}
                     {{ else }}
                         {{ .Title }}
+                        <h2 class="title is-size-4">{{ .Site.Params.Description }}</h3>
                     {{ end }}
                 </h1>
                 {{ if eq .Type "article" }}

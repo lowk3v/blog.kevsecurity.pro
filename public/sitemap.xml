@@ -3,11 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/post/new_year_2019/</loc>
-    <lastmod>2019-01-01T10:24:47+07:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_final_2018_web_2_roundcube_mail/</loc>
     <lastmod>2018-11-20T22:09:39-05:00</lastmod>
   </url>
@@ -58,7 +53,19 @@
   </url>
   
   <url>
+    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/archives/2018/</loc>
+    <lastmod>2018-11-20T22:09:39-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://hungry-visvesvaraya-d246d6.netlify.com/archives/</loc>
+    <lastmod>2018-11-20T22:09:39-05:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -82,7 +89,7 @@
   
   <url>
     <loc>https://hungry-visvesvaraya-d246d6.netlify.com/</loc>
-    <lastmod>2019-01-01T10:24:47+07:00</lastmod>
+    <lastmod>2018-11-20T22:09:39-05:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -106,7 +113,7 @@
   
   <url>
     <loc>https://hungry-visvesvaraya-d246d6.netlify.com/post/</loc>
-    <lastmod>2019-01-01T10:24:47+07:00</lastmod>
+    <lastmod>2018-11-20T22:09:39-05:00</lastmod>
     <priority>0</priority>
   </url>
   

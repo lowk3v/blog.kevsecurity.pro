@@ -4,12 +4,14 @@ date: 2018-09-08T09:46:55+07:00
 draft: false
 author: "Kev"
 comments: true
-tags: ["ctf", "flask"]
+tags: ["CTF", "Flask"]
 Archives: '2018'
 autoThumbnailImage: false
 thumbnailImagePosition: top
 thumbnailImage: ''
 coverImage: /images/uploads/ex50.PNG
+categories:
+  - CTF
 ---
 
 ## EXPLOIT  - [source](/resources/matesctf/ex50.tar)

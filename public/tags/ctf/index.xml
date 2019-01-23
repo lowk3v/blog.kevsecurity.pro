@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ctf on Hugo Theme</title>
+    <title>Ctf on Kevinlpd security blog</title>
     <link>https://hungry-visvesvaraya-d246d6.netlify.com/tags/ctf/</link>
-    <description>Recent content in Ctf on Hugo Theme</description>
+    <description>Recent content in Ctf on Kevinlpd security blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © Kev</copyright>
     <lastBuildDate>Tue, 20 Nov 2018 22:09:39 -0500</lastBuildDate>
@@ -51,7 +51,7 @@ Dùng symlink để bypass filter và đọc flag.</description>
       
       <guid>https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf-final-2-brute-mongodb-_id/</guid>
       <description>EXPLOIT - source  Trong source web có 1 file log ghi lại hành động của bot khi insert dữ liệu vào database. Từ thông tin đấy, có thể dễ dàng đoán là trong database có flag.
-2018-08-21 10:48:38.035547 added page 1 2018-08-21 10:48:38.039078 added page 2 2018-08-21 10:48:38.039908 added page 3 2018-08-21 10:48:38.040720 added page 4 2018-08-21 10:48:38.041323 added page 5 2018-08-21 10:48:38.042003 added page 6 2018-08-21 10:48:38.</description>
+2018-08-21 10:48:38.035547 added page 1 2018-08-21 10:48:38.039078 added page 2 2018-08-21 10:48:38.039908 added page 3 2018-08-21 10:48:38.040720 added page 4 2018-08-21 10:48:38.041323 added page 5 2018-08-21 10:48:38.042003 added page 6 2018-08-21 10:48:38.042624 added page 7 2018-08-21 10:48:38.</description>
     </item>
     
     <item>
