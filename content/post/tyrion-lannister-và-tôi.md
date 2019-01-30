@@ -4,7 +4,7 @@ date: '2019-01-30T09:15:39+07:00'
 categories:
   - Life
 tags:
-  - Life
+  - GOT
 Archives: '2019'
 autoThumbnailImage: false
 thumbnailImagePosition: top
