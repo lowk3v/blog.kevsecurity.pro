@@ -33,7 +33,7 @@ Ngoài dấu chấm thì còn dấu nào khác nữa không? Mình viết 1 scri
 
 Đào xuống source C xem thế nào nhé:  
 [php_variables.c](https://github.com/php/php-src/blob/master/main/php_variables.c):
-{{<highlight php "linenos=inline, hl_lines=107,108 linenostart=98">}}  
+{{<highlight php "linenos=inline,hl_lines=107-108,linenostart=98">}}  
     /*
 	 * Prepare variable name
 	 */
@@ -55,7 +55,7 @@ Ngoài dấu chấm thì còn dấu nào khác nữa không? Mình viết 1 scri
 	var_len = p - var;
 {{</highlight>}}  
 
-{{<highlight php "linenos=inline, hl_lines=193 linenostart=191">}}  
+{{<highlight php "linenos=inline,hl_lines=193,linenostart=191">}}  
 if (!ip) {
 	/* PHP variables cannot contain '[' in their names, so we replace the character with a '_' */
 	*(index_s - 1) = '_';
