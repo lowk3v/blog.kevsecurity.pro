@@ -10,7 +10,7 @@ autoThumbnailImage: false
 thumbnailImagePosition: top
 coverImage: /images/uploads/tyrionlannister.jpg
 ---
-> Thế thì tốt, cậu con hoang. Hầu hết mọi người đều chọn chối bỏ sự thật hơn là đối diện với nó.  
+>  Thế thì tốt, cậu con hoang. Hầu hết mọi người đều chọn chối bỏ sự thật hơn là đối diện với nó.  
 
 Tyrion Lannister nhìn Jon Snow với đôi mắt buồn bã, chính hắn giống như Jon lớn lên trong một gia đình giàu có và quyền lực bậc nhất Vương Đô nhưng lại bị đối xử như một đứa con hoang chính hiệu. Hắn tự làm tất cả mọi việc để sinh tồn trong chính ngôi nhà ở thành Caterly Rock chỉ bởi hẳn khuyết tật và bị đối xử như chó.
 
