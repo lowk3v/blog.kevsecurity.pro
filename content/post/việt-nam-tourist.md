@@ -1,5 +1,5 @@
 ---
-title: Việt Nam Tourist
+title: Viet Nam Tourist
 date: '2019-05-01T10:43:21+07:00'
 categories:
   - du lịch
@@ -22,4 +22,6 @@ Mục tiêu tôi sẽ đi hết cả tỉnh ở Việt Nam sau đó sẽ tiến 
 * Phú Yên: lần đầu miền trung 
 * Bình Định: thành phố biển và nắng 
 * Vùng Tàu: nơi tôi mơ ước được sinh sống
+* Tây Ninh: bình yên đến mức tôi phải buồn
+* Tiền Giang: Cảm giác như quê nhà
 * Đà Lạt: lạc vào rừng
