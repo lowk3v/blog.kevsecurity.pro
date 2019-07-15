@@ -14,11 +14,12 @@ coverImage: ''
 
 Mục tiêu tôi sẽ đi hết cả tỉnh ở Việt Nam sau đó sẽ tiến ra Đông Nam Á. Đây là mục tiêu dài hạn, nên tôi không rõ là sẽ hoàn thành trong bao lâu, 5 năm 10 năm hay lâu hơn nữa nhưng chắc chắn tôi sẽ hoàn thành.
 
-- Trà Vinh: quê hương tôi 
-- Bến Tre: quê hương của dừa
-- Hậu Giang: những chuyến phà `bus`
-- Hồ Chí Minh: nơi tôi bước vào đời
-- Hà Nội: thủ đô mang đến cho tôi những kỉ niệm buồn 
-- Phú Yên: lần đầu miền trung 
-- Bình Định: thành phố biển và nắng 
-- Vùng Tàu: nơi tôi mơ ước được sinh sống
+* Trà Vinh: quê hương tôi 
+* Bến Tre: quê hương của dừa
+* Hậu Giang: những chuyến phà `bus`
+* Hồ Chí Minh: nơi tôi bước vào đời
+* Hà Nội: thủ đô mang đến cho tôi những kỉ niệm buồn 
+* Phú Yên: lần đầu miền trung 
+* Bình Định: thành phố biển và nắng 
+* Vùng Tàu: nơi tôi mơ ước được sinh sống
+* Đà Lạt: lạc vào rừng
