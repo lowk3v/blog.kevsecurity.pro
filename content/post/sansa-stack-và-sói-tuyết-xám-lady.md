@@ -10,7 +10,7 @@ autoThumbnailImage: false
 thumbnailImagePosition: top
 coverImage: /images/uploads/sansastack.jpg
 ---
-> Sansa rùng mình. Họ đã đi mười hai ngày vượt qua Neck, đi qua không biết bao nhiêu mô đất đen, và cô ghét mọi giây phút đó. Không khi ẩm ướt và nhớp nháp, đường quá hẹp khiến họ không tìm được chỗ cắm trại thích hợp nghỉ đêm.  
+>  Sansa rùng mình. Họ đã đi mười hai ngày vượt qua Neck, đi qua không biết bao nhiêu mô đất đen, và cô ghét mọi giây phút đó. Không khi ẩm ướt và nhớp nháp, đường quá hẹp khiến họ không tìm được chỗ cắm trại thích hợp nghỉ đêm.\
 > Chỉ có một mình và bị bẽ mặt, Sansa trở về hành quân, nơi cô biết Septa Mordane đang đợi. Quý cô im lặng bước cạnh. Cô rất muốn khóc. Tất cả những gì cô muốn là mọi thứ đều tốt đẹp, như trong những khúc ca. Vì sao Arya không thể ngọt ngào, tử tế và duyên dáng như công chúa Myrcella? Cô thích có một cô em gái như vậy.  
 
 Thấy đấy, một cô gái duyên dáng, thùy mị, nết na và ưa thích cái đẹp như Sansa quá khác biệt so với cô em gái Arya của mình. Điều cô mong ước là tất cả đều như ý muốn, tất cả đều tốt đẹp như cô mơ mộng. Cuộc đời thật đẹp làm sao nếu như cô được hoàng hậu Cercei mời ngồi trong cỗ xe ngựa đẹp lộng lẫy, toát lên nét hoàng gia cùng ăn bánh và uống trà do hoàng thượng ban thưởng. Thật hạnh phúc làm sao nếu như cô được sự sủng ái của hoàng tử và sau này chính Sansa sẽ trở thành hoàng hậu trị vì 7 đô thành. Sansa, một cô gái mơ mộng hội tụ đầy đủ phẩm chất của một nàng hoàng hậu, một người vợ của nhà vua và là người xứng đáng đứng phía sau ngai sắt.
