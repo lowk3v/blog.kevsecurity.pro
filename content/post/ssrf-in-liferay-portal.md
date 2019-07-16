@@ -20,7 +20,7 @@ There is no patch available for Liferay Portal 7.1 CE GA3. Instead, users should
 Mình có được vài thông tin quan trọng như sau: lỗi SSRF, module lỗi DDM REST Data Provider, phiên bản lỗi trước 7.1.3 và vá lỗi ở phiên bản 7.1.3.
 
 # Diff để tìm ra vị trí vá lỗi
-Bằng cách dùng công cụ diff mã nguồn 2 phiên bản 7.1.2 và 7.1.3 của liferay và phạm vị là module DDM REST Data Provider thì mình hiểu được lập trình viên họ đã vá lỗi như thế nào? giả sử không có đoạn code vá đó thì mình sẽ phải khai thác như thế nào?  
+Bằng cách dùng công cụ diff mã nguồn 2 phiên bản 7.1.2 và 7.1.3 của liferay và phạm vi là module DDM REST Data Provider thì mình hiểu được lập trình viên họ đã vá lỗi như thế nào? giả sử không có đoạn code vá đó thì mình sẽ phải khai thác như thế nào?  
 __7.1.3 ga4__[1]  
 {{< highlight java "linenos=table,hl_lines=127,linenostart=112" >}}
         protected String buildURL(
