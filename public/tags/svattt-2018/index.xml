@@ -1,22 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Svattt 2018 on Kevinlpd security blog</title>
-    <link>https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-2018/</link>
-    <description>Recent content in Svattt 2018 on Kevinlpd security blog</description>
+    <title>SVATTT 2018 on Kevinlpd security blog</title>
+    <link>https://blog.kevsecurity.org/tags/svattt-2018/</link>
+    <description>Recent content in SVATTT 2018 on Kevinlpd security blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © Kev</copyright>
     <lastBuildDate>Mon, 05 Nov 2018 15:37:42 +0700</lastBuildDate>
     
-        <atom:link href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-2018/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://blog.kevsecurity.org/tags/svattt-2018/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>SVATTT 2018 - Secure document service</title>
-      <link>https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_2018_web_3_secure_document_service/</link>
+      <link>https://blog.kevsecurity.org/post/svattt_2018_web_3_secure_document_service/</link>
       <pubDate>Mon, 05 Nov 2018 15:37:42 +0700</pubDate>
       
-      <guid>https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_2018_web_3_secure_document_service/</guid>
+      <guid>https://blog.kevsecurity.org/post/svattt_2018_web_3_secure_document_service/</guid>
       <description>Mô tả  1000 points (1&amp;frasl;68 sovles)
 I made a simple and secure web service for upload and share document. Can you read document to get a gift? :D
 http://171.244.141.213:8337/

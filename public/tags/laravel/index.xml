@@ -1,24 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Laravel on Kevinlpd security blog</title>
-    <link>https://hungry-visvesvaraya-d246d6.netlify.com/tags/laravel/</link>
+    <link>https://blog.kevsecurity.org/tags/laravel/</link>
     <description>Recent content in Laravel on Kevinlpd security blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © Kev</copyright>
     <lastBuildDate>Thu, 25 Oct 2018 11:41:08 +0700</lastBuildDate>
     
-        <atom:link href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/laravel/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://blog.kevsecurity.org/tags/laravel/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Laravel object injection to RCE</title>
-      <link>https://hungry-visvesvaraya-d246d6.netlify.com/post/laravel-object-injection-to-rce/</link>
+      <link>https://blog.kevsecurity.org/post/laravel-object-injection-to-rce/</link>
       <pubDate>Thu, 25 Oct 2018 11:41:08 +0700</pubDate>
       
-      <guid>https://hungry-visvesvaraya-d246d6.netlify.com/post/laravel-object-injection-to-rce/</guid>
+      <guid>https://blog.kevsecurity.org/post/laravel-object-injection-to-rce/</guid>
       <description>CVE-2018-15133
-In Laravel Framework through 5.5.40 and 5.6.x through 5.6.29, remote code execution might occur as a result of an unserialize call on a potentially untrusted X-XSRF-TOKEN value. This involves the decrypt method in Illuminate/Encryption/Encrypter.php and PendingBroadcast in gadgetchains/Laravel/RCE/3/chain.php in phpggc. The attacker must know the application key, which normally would never occur, but could happen if the attacker previously had privileged access or successfully accomplished a previous attack.  Lỗi này không có POC nhưng cũng khá dễ viết mã khai thác.</description>
+In Laravel Framework through 5.5.40 and 5.6.x through 5.6.29, remote code execution might occur as a result of an unserialize call on a potentially untrusted X-XSRF-TOKEN value. This involves the decrypt method in Illuminate/Encryption/Encrypter.php and PendingBroadcast in gadgetchains/Laravel/RCE/3/chain.php in phpggc. The attacker must know the application key, which normally would never occur, but could happen if the attacker previously had privileged access or successfully accomplished a previous attack.	 Lỗi này không có POC nhưng cũng khá dễ viết mã khai thác.</description>
     </item>
     
   </channel>

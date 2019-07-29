@@ -1,0 +1,50 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Kevinlpd security blog</title>
+    <link>https://blog.kevsecurity.org/categories/</link>
+    <description>Recent content in Categories on Kevinlpd security blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © Kev</copyright>
+    <lastBuildDate>Sat, 04 May 2019 22:31:21 +0700</lastBuildDate>
+    
+        <atom:link href="https://blog.kevsecurity.org/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>1day</title>
+      <link>https://blog.kevsecurity.org/categories/1day/</link>
+      <pubDate>Sat, 04 May 2019 22:31:21 +0700</pubDate>
+      
+      <guid>https://blog.kevsecurity.org/categories/1day/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>du lịch</title>
+      <link>https://blog.kevsecurity.org/categories/du-l%E1%BB%8Bch/</link>
+      <pubDate>Wed, 01 May 2019 10:43:21 +0700</pubDate>
+      
+      <guid>https://blog.kevsecurity.org/categories/du-l%E1%BB%8Bch/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Life</title>
+      <link>https://blog.kevsecurity.org/categories/life/</link>
+      <pubDate>Wed, 30 Jan 2019 14:07:15 +0700</pubDate>
+      
+      <guid>https://blog.kevsecurity.org/categories/life/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CTF</title>
+      <link>https://blog.kevsecurity.org/categories/ctf/</link>
+      <pubDate>Tue, 20 Nov 2018 22:09:39 -0500</pubDate>
+      
+      <guid>https://blog.kevsecurity.org/categories/ctf/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

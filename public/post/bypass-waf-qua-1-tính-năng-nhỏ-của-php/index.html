@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Kevinlpd security blog | Winter is comming</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel='icon' href='https://blog.kevsecurity.org/images/favicon.png'>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" />
+    <link rel="stylesheet" href="https://blog.kevsecurity.org/css/blog.css" />
+    
+</head>
+<body>
+
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://blog.kevsecurity.org/">Home</a>
+            
+                <a class="navbar-item" href="https://blog.kevsecurity.org/categories/1day">1day</a>
+            
+                <a class="navbar-item" href="https://blog.kevsecurity.org/categories/ctf">ctf</a>
+            
+                <a class="navbar-item" href="https://blog.kevsecurity.org/categories/du-l%e1%bb%8bch">du-lịch</a>
+            
+                <a class="navbar-item" href="https://blog.kevsecurity.org/categories/life">life</a>
+            
+            <a class="navbar-item" href="https://blog.kevsecurity.org/about">About</a>
+        </div>
+    </nav>
+    
+
+    
+    <section class="hero is-info is-medium">
+        <div class="hero-body" style="background-image: url(https://blog.kevsecurity.org/img/bg-blog.jpg);">
+            <div class="container has-text-centered">
+                <br>
+                <h1 class="title is-size-1" style="color: #3273dc">
+                    
+                        Bypass WAF qua 1 tính năng nhỏ của PHP
+                        <h2 class="title is-size-4">
+                            Winter is comming
+                            
+                        </h3>
+                    
+                </h1>
+                
+            </div>
+        </div>
+    </section>
+
+
+<div class="container">
+    <div class="section">
+    
+
+<div class="columns">
+    <div class="column is-9">
+        <div class="tile is-child box">
+            <div class="content">
+                <img src=>
+                
+
+<h2 id="1-tính-năng-hay-lỗi">1. Tính năng hay lỗi?</h2>
+
+<p>PHP là ngôn ngữ lập trình web đơn giản, gọn nhẹ và dễ lập trình nhưng tiềm ẩn nhiều lỗi. Bằng chứng là có nhiều phiên bản được cập nhật hàng tháng chỉ nhầm vá những lỗi ở phiên bản cũ.<br />
+Phiên bản PHP hiện tại là 7.3 nhưng đã có bản thử nghiệm của 7.4 rồi.<br />
+Trong giới hạn bài này, tôi sẽ giới thiệu cho bạn 1 tính năng nhưng được tận dụng để trở thành lỗi có thể qua mặt được một số WAF đình đám hiện nay, ví dụ như mod security.<br />
+Mô tả của tác giả:</p>
+
+<h5 id="dots-in-incoming-variable-names">Dots in incoming variable names</h5>
+
+<p><em>Typically, PHP does not alter the names of variables when they are passed into a script. However, it should be noted that the dot (period, full stop) is not a valid character in a PHP variable name. For the reason, look at it:</em></p>
+
+<pre><code>&lt;?php
+$varname.ext;  /* invalid variable name */
+?&gt;
+</code></pre>
+
+<p><em>Now, what the parser sees is a variable named $varname, followed by the string concatenation operator, followed by the barestring (i.e. unquoted string which doesn&rsquo;t match any known key or reserved words) &lsquo;ext&rsquo;. Obviously, this doesn&rsquo;t have the intended result.
+For this reason, it is important to note that PHP will automatically replace any dots in incoming variable names with underscores.</em></p>
+
+<p>Điều này chính là, khi user truyền vào 1 tên biến, tên cookie hay ngay cả tên trường header có chứa dấu dot <code>.</code> thì PHP sẽ tự hiểu là underscore <code>_</code>. Ngay chỗ này, đã gây ra một số rủi ro và nhầm lẫn không đáng có.<br />
+Ngoài dấu chấm thì còn dấu nào khác nữa không? Mình viết 1 script đơn giản để kiểm tra thì có tất cả 3 kí tự bị ảnh hưởng.
+- chr(32) ( ) (space)
+- chr(46) (.) (dot)
+- chr(91) ([) (open square bracket)</p>
+
+<p>Đào xuống source C xem thế nào nhé:<br />
+<a href="https://github.com/php/php-src/blob/master/main/php_variables.c">php_variables.c</a>:
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">97</span>  
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">98</span>    <span style="color:#75715e">/*
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">99</span><span style="color:#75715e">	 * Prepare variable name
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100</span><span style="color:#75715e">	 */</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101</span>	var_len <span style="color:#f92672">=</span> strlen(var_name);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102</span>	var <span style="color:#f92672">=</span> var_orig <span style="color:#f92672">=</span> do_alloca(var_len <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, use_heap);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103</span>	memcpy(var_orig, var_name, var_len <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105</span>	<span style="color:#75715e">/* ensure that we don&#39;t have spaces or dots in the variable name (not binary safe) */</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106</span>	<span style="color:#66d9ef">for</span> (p <span style="color:#f92672">=</span> var; <span style="color:#f92672">*</span>p; p<span style="color:#f92672">++</span>) {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107</span>		<span style="color:#66d9ef">if</span> (<span style="color:#f92672">*</span>p <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">||</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;.&#39;</span>) {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108</span>			<span style="color:#f92672">*</span>p<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;_&#39;</span>;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">109</span>		} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#f92672">*</span>p <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;[&#39;</span>) {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">110</span>			is_array <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111</span>			ip <span style="color:#f92672">=</span> p;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">112</span>			<span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">113</span>			<span style="color:#66d9ef">break</span>;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">114</span>		}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">115</span>	}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">116</span>	var_len <span style="color:#f92672">=</span> p <span style="color:#f92672">-</span> var;</code></pre></div></p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">190</span>  
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">191</span><span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>ip) {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">192</span>	<span style="color:#75715e">/* PHP variables cannot contain &#39;[&#39; in their names, so we replace the character with a &#39;_&#39; */</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">193</span>	<span style="color:#f92672">*</span>(index_s <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;_&#39;</span>;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">194</span>	index_len <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">195</span>	<span style="color:#66d9ef">if</span> (index) {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">196</span>		index_len <span style="color:#f92672">=</span> strlen(index);
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">197</span>	}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">198</span>	<span style="color:#66d9ef">goto</span> plain_var;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">199</span>	<span style="color:#66d9ef">return</span>;
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">200</span>}  </code></pre></div>
+
+<p>Tại dòng 107, 108 và 193 tác giả đã cố ý replace 3 dấu <code>&lt;space&gt;</code>, <code>.</code> và <code>[</code> trở thành <code>_</code> ở trong tên biến để tránh một số trường hợp phát sinh gây ra lỗi tại các module tính năng khác.</p>
+
+<h2 id="2-mod-security-và-crs-owasp-rule">2. Mod security và crs owasp rule</h2>
+
+<h3 id="mod-security-https-github-com-spiderlabs-modsecurity"><a href="https://github.com/SpiderLabs/ModSecurity">Mod security</a></h3>
+
+<p><em>Libmodsecurity is one component of the ModSecurity v3 project. The library codebase serves as an interface to ModSecurity Connectors taking in web traffic and applying traditional ModSecurity processing. In general, it provides the capability to load/interpret rules written in the ModSecurity SecRules format and apply them to HTTP content provided by your application via Connectors.</em><br />
+Modsecurity là một ứng dựng tường lửa tầng mạng, hoạt động ở layer 7 trong mô hình 7 tầng OSI. Tính năng được biết đến nhiều nhất là: thay đổi, chặn bắt, chuyển tiếp các tham số trong HTTP request của người dùng sau đó chuyển cho web server xử lý. Sau khi web server xử lý xong, HTTP response cũng phải được modsecurity xem qua sau đó mới trả về cho người dùng.<br />
+<img src="https://www.indusface.com/blog/wp-content/uploads/2017/11/WAF.png" alt="Modsecurity working" /><br />
+Cơ chế là modsecurity dựa trên các rule được định nghĩa sẵn, khá phức tạp nên không dành cho người mới, đây có thể xem là yếu điểm đầu tiên của WAF này. Tuy nghiên, modsecurity khá nhỏ gọn, nhanh và hiệu quả cao. Dưới đây là 1 ví dụ đơn giản của rule:</p>
+
+<pre><code>SecRule ARGS_NAMES &quot;@rx [^a-z0-9]+&quot;\
+	&quot;id:2019,\
+	phase:2,\
+	t:none,t:lowercase,t:urlDecode,t:urlDecodeUni\
+	deny,log,\
+	status:403,\
+	tag:blog.kevinlpd.tk\
+	msg:'Hacking Detected - bypass waf'&quot;
+</code></pre>
+
+<h3 id="crs-owasp-rule-https-github-com-spiderlabs-owasp-modsecurity-crs"><a href="https://github.com/SpiderLabs/owasp-modsecurity-crs">Crs owasp rule</a></h3>
+
+<p><em>The OWASP ModSecurity Core Rule Set (CRS) is a set of generic attack detection rules for use with ModSecurity or compatible web application firewalls. The CRS aims to protect web applications from a wide range of attacks, including the OWASP Top Ten, with a minimum of false alerts.</em><br />
+Để tăng tính hiệu quả cho modsecurity, tổ chức OWASP đã bổ sung thêm bộ rule hoạt động chặn các lỗi phổ biến như: sql injection, xss, upload, &hellip; Thậm chí, còn viết rule riêng cho các framework, CMS nổi tiếng như: drupal, wordpress, &hellip;<br />
+Bộ rule này khá phức tạp để hiểu và debug được. Thông thường người dùng chỉ việc tải về và include vào để chạy thôi không quan tâm nhiều. Còn người dùng nào muốn WAF hoạt động theo từng trường hợp cụ thể thì có thể tìm hiểu và tự viết rule.</p>
+
+<h3 id="3-bypass-rule-crs">3. Bypass rule crs</h3>
+
+<p>Khi chúng tôi phát hiện ra vấn đề này, chính trick này đã bypass đa số các rule của WAF trong hệ thống công ty chúng tôi. Tôi đã nãy sinh ra ý tưởng tìm lỗi trong rule crs xem có chút may mắn nào không. Đúng thật là tôi tìm ra khá nhiều nhưng tận dụng được thì hiện tôi chỉ tìm ra được 2 rule nhưng impact không cao. Tôi sẽ tiếp tục tìm hiểu thêm.<br />
+Tôi đã report cho modsecurity trên github, được confirmation và đã fix. Bạn vào đây để xem chi tiết <a href="https://github.com/SpiderLabs/owasp-modsecurity-crs/issues/1386">#1386</a><br />
+<strong>Rule id=933110</strong> trong file <a href="https://github.com/SpiderLabs/owasp-modsecurity-crs/blob/e5cbc1af12979cfbb7c8b36e5359d48c4f56c551/rules/REQUEST-933-APPLICATION-ATTACK-PHP.conf">REQUEST-933-APPLICATION-ATTACK-PHP.conf</a></p>
+
+<pre><code>#
+# [ PHP Script Uploads ]
+#
+# Block file uploads with filenames ending in PHP related extensions
+# (.php, .phps, .phtml, .php5 etc).
+#
+# Many application contain Unrestricted File Upload vulnerabilities.
+# https://www.owasp.org/index.php/Unrestricted_File_Upload
+#
+# Attackers may use such a vulnerability to achieve remote code execution
+# by uploading a .php file. If the upload storage location is predictable
+# and not adequately protected, the attacker may then request the uploaded
+# .php file and have the code within it executed on the server.
+#
+# Also block files with just dot (.) characters after the extension:
+# https://community.rapid7.com/community/metasploit/blog/2013/08/15/time-to-patch-joomla
+#
+# Some AJAX uploaders use the nonstandard request headers X-Filename,
+# X_Filename, or X-File-Name to transmit the file name to the server;
+# scan these request headers as well as multipart/form-data file names.
+#
+SecRule FILES|REQUEST_HEADERS:X-Filename|REQUEST_HEADERS:X_Filename|REQUEST_HEADERS:X-File-Name &quot;@rx .*\.(?:php\d*|phtml)\.*$&quot; \
+    &quot;id:933110,\
+    phase:2,\
+    block,\
+    capture,\
+    t:none,t:lowercase,\
+    msg:'PHP Injection Attack: PHP Script File Upload Found',\
+    logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\
+    tag:'application-multi',\
+    tag:'language-php',\
+    tag:'platform-multi',\
+    tag:'attack-injection-php',\
+    tag:'OWASP_CRS/WEB_ATTACK/PHP_INJECTION',\
+    tag:'OWASP_TOP_10/A1',\
+    ctl:auditLogParts=+E,\
+    ver:'OWASP_CRS/3.1.0',\
+    severity:'CRITICAL',\
+    setvar:'tx.msg=%{rule.msg}',\
+    setvar:'tx.php_injection_score=+%{tx.critical_anomaly_score}',\
+    setvar:'tx.anomaly_score_pl1=+%{tx.critical_anomaly_score}',\
+    setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/PHP_INJECTION-%{MATCHED_VAR_NAME}=%{tx.0}'&quot;
+</code></pre>
+
+<p>và <strong>rule id=933111</strong> cũng trong cùng file đó</p>
+
+<pre><code>#
+# [ PHP Script Uploads: Superfluous extension ]
+#
+# Block file uploads with PHP related extensions (.php, .phps, .phtml,
+# .php5 etc) anywhere in the name, followed by a dot.
+#
+# Example: index.php.tmp
+#
+# Uploading of such files can lead to remote code execution if
+# Apache is configured with AddType and MultiViews, as Apache will
+# automatically do a filename match when the extension is unknown.
+# This configuration is fortunately not common in modern installs.
+#
+# Blocking these file names might lead to more false positives.
+#
+# Some AJAX uploaders use the nonstandard request headers X-Filename,
+# X_Filename, or X-File-Name to transmit the file name to the server;
+# scan these request headers as well as multipart/form-data file names.
+#
+# This rule is a stricter sibling of rule 933110.
+#
+SecRule FILES|REQUEST_HEADERS:X-Filename|REQUEST_HEADERS:X_Filename|REQUEST_HEADERS:X-File-Name &quot;@rx .*\.(?:php\d*|phtml)\..*$&quot; \
+    &quot;id:933111,\
+    phase:2,\
+    block,\
+    capture,\
+    t:none,t:lowercase,\
+    msg:'PHP Injection Attack: PHP Script File Upload Found',\
+    logdata:'Matched Data: %{TX.0} found within %{MATCHED_VAR_NAME}: %{MATCHED_VAR}',\
+    tag:'application-multi',\
+    tag:'language-php',\
+    tag:'platform-multi',\
+    tag:'attack-injection-php',\
+    tag:'OWASP_CRS/WEB_ATTACK/PHP_INJECTION',\
+    tag:'OWASP_TOP_10/A1',\
+    tag:'paranoia-level/3',\
+    ctl:auditLogParts=+E,\
+    ver:'OWASP_CRS/3.1.0',\
+    severity:'CRITICAL',\
+    setvar:'tx.msg=%{rule.msg}',\
+    setvar:'tx.php_injection_score=+%{tx.critical_anomaly_score}',\
+    setvar:'tx.anomaly_score_pl3=+%{tx.critical_anomaly_score}',\
+    setvar:'tx.%{rule.id}-OWASP_CRS/WEB_ATTACK/PHP_INJECTION-%{MATCHED_VAR_NAME}=%{tx.0}'&quot;
+</code></pre>
+
+<p>Rule đặt điều kiện kiểm tra <code>REQUEST_HEADERS:X_Filename</code> có tồn tại và chứa tên file dạng: shell.php hay shell.php.tmp thì chặn. Dùng header <code>X_Filename</code> này để upload file shell.php lên server nhưng cách này không phổ biến lắm, cho nên mình nói ngay lúc đầu là impact không cao. Cụ thể bypass xem HTTP request bên dưới:</p>
+
+<pre><code class="language-http">GET /test.php HTTP/1.1
+Host: localhost
+Accept: */*
+X.Filename: test.php.tmp
+Connection: close
+</code></pre>
+
+<p>Ghi chú: có vài bạn sẽ hỏi tại sao tôi không report dấu <code>&lt;space&gt;</code> và <code>[</code>? Vì dấu này không hoạt động được trên HTTP Header, lý do thì tôi phải mò source C để đọc thôi.</p>
+
+<h2 id="4-áp-dụng-vào-ctf">4. Áp dụng vào CTF</h2>
+
+<p>&hellip; Tôi sẽ viết sau kì CTF kết thúc, dự kiến cuối tháng 5 &hellip;</p>
+
+            </div>
+        </div>
+    </div>
+    <div class="column is-3">
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Tags</h1>
+        <div class="tags">
+        
+            <span class="tag"><a href="https://blog.kevsecurity.org/tags/ctf">ctf</a></span>
+        
+            <span class="tag"><a href="https://blog.kevsecurity.org/tags/cve">cve</a></span>
+        
+            <span class="tag"><a href="https://blog.kevsecurity.org/tags/flask">flask</a></span>
+        
+            <span class="tag"><a href="https://blog.kevsecurity.org/tags/got">got</a></span>
+        
+            <span class="tag"><a href="https://blog.kevsecurity.org/tags/laravel">laravel</a></span>
+        
+            <span class="tag"><a href="https://blog.kevsecurity.org/tags/life">life</a></span>
+        
+            <span class="tag"><a href="https://blog.kevsecurity.org/tags/matesctf">matesctf</a></span>
+        
+            <span class="tag"><a href="https://blog.kevsecurity.org/tags/php">php</a></span>
+        
+            <span class="tag"><a href="https://blog.kevsecurity.org/tags/python">python</a></span>
+        
+            <span class="tag"><a href="https://blog.kevsecurity.org/tags/serialization">serialization</a></span>
+        
+            <span class="tag"><a href="https://blog.kevsecurity.org/tags/svattt-2018">svattt-2018</a></span>
+        
+            <span class="tag"><a href="https://blog.kevsecurity.org/tags/svattt-final-2018">svattt-final-2018</a></span>
+        
+            <span class="tag"><a href="https://blog.kevsecurity.org/tags/viettel">viettel</a></span>
+        
+            <span class="tag"><a href="https://blog.kevsecurity.org/tags/vi%E1%BB%87t-nam">việt-nam</a></span>
+        
+            <span class="tag"><a href="https://blog.kevsecurity.org/tags/waf">waf</a></span>
+        
+        </div>          
+    </div>
+</div><br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Recent posts</h1>
+        
+            <h1><a href="https://blog.kevsecurity.org/post/bypass-waf-qua-1-t%C3%ADnh-n%C4%83ng-nh%E1%BB%8F-c%E1%BB%A7a-php/">Bypass WAF qua 1 tính năng nhỏ của PHP</a></h1>
+            <time class="has-text-grey-light is-size-7">4 May 2019</time>
+        
+            <h1><a href="https://blog.kevsecurity.org/post/vi%E1%BB%87t-nam-tourist/">Viet Nam Tourist</a></h1>
+            <time class="has-text-grey-light is-size-7">1 May 2019</time>
+        
+            <h1><a href="https://blog.kevsecurity.org/post/sansa-stack-v%C3%A0-s%C3%B3i-tuy%E1%BA%BFt-x%C3%A1m-lady/">Sansa Stack và sói tuyết xám `Lady`</a></h1>
+            <time class="has-text-grey-light is-size-7">30 January 2019</time>
+        
+            <h1><a href="https://blog.kevsecurity.org/post/tyrion-lannister-v%C3%A0-t%C3%B4i/">Tyrion Lannister và tôi</a></h1>
+            <time class="has-text-grey-light is-size-7">30 January 2019</time>
+        
+            <h1><a href="https://blog.kevsecurity.org/post/c%C3%A2u-chuy%E1%BB%87n-l%C3%A0m-%E1%BB%9F-viettel/">Câu chuyện &#34;làm ở Viettel&#34;</a></h1>
+            <time class="has-text-grey-light is-size-7">30 January 2019</time>
+        
+    </div>
+</div>
+    <br>
+                
+
+
+    
+<br>
+        <div class="card">
+    <div class="card-content">
+        <h1 class="title is-5">Archives</h1>
+        
+            <a href="https://blog.kevsecurity.org/archives/2019">2019</a> (5)<br>
+        
+            <a href="https://blog.kevsecurity.org/archives/2018">2018</a> (9)<br>
+        
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+
+<div id="disqus_thread"></div>
+
+
+    </div>
+</div>
+
+
+<script>
+
+
+
+
+var disqus_config = function () {
+this.page.url = "https:\/\/blog.kevsecurity.org\/";  
+this.page.identifier = "blog-kev"; 
+};
+
+(function() { 
+var d = document, s = d.createElement('script');
+s.src = 'https://blog-kev.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+
+<footer class="footer has-background-grey-darker has-text-white">
+    <div class="content has-text-centered">
+        <p>
+            <span class="icon is-large"><a href="https://twitter.com/kvin_lpd" target="_blank" class="mysocial"><i class="fab fa-twitter fa-3x"></i></a></span>&nbsp;&nbsp;
+            <span class="icon is-large"><a href="https://github.com/kevin-ksis" target="_blank" class="mysocial"><i class="fab fa-github fa-3x"></i></a></span>&nbsp;&nbsp;
+            <br><br>
+            Copyright &copy; Kevinlpd security blog 2019</a>
+        </p>
+    </div>
+</footer>
+
+<script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+
+<script id="dsq-count-scr" src="//blog-kev.disqus.com/count.js" async></script>
+</body>
+</html>

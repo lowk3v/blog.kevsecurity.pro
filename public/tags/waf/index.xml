@@ -1,0 +1,25 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>waf on Kevinlpd security blog</title>
+    <link>https://blog.kevsecurity.org/tags/waf/</link>
+    <description>Recent content in waf on Kevinlpd security blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © Kev</copyright>
+    <lastBuildDate>Sat, 04 May 2019 22:31:21 +0700</lastBuildDate>
+    
+        <atom:link href="https://blog.kevsecurity.org/tags/waf/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Bypass WAF qua 1 tính năng nhỏ của PHP</title>
+      <link>https://blog.kevsecurity.org/post/bypass-waf-qua-1-t%C3%ADnh-n%C4%83ng-nh%E1%BB%8F-c%E1%BB%A7a-php/</link>
+      <pubDate>Sat, 04 May 2019 22:31:21 +0700</pubDate>
+      
+      <guid>https://blog.kevsecurity.org/post/bypass-waf-qua-1-t%C3%ADnh-n%C4%83ng-nh%E1%BB%8F-c%E1%BB%A7a-php/</guid>
+      <description>1. Tính năng hay lỗi? PHP là ngôn ngữ lập trình web đơn giản, gọn nhẹ và dễ lập trình nhưng tiềm ẩn nhiều lỗi. Bằng chứng là có nhiều phiên bản được cập nhật hàng tháng chỉ nhầm vá những lỗi ở phiên bản cũ.
+Phiên bản PHP hiện tại là 7.3 nhưng đã có bản thử nghiệm của 7.4 rồi.
+Trong giới hạn bài này, tôi sẽ giới thiệu cho bạn 1 tính năng nhưng được tận dụng để trở thành lỗi có thể qua mặt được một số WAF đình đám hiện nay, ví dụ như mod security.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,103 +1,147 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Kevinlpd security blog</title>
-    <link>https://hungry-visvesvaraya-d246d6.netlify.com/tags/</link>
+    <link>https://blog.kevsecurity.org/tags/</link>
     <description>Recent content in Tags on Kevinlpd security blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © Kev</copyright>
-    <lastBuildDate>Tue, 20 Nov 2018 22:09:39 -0500</lastBuildDate>
+    <lastBuildDate>Sat, 04 May 2019 22:31:21 +0700</lastBuildDate>
     
-        <atom:link href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://blog.kevsecurity.org/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Ctf</title>
-      <link>https://hungry-visvesvaraya-d246d6.netlify.com/tags/ctf/</link>
+      <title>waf</title>
+      <link>https://blog.kevsecurity.org/tags/waf/</link>
+      <pubDate>Sat, 04 May 2019 22:31:21 +0700</pubDate>
+      
+      <guid>https://blog.kevsecurity.org/tags/waf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Việt Nam</title>
+      <link>https://blog.kevsecurity.org/tags/vi%E1%BB%87t-nam/</link>
+      <pubDate>Wed, 01 May 2019 10:43:21 +0700</pubDate>
+      
+      <guid>https://blog.kevsecurity.org/tags/vi%E1%BB%87t-nam/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GOT</title>
+      <link>https://blog.kevsecurity.org/tags/got/</link>
+      <pubDate>Wed, 30 Jan 2019 14:07:15 +0700</pubDate>
+      
+      <guid>https://blog.kevsecurity.org/tags/got/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Life</title>
+      <link>https://blog.kevsecurity.org/tags/life/</link>
+      <pubDate>Wed, 30 Jan 2019 09:15:39 +0700</pubDate>
+      
+      <guid>https://blog.kevsecurity.org/tags/life/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Viettel</title>
+      <link>https://blog.kevsecurity.org/tags/viettel/</link>
+      <pubDate>Wed, 30 Jan 2019 09:07:55 +0700</pubDate>
+      
+      <guid>https://blog.kevsecurity.org/tags/viettel/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CTF</title>
+      <link>https://blog.kevsecurity.org/tags/ctf/</link>
       <pubDate>Tue, 20 Nov 2018 22:09:39 -0500</pubDate>
       
-      <guid>https://hungry-visvesvaraya-d246d6.netlify.com/tags/ctf/</guid>
+      <guid>https://blog.kevsecurity.org/tags/ctf/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Cve</title>
-      <link>https://hungry-visvesvaraya-d246d6.netlify.com/tags/cve/</link>
+      <title>SVATTT final 2018</title>
+      <link>https://blog.kevsecurity.org/tags/svattt-final-2018/</link>
+      <pubDate>Tue, 20 Nov 2018 22:09:39 -0500</pubDate>
+      
+      <guid>https://blog.kevsecurity.org/tags/svattt-final-2018/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SVATTT 2018</title>
+      <link>https://blog.kevsecurity.org/tags/svattt-2018/</link>
+      <pubDate>Mon, 05 Nov 2018 15:37:42 +0700</pubDate>
+      
+      <guid>https://blog.kevsecurity.org/tags/svattt-2018/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CVE</title>
+      <link>https://blog.kevsecurity.org/tags/cve/</link>
       <pubDate>Thu, 25 Oct 2018 11:41:08 +0700</pubDate>
       
-      <guid>https://hungry-visvesvaraya-d246d6.netlify.com/tags/cve/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Flask</title>
-      <link>https://hungry-visvesvaraya-d246d6.netlify.com/tags/flask/</link>
-      <pubDate>Sat, 08 Sep 2018 09:46:55 +0700</pubDate>
-      
-      <guid>https://hungry-visvesvaraya-d246d6.netlify.com/tags/flask/</guid>
+      <guid>https://blog.kevsecurity.org/tags/cve/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Laravel</title>
-      <link>https://hungry-visvesvaraya-d246d6.netlify.com/tags/laravel/</link>
+      <link>https://blog.kevsecurity.org/tags/laravel/</link>
       <pubDate>Thu, 25 Oct 2018 11:41:08 +0700</pubDate>
       
-      <guid>https://hungry-visvesvaraya-d246d6.netlify.com/tags/laravel/</guid>
+      <guid>https://blog.kevsecurity.org/tags/laravel/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Matesctf</title>
-      <link>https://hungry-visvesvaraya-d246d6.netlify.com/tags/matesctf/</link>
-      <pubDate>Thu, 13 Sep 2018 23:01:18 +0700</pubDate>
-      
-      <guid>https://hungry-visvesvaraya-d246d6.netlify.com/tags/matesctf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Php</title>
-      <link>https://hungry-visvesvaraya-d246d6.netlify.com/tags/php/</link>
+      <title>PHP</title>
+      <link>https://blog.kevsecurity.org/tags/php/</link>
       <pubDate>Thu, 20 Sep 2018 09:17:11 +0700</pubDate>
       
-      <guid>https://hungry-visvesvaraya-d246d6.netlify.com/tags/php/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Python</title>
-      <link>https://hungry-visvesvaraya-d246d6.netlify.com/tags/python/</link>
-      <pubDate>Tue, 11 Sep 2018 02:38:33 +0700</pubDate>
-      
-      <guid>https://hungry-visvesvaraya-d246d6.netlify.com/tags/python/</guid>
+      <guid>https://blog.kevsecurity.org/tags/php/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Serialization</title>
-      <link>https://hungry-visvesvaraya-d246d6.netlify.com/tags/serialization/</link>
+      <link>https://blog.kevsecurity.org/tags/serialization/</link>
       <pubDate>Thu, 20 Sep 2018 09:17:11 +0700</pubDate>
       
-      <guid>https://hungry-visvesvaraya-d246d6.netlify.com/tags/serialization/</guid>
+      <guid>https://blog.kevsecurity.org/tags/serialization/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Svattt 2018</title>
-      <link>https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-2018/</link>
-      <pubDate>Mon, 05 Nov 2018 15:37:42 +0700</pubDate>
+      <title>matesctf</title>
+      <link>https://blog.kevsecurity.org/tags/matesctf/</link>
+      <pubDate>Thu, 13 Sep 2018 23:01:18 +0700</pubDate>
       
-      <guid>https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-2018/</guid>
+      <guid>https://blog.kevsecurity.org/tags/matesctf/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Svattt Final 2018</title>
-      <link>https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-final-2018/</link>
-      <pubDate>Tue, 20 Nov 2018 22:09:39 -0500</pubDate>
+      <title>Python</title>
+      <link>https://blog.kevsecurity.org/tags/python/</link>
+      <pubDate>Tue, 11 Sep 2018 02:38:33 +0700</pubDate>
       
-      <guid>https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-final-2018/</guid>
+      <guid>https://blog.kevsecurity.org/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Flask</title>
+      <link>https://blog.kevsecurity.org/tags/flask/</link>
+      <pubDate>Sat, 08 Sep 2018 09:46:55 +0700</pubDate>
+      
+      <guid>https://blog.kevsecurity.org/tags/flask/</guid>
       <description></description>
     </item>
     

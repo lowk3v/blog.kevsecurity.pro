@@ -1,22 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on Kevinlpd security blog</title>
-    <link>https://hungry-visvesvaraya-d246d6.netlify.com/tags/python/</link>
+    <link>https://blog.kevsecurity.org/tags/python/</link>
     <description>Recent content in Python on Kevinlpd security blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © Kev</copyright>
     <lastBuildDate>Tue, 11 Sep 2018 02:38:33 +0700</lastBuildDate>
     
-        <atom:link href="https://hungry-visvesvaraya-d246d6.netlify.com/tags/python/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://blog.kevsecurity.org/tags/python/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Meepwn qual round - pycalx 1</title>
-      <link>https://hungry-visvesvaraya-d246d6.netlify.com/post/meepwn_qual_round_web_pycalx_1/</link>
+      <link>https://blog.kevsecurity.org/post/meepwn_qual_round_web_pycalx_1/</link>
       <pubDate>Tue, 11 Sep 2018 02:38:33 +0700</pubDate>
       
-      <guid>https://hungry-visvesvaraya-d246d6.netlify.com/post/meepwn_qual_round_web_pycalx_1/</guid>
+      <guid>https://blog.kevsecurity.org/post/meepwn_qual_round_web_pycalx_1/</guid>
       <description>Thử thách cung cấp cho mình 1 form dữ liệu cùng với sourcecode như sau:
 #!/usr/bin/env python import cgi; import sys from html import escape FLAG = open(&amp;#39;/var/www/flag&amp;#39;,&amp;#39;r&amp;#39;).read() OK_200 = &amp;#34;&amp;#34;&amp;#34;Content-type: text/html &amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css&amp;#34;&amp;gt; &amp;lt;center&amp;gt; &amp;lt;title&amp;gt;PyCalx&amp;lt;/title&amp;gt; &amp;lt;h1&amp;gt;PyCalx&amp;lt;/h1&amp;gt; &amp;lt;form&amp;gt; &amp;lt;input class=&amp;#34;form-control col-md-4&amp;#34; type=text name=value1 placeholder=&amp;#39;Value 1 (Example: 1 abc)&amp;#39; autofocus/&amp;gt; &amp;lt;input class=&amp;#34;form-control col-md-4&amp;#34; type=text name=op placeholder=&amp;#39;Operator (Example: + - * ** / // == != )&amp;#39; /&amp;gt; &amp;lt;input class=&amp;#34;form-control col-md-4&amp;#34; type=text name=value2 placeholder=&amp;#39;Value 2 (Example: 1 abc)&amp;#39; /&amp;gt; &amp;lt;input class=&amp;#34;form-control col-md-4 btn btn-success&amp;#34; type=submit value=EVAL /&amp;gt; &amp;lt;/form&amp;gt; &amp;lt;a href=&amp;#39;?</description>
     </item>

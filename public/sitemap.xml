@@ -3,148 +3,234 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_final_2018_web_2_roundcube_mail/</loc>
+    <loc>https://blog.kevsecurity.org/categories/1day/</loc>
+    <lastmod>2019-05-04T22:31:21+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/archives/2019/</loc>
+    <lastmod>2019-05-04T22:31:21+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/archives/</loc>
+    <lastmod>2019-05-04T22:31:21+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/post/bypass-waf-qua-1-t%C3%ADnh-n%C4%83ng-nh%E1%BB%8F-c%E1%BB%A7a-php/</loc>
+    <lastmod>2019-05-04T22:31:21+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/categories/</loc>
+    <lastmod>2019-05-04T22:31:21+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/</loc>
+    <lastmod>2019-05-04T22:31:21+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/post/</loc>
+    <lastmod>2019-05-04T22:31:21+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/tags/</loc>
+    <lastmod>2019-05-04T22:31:21+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/tags/waf/</loc>
+    <lastmod>2019-05-04T22:31:21+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/post/vi%E1%BB%87t-nam-tourist/</loc>
+    <lastmod>2019-05-01T10:43:21+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/tags/vi%E1%BB%87t-nam/</loc>
+    <lastmod>2019-05-01T10:43:21+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/categories/du-l%E1%BB%8Bch/</loc>
+    <lastmod>2019-05-01T10:43:21+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/tags/got/</loc>
+    <lastmod>2019-01-30T14:07:15+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/categories/life/</loc>
+    <lastmod>2019-01-30T14:07:15+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/post/sansa-stack-v%C3%A0-s%C3%B3i-tuy%E1%BA%BFt-x%C3%A1m-lady/</loc>
+    <lastmod>2019-01-30T14:07:15+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/tags/life/</loc>
+    <lastmod>2019-01-30T09:15:39+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/post/tyrion-lannister-v%C3%A0-t%C3%B4i/</loc>
+    <lastmod>2019-01-30T09:15:39+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/post/c%C3%A2u-chuy%E1%BB%87n-l%C3%A0m-%E1%BB%9F-viettel/</loc>
+    <lastmod>2019-01-30T09:07:55+07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/tags/viettel/</loc>
+    <lastmod>2019-01-30T09:07:55+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/archives/2018/</loc>
+    <lastmod>2018-11-20T22:09:39-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/categories/ctf/</loc>
+    <lastmod>2018-11-20T22:09:39-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/tags/ctf/</loc>
+    <lastmod>2018-11-20T22:09:39-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/tags/svattt-final-2018/</loc>
+    <lastmod>2018-11-20T22:09:39-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/post/svattt_final_2018_web_2_roundcube_mail/</loc>
     <lastmod>2018-11-20T22:09:39-05:00</lastmod>
   </url>
   
   <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/post/svattt_2018_web_3_secure_document_service/</loc>
+    <loc>https://blog.kevsecurity.org/tags/svattt-2018/</loc>
+    <lastmod>2018-11-05T15:37:42+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/post/svattt_2018_web_3_secure_document_service/</loc>
     <lastmod>2018-11-05T15:37:42+07:00</lastmod>
   </url>
   
   <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/post/laravel-object-injection-to-rce/</loc>
+    <loc>https://blog.kevsecurity.org/tags/cve/</loc>
+    <lastmod>2018-10-25T11:41:08+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/tags/laravel/</loc>
+    <lastmod>2018-10-25T11:41:08+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/post/laravel-object-injection-to-rce/</loc>
     <lastmod>2018-10-25T11:41:08+07:00</lastmod>
   </url>
   
   <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/post/php_object_injection_without_unserialize/</loc>
+    <loc>https://blog.kevsecurity.org/tags/php/</loc>
+    <lastmod>2018-09-20T09:17:11+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/post/php_object_injection_without_unserialize/</loc>
     <lastmod>2018-09-20T09:17:11+07:00</lastmod>
   </url>
   
   <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf-final-2-brute-mongodb-_id/</loc>
+    <loc>https://blog.kevsecurity.org/tags/serialization/</loc>
+    <lastmod>2018-09-20T09:17:11+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/post/matesctf-final-2-brute-mongodb-_id/</loc>
     <lastmod>2018-09-13T23:01:18+07:00</lastmod>
   </url>
   
   <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/post/meepwn_qual_round_web_pycalx_1/</loc>
+    <loc>https://blog.kevsecurity.org/tags/matesctf/</loc>
+    <lastmod>2018-09-13T23:01:18+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/post/meepwn_qual_round_web_pycalx_1/</loc>
     <lastmod>2018-09-11T02:38:33+07:00</lastmod>
   </url>
   
   <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_rce/</loc>
+    <loc>https://blog.kevsecurity.org/tags/python/</loc>
+    <lastmod>2018-09-11T02:38:33+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/tags/flask/</loc>
+    <lastmod>2018-09-08T09:46:55+07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.kevsecurity.org/post/matesctf_final_2_web_ex50_rce/</loc>
     <lastmod>2018-09-08T09:46:55+07:00</lastmod>
   </url>
   
   <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_ssti/</loc>
+    <loc>https://blog.kevsecurity.org/post/matesctf_final_2_web_ex50_ssti/</loc>
     <lastmod>2018-09-08T09:46:55+07:00</lastmod>
   </url>
   
   <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/post/matesctf_final_2_web_ex50_xxe/</loc>
+    <loc>https://blog.kevsecurity.org/post/matesctf_final_2_web_ex50_xxe/</loc>
     <lastmod>2018-09-08T09:46:55+07:00</lastmod>
   </url>
   
   <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/about/</loc>
+    <loc>https://blog.kevsecurity.org/about/</loc>
     <lastmod>2018-09-03T16:11:56+07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/archives/2018/</loc>
-    <lastmod>2018-11-20T22:09:39-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/archives/</loc>
-    <lastmod>2018-11-20T22:09:39-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/tags/ctf/</loc>
-    <lastmod>2018-11-20T22:09:39-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/tags/cve/</loc>
-    <lastmod>2018-10-25T11:41:08+07:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/tags/flask/</loc>
-    <lastmod>2018-09-08T09:46:55+07:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/</loc>
-    <lastmod>2018-11-20T22:09:39-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/tags/laravel/</loc>
-    <lastmod>2018-10-25T11:41:08+07:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/tags/matesctf/</loc>
-    <lastmod>2018-09-13T23:01:18+07:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/tags/php/</loc>
-    <lastmod>2018-09-20T09:17:11+07:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/post/</loc>
-    <lastmod>2018-11-20T22:09:39-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/tags/python/</loc>
-    <lastmod>2018-09-11T02:38:33+07:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/tags/serialization/</loc>
-    <lastmod>2018-09-20T09:17:11+07:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-2018/</loc>
-    <lastmod>2018-11-05T15:37:42+07:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/tags/svattt-final-2018/</loc>
-    <lastmod>2018-11-20T22:09:39-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://hungry-visvesvaraya-d246d6.netlify.com/tags/</loc>
-    <lastmod>2018-11-20T22:09:39-05:00</lastmod>
-    <priority>0</priority>
   </url>
   
 </urlset>

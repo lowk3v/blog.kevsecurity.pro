@@ -1,0 +1,45 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>1day on Kevinlpd security blog</title>
+    <link>https://blog.kevsecurity.org/categories/1day/</link>
+    <description>Recent content in 1day on Kevinlpd security blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © Kev</copyright>
+    <lastBuildDate>Sat, 04 May 2019 22:31:21 +0700</lastBuildDate>
+    
+        <atom:link href="https://blog.kevsecurity.org/categories/1day/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Bypass WAF qua 1 tính năng nhỏ của PHP</title>
+      <link>https://blog.kevsecurity.org/post/bypass-waf-qua-1-t%C3%ADnh-n%C4%83ng-nh%E1%BB%8F-c%E1%BB%A7a-php/</link>
+      <pubDate>Sat, 04 May 2019 22:31:21 +0700</pubDate>
+      
+      <guid>https://blog.kevsecurity.org/post/bypass-waf-qua-1-t%C3%ADnh-n%C4%83ng-nh%E1%BB%8F-c%E1%BB%A7a-php/</guid>
+      <description>1. Tính năng hay lỗi? PHP là ngôn ngữ lập trình web đơn giản, gọn nhẹ và dễ lập trình nhưng tiềm ẩn nhiều lỗi. Bằng chứng là có nhiều phiên bản được cập nhật hàng tháng chỉ nhầm vá những lỗi ở phiên bản cũ.
+Phiên bản PHP hiện tại là 7.3 nhưng đã có bản thử nghiệm của 7.4 rồi.
+Trong giới hạn bài này, tôi sẽ giới thiệu cho bạn 1 tính năng nhưng được tận dụng để trở thành lỗi có thể qua mặt được một số WAF đình đám hiện nay, ví dụ như mod security.</description>
+    </item>
+    
+    <item>
+      <title>Laravel object injection to RCE</title>
+      <link>https://blog.kevsecurity.org/post/laravel-object-injection-to-rce/</link>
+      <pubDate>Thu, 25 Oct 2018 11:41:08 +0700</pubDate>
+      
+      <guid>https://blog.kevsecurity.org/post/laravel-object-injection-to-rce/</guid>
+      <description>CVE-2018-15133
+In Laravel Framework through 5.5.40 and 5.6.x through 5.6.29, remote code execution might occur as a result of an unserialize call on a potentially untrusted X-XSRF-TOKEN value. This involves the decrypt method in Illuminate/Encryption/Encrypter.php and PendingBroadcast in gadgetchains/Laravel/RCE/3/chain.php in phpggc. The attacker must know the application key, which normally would never occur, but could happen if the attacker previously had privileged access or successfully accomplished a previous attack.	 Lỗi này không có POC nhưng cũng khá dễ viết mã khai thác.</description>
+    </item>
+    
+    <item>
+      <title>Php Object Injection Without Unserialize</title>
+      <link>https://blog.kevsecurity.org/post/php_object_injection_without_unserialize/</link>
+      <pubDate>Thu, 20 Sep 2018 09:17:11 +0700</pubDate>
+      
+      <guid>https://blog.kevsecurity.org/post/php_object_injection_without_unserialize/</guid>
+      <description>Stream wrapper Trong php có khái niệm gọi là stream wrapper, nói về các giao thức trong cách xử lý url, được sử dụng cùng với hàm filesystem như fopen, copy, file_exists, filesize.
+   file:// http:// ftp:// php:// zlib:// data:// glob:// phar://      A wrapper is additional code which tells the stream how to handle specific protocols/encodings.  Phar Những wrapper này đều có thể lợi dụng để khai thác nhiều loại lỗ hổng.</description>
+    </item>
+    
+  </channel>
+</rss>
